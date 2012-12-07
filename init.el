@@ -1,0 +1,123 @@
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t)
+ '(smtpmail-smtp-server "mail.tap4mobile.com.br")
+ '(smtpmail-smtp-service 25)
+ '(socks-server (quote ("Default server" "localhost" 9050 5)))
+ '(weblogger-config-alist (quote (("default" "http://dharmaprogramming.wordpress.com/xmlrpc.php" "Denommus" "" "37139520")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; Misc
+(add-to-list 'load-path "~/.emacs.d/plugins")
+(add-to-list 'load-path "~/.emacs.d/elpa")
+(add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
+(setq make-backup-files nil)
+(setq gnus-button-url 'browse-url-generic
+      browse-url-generic-program "google-chrome"
+      browse-url-browser-function gnus-button-url)
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(setq default-indicate-buffer-boundaries t)
+
+;; ERC + Tor
+(setq socks-override-functions nil)
+(setq erc-server-connect-function
+	      'socks-open-network-stream)
+(require 'socks)
+(require 'erc)
+(require 'erc-sasl)
+(add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.40")
+
+;; Tetris
+(setq tetris-score-file
+      "~/.emacs.d/tetris-scores")
+
+;; Packages
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;;BBDB
+(add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
+(require 'bbdb)
+(bbdb-initialize 'gnus 'mail 'message)
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+(add-hook 'mail-setup-hook 'bbdb'insinuate-sendmail)
+(setq bbdb-file "~/Dropbox/bbdb")
+(setq bbdb-complete-name-full-completion t)
+(setq bbdb-completion-type 'primary-or-name)
+(setq bbdb-complete-name-allow-cycling t)
+
+;;Org-Mode
+(setq org-log-done 'time)
+(setq org-agenda-include-diary t)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-directory "~/Dropbox")
+(setq org-agenda-files (list "~/Dropbox/agenda.org"))
+(setq org-mobile-inbox-for-pull "~/Dropbox/agenda.org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(load "~/.emacs.d/plugins/brazilian-holidays.el")
+
+;;Diary
+(setq diary-file "~/Dropbox/diary")
+(setq calendar-and-diary-frame-parameters
+      '((name . "Calendar") (title . "Calendar")
+	(height . 20) (width . 78)
+	(minibuffer . t)))
+(setq calendar-date-style "european")
+
+;;Jabber
+(setq jabber-account-list '(("yuridenommus@gmail.com"
+			     (:network-server . "talk.google.com")
+			     (:connection-type . ssl))))
+
+;;Twittering Mode
+(setq twittering-use-master-password t)
+(setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
+(setq twittering-icon-mode t)
+(setq twittering-initial-timeline-spec-string
+      '(":home"
+	":replies"
+	":favorites"
+	":direct_messages"
+	":search/emacs/"))
+
+;;After Initialize
+(add-hook
+ 'after-init-hook
+ '(lambda ()
+    ;; Autocomplete
+    (require 'auto-complete-config)
+    (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
+
+    ;; Weblogger
+    (load-file "~/.emacs.d/plugins/weblogger.el")
+    (defun mah/weblogger-setup ()
+      (flyspell-mode 1)
+      (flyspell-buffer)
+      (auto-fill-mode -1)
+      (visual-line-mode 1))
+
+    (defun mah/weblogger-publish-hook ()
+      (when visual-line-mode
+	(visual-line-mode -1))
+      (untabify (point-min) (point-max)))
+    (defun mah/weblogger-publish-end-hook ()
+      (visual-line-mode 1))
+    (add-hook 'weblogger-publish-entry-end-hook
+	      'mah/weblogger-publish-end-hook)
+    (add-hook 'weblogger-publish-entry-hook
+	      'mah/weblogger-publish-hook)
+    (add-hook 'weblogger-start-edit-entry-hook
+	      'mah/weblogger-setup)))

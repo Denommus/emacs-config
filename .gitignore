@@ -1,0 +1,7 @@
+auto-save-list/
+elpa/
+ac-comphist.dat
+.org-id-locations
+session*
+tetris-scores
+*.elc
