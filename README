@@ -1,0 +1,7 @@
+These are just my configuration files on emacs, together with some libraries that I use and are not versioned with ELPA.
+
+You can clone and use it with:
+
+    git clone git://github.com/Denommus/emacs-config.git ~/.emacs.d
+
+Some libraries must be manually installed for now. Later I'll make it automatic. I'll leave it as an exercise for you.
