@@ -1,0 +1,3 @@
+[submodule "plugins/erc-sasl"]
+	path = plugins/erc-sasl
+	url = https://github.com/joseph-gay/erc-sasl
