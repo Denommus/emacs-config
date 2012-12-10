@@ -4,4 +4,4 @@ You can clone and use it with:
 
     git clone git://github.com/Denommus/emacs-config.git ~/.emacs.d
 
-Some libraries must be manually installed for now. Later I'll make it automatic. I'll leave it as an exercise for you.
+When you first open emacs with these configurations, it will install for you all the packages that are being used. If you want to use additional packages from the package manager, set the auto-install-packages variable.

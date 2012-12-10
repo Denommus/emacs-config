@@ -34,7 +34,6 @@
 
 ;; Misc
 (add-to-list 'load-path "~/.emacs.d/plugins")
-(add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
 (setq make-backup-files nil)
 (setq gnus-button-url 'browse-url-generic
@@ -61,6 +60,25 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+(setq auto-install-packages
+      '(bundler
+	dired+
+	git-commit-mode
+	gitconfig-mode
+	lua-mode
+	pkgbuild-mode
+	ruby-block
+	ruby-compilation
+	yaml-mode
+	auto-complete
+	jabber
+	popup
+	twittering-mode
+	xml-rpc))
+(while auto-install-packages
+  (unless (package-installed-p (car auto-install-packages))
+    (package-install (car auto-install-packages)))
+  (setq auto-install-packages (cdr auto-install-packages)))
 
 ;;BBDB
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
