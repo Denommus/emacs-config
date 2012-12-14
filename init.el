@@ -122,6 +122,7 @@
     ;; Autocomplete
     (require 'auto-complete-config)
     (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
+    (ac-config-default)
 
     ;; Packages
     (setq auto-install-packages
