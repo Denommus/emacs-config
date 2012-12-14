@@ -104,6 +104,10 @@
 (setq twittering-use-master-password t)
 (setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
 (setq twittering-icon-mode t)
+(setq twittering-mode-hook
+      '(lambda()
+	 (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
+	 (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 (setq twittering-initial-timeline-spec-string
       '(":home"
 	":replies"
@@ -139,7 +143,6 @@
       (unless (package-installed-p (car auto-install-packages))
 	(package-install (car auto-install-packages)))
       (setq auto-install-packages (cdr auto-install-packages)))
-
 
     ;; Weblogger
     (load-file "~/.emacs.d/plugins/weblogger.el")
