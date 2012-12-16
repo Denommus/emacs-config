@@ -66,7 +66,7 @@
 ;;BBDB
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
 (require 'bbdb)
-(bbdb-initialize 'gnus 'mail 'message)
+(bbdb-initialize 'gnus 'message)
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
 (add-hook 'mail-setup-hook 'bbdb'insinuate-sendmail)
 (setq bbdb-file "~/Dropbox/bbdb")
