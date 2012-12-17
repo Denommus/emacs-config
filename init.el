@@ -43,6 +43,9 @@
 (menu-bar-mode 0)
 (setq default-indicate-buffer-boundaries t)
 
+;; Ruby
+(add-hook 'ruby-mode-hook 'zossima-mode)
+
 ;; ERC + Tor
 (setq socks-override-functions nil)
 (setq erc-server "10.40.40.40")
@@ -134,6 +137,7 @@
 	    pkgbuild-mode
 	    ruby-block
 	    ruby-compilation
+	    zossima
 	    yaml-mode
 	    auto-complete
 	    jabber
@@ -144,6 +148,7 @@
       (unless (package-installed-p (car auto-install-packages))
 	(package-install (car auto-install-packages)))
       (setq auto-install-packages (cdr auto-install-packages)))
+
 
     ;; Weblogger
     (load-file "~/.emacs.d/plugins/weblogger.el")
