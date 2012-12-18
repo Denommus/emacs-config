@@ -86,7 +86,10 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-directory "~/Dropbox")
-(setq org-agenda-files (list "~/Dropbox/agenda.org"))
+(setq org-agenda-files
+      (list
+       "~/Dropbox/agenda.org"
+       "~/Dropbox/lpic.org"))
 (setq org-mobile-inbox-for-pull "~/Dropbox/agenda.org")
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (load "~/.emacs.d/plugins/brazilian-holidays.el")
