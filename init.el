@@ -135,6 +135,7 @@
     (setq auto-install-packages
 	  '(bundler
 	    dired+
+	    org-mime
 	    git-commit-mode
 	    gitconfig-mode
 	    lua-mode

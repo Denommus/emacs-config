@@ -6,3 +6,4 @@ session*
 tetris-scores
 *.elc
 url/
+tramp
