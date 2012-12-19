@@ -134,6 +134,7 @@
     ;; Packages
     (setq auto-install-packages
 	  '(bundler
+	    csharp-mode
 	    dired+
 	    org-mime
 	    git-commit-mode
