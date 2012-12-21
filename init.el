@@ -153,6 +153,7 @@
 	    pkgbuild-mode
 	    ruby-block
 	    ruby-compilation
+	    rinari
 	    zossima
 	    yaml-mode
 	    auto-complete
