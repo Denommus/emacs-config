@@ -136,6 +136,10 @@
 (add-hook
  'after-init-hook
  '(lambda ()
+    ;; CLisp
+    (load (expand-file-name "~/quicklisp/slime-helper.el"))
+    (setq inferior-lisp-program "sbcl")
+
     ;; Autocomplete
     (require 'auto-complete-config)
     (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
@@ -144,6 +148,7 @@
     ;; Packages
     (setq auto-install-packages
 	  '(bundler
+	    slime
 	    csharp-mode
 	    dired+
 	    org-mime
