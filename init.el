@@ -136,15 +136,6 @@
 (add-hook
  'after-init-hook
  '(lambda ()
-    ;; CLisp
-    (load (expand-file-name "~/quicklisp/slime-helper.el"))
-    (setq inferior-lisp-program "sbcl")
-
-    ;; Autocomplete
-    (require 'auto-complete-config)
-    (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
-    (ac-config-default)
-
     ;; Packages
     (setq auto-install-packages
 	  '(bundler
@@ -171,6 +162,14 @@
 	(package-install (car auto-install-packages)))
       (setq auto-install-packages (cdr auto-install-packages)))
 
+    ;; CLisp
+    (load (expand-file-name "~/quicklisp/slime-helper.el"))
+    (setq inferior-lisp-program "sbcl")
+
+    ;; Autocomplete
+    (require 'auto-complete-config)
+    (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
+    (ac-config-default)
 
     ;; Weblogger
     (load-file "~/.emacs.d/plugins/weblogger.el")
