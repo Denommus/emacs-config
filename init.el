@@ -141,6 +141,7 @@
     ;; Packages
     (setq auto-install-packages
 	  '(bundler
+	    magit
 	    slime
 	    csharp-mode
 	    dired+
