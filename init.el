@@ -21,6 +21,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
+ '(org-agenda-files (quote ("~/Dropbox/metas.org" "~/Dropbox/agenda.org" "~/Dropbox/lpic.org")))
  '(smtpmail-smtp-server "mail.tap4mobile.com.br")
  '(smtpmail-smtp-service 25)
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
