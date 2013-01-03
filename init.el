@@ -44,6 +44,9 @@
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (setq default-indicate-buffer-boundaries t)
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
