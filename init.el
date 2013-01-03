@@ -49,7 +49,6 @@
 (add-hook 'ruby-mode-hook 'zossima-mode)
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
 (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
-(global-rinari-mode)
 
 ;; ERC + Tor
 (setq socks-override-functions nil)
@@ -175,6 +174,9 @@
     (require 'auto-complete-config)
     (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
     (ac-config-default)
+
+    ;; Ruby
+    (global-rinari-mode)
 
     ;; Weblogger
     (load-file "~/.emacs.d/plugins/weblogger.el")
