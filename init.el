@@ -83,8 +83,8 @@
 
 ;; Packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;;BBDB
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
@@ -117,14 +117,14 @@
 (setq diary-file "~/Dropbox/diary")
 (setq calendar-and-diary-frame-parameters
       '((name . "Calendar") (title . "Calendar")
-	(height . 20) (width . 78)
-	(minibuffer . t)))
+        (height . 20) (width . 78)
+        (minibuffer . t)))
 (setq calendar-date-style "european")
 
 ;;Jabber
 (setq jabber-account-list '(("yuridenommus@gmail.com"
-			     (:network-server . "talk.google.com")
-			     (:connection-type . ssl))))
+                             (:network-server . "talk.google.com")
+                             (:connection-type . ssl))))
 
 ;;Twittering Mode
 (setq twittering-use-master-password t)
@@ -132,14 +132,14 @@
 (setq twittering-icon-mode t)
 (setq twittering-mode-hook
       '(lambda()
-	 (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
-	 (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
+         (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
+         (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 (setq twittering-initial-timeline-spec-string
       '(":home"
-	":replies"
-	":favorites"
-	":direct_messages"
-	":search/emacs/"))
+        ":replies"
+        ":favorites"
+        ":direct_messages"
+        ":search/emacs/"))
 
 ;; Python
 (setq python-command "python2")
@@ -149,7 +149,7 @@
   "Provide a better default command line when called interactively."
   (interactive
    (list (gud-query-cmdline pdb-path
-	 		    (file-name-nondirectory buffer-file-name)))))
+                            (file-name-nondirectory buffer-file-name)))))
 
 ;;After Initialize
 (add-hook
@@ -157,29 +157,29 @@
  '(lambda ()
     ;; Packages
     (setq auto-install-packages
-	  '(bundler
-	    magit
-	    slime
-	    csharp-mode
-	    dired+
-	    org-mime
-	    git-commit-mode
-	    gitconfig-mode
-	    lua-mode
-	    pkgbuild-mode
-	    ruby-block
-	    ruby-compilation
-	    rinari
-	    zossima
-	    yaml-mode
-	    auto-complete
-	    jabber
-	    popup
-	    twittering-mode
-	    xml-rpc))
+          '(bundler
+            magit
+            slime
+            csharp-mode
+            dired+
+            org-mime
+            git-commit-mode
+            gitconfig-mode
+            lua-mode
+            pkgbuild-mode
+            ruby-block
+            ruby-compilation
+            rinari
+            zossima
+            yaml-mode
+            auto-complete
+            jabber
+            popup
+            twittering-mode
+            xml-rpc))
     (while auto-install-packages
       (unless (package-installed-p (car auto-install-packages))
-	(package-install (car auto-install-packages)))
+        (package-install (car auto-install-packages)))
       (setq auto-install-packages (cdr auto-install-packages)))
 
     ;; CLisp
@@ -209,13 +209,13 @@
 
     (defun mah/weblogger-publish-hook ()
       (when visual-line-mode
-	(visual-line-mode -1))
+        (visual-line-mode -1))
       (untabify (point-min) (point-max)))
     (defun mah/weblogger-publish-end-hook ()
       (visual-line-mode 1))
     (add-hook 'weblogger-publish-entry-end-hook
-	      'mah/weblogger-publish-end-hook)
+              'mah/weblogger-publish-end-hook)
     (add-hook 'weblogger-publish-entry-hook
-	      'mah/weblogger-publish-hook)
+              'mah/weblogger-publish-hook)
     (add-hook 'weblogger-start-edit-entry-hook
-	      'mah/weblogger-setup)))
+              'mah/weblogger-setup)))
