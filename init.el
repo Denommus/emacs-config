@@ -45,6 +45,19 @@
 (scroll-bar-mode 0)
 (setq default-indicate-buffer-boundaries t)
 
+;;Clean up
+(defun cleanup-buffer-safe ()
+  (interactive)
+  (untabify (point-min) (point-max))
+  (delete-trailing-whitespace)
+  (set-buffer-file-coding-system 'utf-8))
+(add-hook 'before-save-hook 'cleanup-buffer-safe)
+(defun cleanup-buffer ()
+  (interactive)
+  (cleanup-buffer-safe)
+  (indent-region (point-min) (point-max)))
+(global-set-key (kbd "C-c s") 'cleanup-buffer)
+
 ;; Ruby
 (add-hook 'ruby-mode-hook 'zossima-mode)
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
