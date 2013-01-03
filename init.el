@@ -194,6 +194,11 @@
     ;; Ruby
     (global-rinari-mode)
 
+    ;; Magit
+    (add-hook 'dired-mode-hook
+              '(lambda ()
+                 (local-set-key (kbd "<f5>") 'magit-status)))
+
     ;; Weblogger
     (load-file "~/.emacs.d/plugins/weblogger.el")
     (defun mah/weblogger-setup ()
