@@ -160,6 +160,7 @@
           '(bundler
             magit
             slime
+            flycheck
             csharp-mode
             dired+
             org-mime
