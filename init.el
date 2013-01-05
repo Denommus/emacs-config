@@ -21,7 +21,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/Dropbox/metas.org" "~/Dropbox/agenda.org" "~/Dropbox/lpic.org")))
+ '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/lpic.org")))
  '(smtpmail-smtp-server "mail.tap4mobile.com.br")
  '(smtpmail-smtp-service 25)
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
@@ -104,13 +104,13 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-(setq org-directory "~/Dropbox")
+(setq org-directory "~/Dropbox/org")
 (setq org-agenda-files
       (list
-       "~/Dropbox/agenda.org"
-       "~/Dropbox/lpic.org"))
-(setq org-mobile-inbox-for-pull "~/Dropbox/agenda.org")
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
+       (concat org-directory "/agenda.org")
+       (concat org-directory "/lpic.org")))
+(setq org-mobile-inbox-for-pull (concat org-directory "/agenda.org"))
+(setq org-mobile-directory (concat org-directory "/MobileOrg"))
 (load "~/.emacs.d/plugins/brazilian-holidays.el")
 
 ;;Diary
