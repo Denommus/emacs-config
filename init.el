@@ -158,6 +158,7 @@
     ;; Packages
     (setq auto-install-packages
           '(bundler
+            auctex
             magit
             slime
             flycheck
