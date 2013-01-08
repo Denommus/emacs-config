@@ -192,6 +192,9 @@
     (load (expand-file-name "~/quicklisp/slime-helper.el"))
     (setq inferior-lisp-program "sbcl")
 
+    ;; Flycheck
+    (add-hook 'find-file-hook 'flycheck-mode)
+
     ;; Autocomplete
     (require 'auto-complete-config)
     (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
