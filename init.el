@@ -156,6 +156,11 @@
    (list (gud-query-cmdline pdb-path
                             (file-name-nondirectory buffer-file-name)))))
 
+;; HTML
+(setq html-mode-hook
+      '(lambda ()
+         (local-set-key (kbd "C-c C-r") 'browse-url-of-file)))
+
 ;;After Initialize
 (add-hook
  'after-init-hook
