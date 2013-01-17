@@ -169,6 +169,7 @@
           '(bundler
             auctex
             magit
+	    js2-mode
             slime
             flycheck
             csharp-mode
