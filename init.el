@@ -47,10 +47,10 @@
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
-(global-set-key [M-left] 'windmove-left)
-(global-set-key [M-right] 'windmove-right)
-(global-set-key [M-up] 'windmove-up)
-(global-set-key [M-down] 'windmove-down)
+(global-set-key [C-left] 'windmove-left)
+(global-set-key [C-right] 'windmove-right)
+(global-set-key [C-up] 'windmove-up)
+(global-set-key [C-down] 'windmove-down)
 (put 'dired-find-alternate-file 'disabled nil)
 
 ;;Clean up
@@ -169,7 +169,7 @@
           '(bundler
             auctex
             magit
-	    js2-mode
+            js2-mode
             slime
             flycheck
             csharp-mode
