@@ -1,4 +1,5 @@
-;;;;Configuration for my Emacs
+;;; init.el --- Configuration for my Emacs
+;;; Commentary:
 ;;;;Copyright (C) 2012  Yuri da Costa Albuquerque
 ;;;;
 ;;;;This program is free software: you can redistribute it and/or modify
@@ -14,7 +15,7 @@
 ;;;;You should have received a copy of the GNU General Public License
 ;;;;along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
+;;; Code:
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -43,7 +44,7 @@
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
-(setq default-indicate-buffer-boundaries t)
+(setq indicate-buffer-boundaries t)
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
@@ -234,3 +235,6 @@
               'mah/weblogger-publish-hook)
     (add-hook 'weblogger-start-edit-entry-hook
               'mah/weblogger-setup)))
+
+(provide 'init)
+;;; init.el ends here
