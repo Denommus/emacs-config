@@ -187,7 +187,6 @@
             rinari
             zossima
             yaml-mode
-            auto-complete
             jabber
             popup
             twittering-mode
@@ -203,11 +202,6 @@
 
     ;; Flycheck
     (add-hook 'find-file-hook 'flycheck-mode)
-
-    ;; Autocomplete
-    (require 'auto-complete-config)
-    (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/ac-dict")
-    (ac-config-default)
 
     ;; Ruby
     (global-rinari-mode)
