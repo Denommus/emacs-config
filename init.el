@@ -217,6 +217,11 @@
               '(lambda ()
                  (local-set-key (kbd "<f5>") 'magit-status)))
 
+    ;; YASnippet
+    (require 'yasnippet)
+    (yas--initialize)
+    (yas/load-directory "~/.emacs.d/snippets")
+
     ;; Weblogger
     (load-file "~/.emacs.d/plugins/weblogger.el")
     (defun mah/weblogger-setup ()
