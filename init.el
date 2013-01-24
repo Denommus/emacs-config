@@ -170,6 +170,7 @@
     (setq auto-install-packages
           '(bundler
             auctex
+	    yasnippet
             magit
             js2-mode
             slime
