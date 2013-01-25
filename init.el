@@ -45,7 +45,7 @@
 (scroll-bar-mode 0)
 (global-auto-revert-mode 1)
 (add-hook 'find-file-hook '(lambda ()
-			     (setq indicate-buffer-boundaries t)))
+                             (setq indicate-buffer-boundaries t)))
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 (global-set-key [C-left] 'windmove-left)
@@ -167,10 +167,10 @@
  'after-init-hook
  '(lambda ()
     ;; Packages
-    (setq auto-install-packages
+    (lexical-let ((auto-install-packages
           '(bundler
             auctex
-	    yasnippet
+            yasnippet
             magit
             js2-mode
             slime
@@ -189,11 +189,10 @@
             yaml-mode
             jabber
             popup
-            twittering-mode))
-    (while auto-install-packages
-      (unless (package-installed-p (car auto-install-packages))
-        (package-install (car auto-install-packages)))
-      (setq auto-install-packages (cdr auto-install-packages)))
+            twittering-mode)))
+      (mapcar '(lambda (pkg)
+		 (unless (package-installed-p pkg)
+		   (package-install pkg))) auto-install-packages))
 
     ;; CLisp
     (load (expand-file-name "~/quicklisp/slime-helper.el"))
