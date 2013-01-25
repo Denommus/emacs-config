@@ -54,6 +54,7 @@
 (global-set-key [C-up] 'windmove-up)
 (global-set-key [C-down] 'windmove-down)
 (put 'dired-find-alternate-file 'disabled nil)
+(setq user-mail-address "yuridenommus@gmail.com")
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
