@@ -214,7 +214,7 @@
     ;; YASnippet
     (require 'yasnippet)
     (yas--initialize)
-    (yas/load-directory "~/.emacs.d/snippets")
+    (yas-load-directory "~/.emacs.d/snippets")
 
     ;; Weblogger
     (load-file "~/.emacs.d/plugins/weblogger.el")
