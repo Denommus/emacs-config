@@ -25,8 +25,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/lpic.org")))
  '(smtpmail-smtp-server "mail.tap4mobile.com.br")
  '(smtpmail-smtp-service 25)
- '(socks-server (quote ("Default server" "localhost" 9050 5)))
- '(weblogger-config-alist (quote (("default" "http://dharmaprogramming.wordpress.com/xmlrpc.php" "Denommus" "" "37139520")))))
+ '(socks-server (quote ("Default server" "localhost" 9050 5))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -190,8 +189,7 @@
             yaml-mode
             jabber
             popup
-            twittering-mode
-            xml-rpc))
+            twittering-mode))
     (while auto-install-packages
       (unless (package-installed-p (car auto-install-packages))
         (package-install (car auto-install-packages)))
@@ -215,28 +213,6 @@
     ;; YASnippet
     (require 'yasnippet)
     (yas--initialize)
-    (yas-load-directory "~/.emacs.d/snippets")
-
-    ;; Weblogger
-    (load-file "~/.emacs.d/plugins/weblogger.el")
-    (defun mah/weblogger-setup ()
-      (flyspell-mode 1)
-      (flyspell-buffer)
-      (auto-fill-mode -1)
-      (visual-line-mode 1))
-
-    (defun mah/weblogger-publish-hook ()
-      (when visual-line-mode
-        (visual-line-mode -1))
-      (untabify (point-min) (point-max)))
-    (defun mah/weblogger-publish-end-hook ()
-      (visual-line-mode 1))
-    (add-hook 'weblogger-publish-entry-end-hook
-              'mah/weblogger-publish-end-hook)
-    (add-hook 'weblogger-publish-entry-hook
-              'mah/weblogger-publish-hook)
-    (add-hook 'weblogger-start-edit-entry-hook
-              'mah/weblogger-setup)))
-
+    (yas-load-directory "~/.emacs.d/snippets")))
 (provide 'init)
 ;;; init.el ends here
