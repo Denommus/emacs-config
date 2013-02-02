@@ -53,6 +53,7 @@
 (global-set-key [C-up] 'windmove-up)
 (global-set-key [C-down] 'windmove-down)
 (put 'dired-find-alternate-file 'disabled nil)
+(ido-mode 1)
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
