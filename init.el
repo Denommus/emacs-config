@@ -61,6 +61,7 @@
   (untabify (point-min) (point-max))
   (delete-trailing-whitespace)
   (set-buffer-file-coding-system 'utf-8))
+(add-hook 'before-save-hook 'cleanup-buffer-safe)
 (defun cleanup-buffer ()
   (interactive)
   (cleanup-buffer-safe)
@@ -118,6 +119,7 @@
 (setq org-mobile-inbox-for-pull (concat org-directory "/agenda.org"))
 (setq org-mobile-directory (concat org-directory "/MobileOrg"))
 (load "~/.emacs.d/plugins/brazilian-holidays.el")
+(add-hook 'org-mode-hook 'visual-line-mode)
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
@@ -191,8 +193,8 @@
             popup
             twittering-mode)))
       (mapcar '(lambda (pkg)
-		 (unless (package-installed-p pkg)
-		   (package-install pkg))) auto-install-packages))
+                 (unless (package-installed-p pkg)
+                   (package-install pkg))) auto-install-packages))
 
     ;; CLisp
     (load (expand-file-name "~/quicklisp/slime-helper.el"))
