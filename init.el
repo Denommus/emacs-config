@@ -191,6 +191,7 @@
             yaml-mode
             jabber
             popup
+            org2blog
             twittering-mode)))
       (mapcar '(lambda (pkg)
                  (unless (package-installed-p pkg)
@@ -205,6 +206,12 @@
 
     ;; Ruby
     (global-rinari-mode)
+
+    ;; Org2blog
+    (setq org2blog/wp-blog-alist
+          '(("wordpress"
+             :url "http://dharmaprogramming.wordpress.com/xmlrpc.php"
+             :username "Denommus")))
 
     ;; Magit
     (add-hook 'dired-mode-hook
