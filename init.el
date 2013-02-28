@@ -199,7 +199,7 @@
 
     ;; CLisp
     (load (expand-file-name "~/quicklisp/slime-helper.el"))
-    (setq inferior-lisp-program "sbcl")
+    (setq inferior-lisp-program "sbcl --noinform --no-linedit")
 
     ;; Flycheck
     (add-hook 'find-file-hook 'flycheck-mode)
