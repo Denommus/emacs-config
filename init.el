@@ -120,6 +120,8 @@
 (setq org-mobile-directory (concat org-directory "/MobileOrg"))
 (load "~/.emacs.d/plugins/brazilian-holidays.el")
 (add-hook 'org-mode-hook 'visual-line-mode)
+(add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
+(require 'org-git-link)
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
@@ -170,29 +172,29 @@
  '(lambda ()
     ;; Packages
     (lexical-let ((auto-install-packages
-          '(bundler
-            auctex
-            yasnippet
-            magit
-            js2-mode
-            slime
-            flycheck
-            csharp-mode
-            dired+
-            org-mime
-            git-commit-mode
-            gitconfig-mode
-            lua-mode
-            pkgbuild-mode
-            ruby-block
-            ruby-compilation
-            rinari
-            zossima
-            yaml-mode
-            jabber
-            popup
-            org2blog
-            twittering-mode)))
+                   '(bundler
+                     auctex
+                     yasnippet
+                     magit
+                     js2-mode
+                     slime
+                     flycheck
+                     csharp-mode
+                     dired+
+                     org-mime
+                     git-commit-mode
+                     gitconfig-mode
+                     lua-mode
+                     pkgbuild-mode
+                     ruby-block
+                     ruby-compilation
+                     rinari
+                     zossima
+                     yaml-mode
+                     jabber
+                     popup
+                     org2blog
+                     twittering-mode)))
       (mapcar '(lambda (pkg)
                  (unless (package-installed-p pkg)
                    (package-install pkg))) auto-install-packages))
