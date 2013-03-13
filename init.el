@@ -176,6 +176,7 @@
                      auctex
                      yasnippet
                      magit
+                     org
                      js2-mode
                      slime
                      flycheck
