@@ -208,7 +208,7 @@
      (add-hook 'find-file-hook 'flycheck-mode)
 
      ;; Ruby
-     (global-rinari-mode)
+     ;;(global-rinari-mode)
 
      ;; Org2blog
      (setq org2blog/wp-blog-alist
