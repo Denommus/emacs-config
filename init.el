@@ -44,8 +44,8 @@
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (global-auto-revert-mode 1)
-(add-hook 'find-file-hook '(lambda ()
-                             (setq indicate-buffer-boundaries t)))
+(add-hook 'find-file-hook #'(lambda ()
+                              (setq indicate-buffer-boundaries t)))
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 (global-set-key [C-left] 'windmove-left)
@@ -141,9 +141,9 @@
 (setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
 (setq twittering-icon-mode t)
 (setq twittering-mode-hook
-      '(lambda()
-         (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
-         (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
+      #'(lambda()
+          (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
+          (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 (setq twittering-initial-timeline-spec-string
       '(":home"
         ":replies"
@@ -163,67 +163,67 @@
 
 ;; HTML
 (setq html-mode-hook
-      '(lambda ()
-         (local-set-key (kbd "C-c C-r") 'browse-url-of-file)))
+      #'(lambda ()
+          (local-set-key (kbd "C-c C-r") 'browse-url-of-file)))
 
 ;;After Initialize
 (add-hook
  'after-init-hook
- '(lambda ()
-    ;; Packages
-    (lexical-let ((auto-install-packages
-                   '(bundler
-                     auctex
-                     yasnippet
-                     magit
-                     org
-                     js2-mode
-                     slime
-                     flycheck
-                     csharp-mode
-                     dired+
-                     org-mime
-                     git-commit-mode
-                     gitconfig-mode
-                     lua-mode
-                     pkgbuild-mode
-                     ruby-block
-                     ruby-compilation
-                     rinari
-                     zossima
-                     yaml-mode
-                     jabber
-                     popup
-                     org2blog
-                     twittering-mode)))
-      (mapcar '(lambda (pkg)
-                 (unless (package-installed-p pkg)
-                   (package-install pkg))) auto-install-packages))
+ #'(lambda ()
+     ;; Packages
+     (lexical-let ((auto-install-packages
+                    '(bundler
+                      auctex
+                      yasnippet
+                      magit
+                      org
+                      js2-mode
+                      slime
+                      flycheck
+                      csharp-mode
+                      dired+
+                      org-mime
+                      git-commit-mode
+                      gitconfig-mode
+                      lua-mode
+                      pkgbuild-mode
+                      ruby-block
+                      ruby-compilation
+                      rinari
+                      zossima
+                      yaml-mode
+                      jabber
+                      popup
+                      org2blog
+                      twittering-mode)))
+       (mapcar #'(lambda (pkg)
+                   (unless (package-installed-p pkg)
+                     (package-install pkg))) auto-install-packages))
 
-    ;; CLisp
-    (load (expand-file-name "~/quicklisp/slime-helper.el"))
-    (setq inferior-lisp-program "sbcl --noinform --no-linedit")
+     ;; CLisp
+     (load (expand-file-name "~/quicklisp/slime-helper.el"))
+     (setq inferior-lisp-program "sbcl --noinform --no-linedit")
 
-    ;; Flycheck
-    (add-hook 'find-file-hook 'flycheck-mode)
+     ;; Flycheck
+     (add-hook 'find-file-hook 'flycheck-mode)
 
-    ;; Ruby
-    (global-rinari-mode)
+     ;; Ruby
+     (global-rinari-mode)
 
-    ;; Org2blog
-    (setq org2blog/wp-blog-alist
-          '(("wordpress"
-             :url "http://dharmaprogramming.wordpress.com/xmlrpc.php"
-             :username "Denommus")))
+     ;; Org2blog
+     (setq org2blog/wp-blog-alist
+           '(("wordpress"
+              :url "http://dharmaprogramming.wordpress.com/xmlrpc.php"
+              :username "Denommus")))
 
-    ;; Magit
-    (add-hook 'dired-mode-hook
-              '(lambda ()
-                 (local-set-key (kbd "<f5>") 'magit-status)))
+     ;; Magit
+     (add-hook 'dired-mode-hook
+               #'(lambda ()
+                   (local-set-key (kbd "<f5>") 'magit-status)))
 
-    ;; YASnippet
-    (require 'yasnippet)
-    (yas--initialize)
-    (yas-load-directory "~/.emacs.d/snippets")))
+     ;; YASnippet
+     (require 'yasnippet)
+     (yas--initialize)
+     (yas-load-directory "~/.emacs.d/snippets")))
 (provide 'init)
 ;;; init.el ends here
