@@ -195,6 +195,7 @@
                       jabber
                       popup
                       org2blog
+                      show-css
                       twittering-mode)))
        (mapcar #'(lambda (pkg)
                    (unless (package-installed-p pkg)
