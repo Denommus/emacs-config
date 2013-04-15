@@ -43,6 +43,7 @@
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
+(column-number-mode 1)
 (global-auto-revert-mode 1)
 (add-hook 'find-file-hook #'(lambda ()
                               (setq indicate-buffer-boundaries t)))
