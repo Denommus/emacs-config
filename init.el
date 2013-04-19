@@ -203,9 +203,10 @@
                    (unless (package-installed-p pkg)
                      (package-install pkg))) auto-install-packages))
 
-     ;; CLisp
+     ;; SLIME
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
      (setq inferior-lisp-program "sbcl --noinform --no-linedit")
+     (slime-setup '(slime-indentation slime-asdf))
 
      ;; Flycheck
      (add-hook 'find-file-hook 'flycheck-mode)
