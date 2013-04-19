@@ -84,7 +84,7 @@
 (require 'erc)
 (require 'erc-sasl)
 (add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.40")
-(add-to-list 'erc-sasl-server-regexp-list "10\\.10\\.10\\.40")
+(add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.41")
 
 ;; Tetris
 (setq tetris-score-file
