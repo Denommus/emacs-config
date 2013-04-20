@@ -206,7 +206,7 @@
      ;; SLIME
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
      (setq inferior-lisp-program "sbcl --noinform --no-linedit")
-     (slime-setup '(slime-indentation slime-asdf))
+     (add-hook 'slime-mode-hook '(lambda () (slime-setup '(slime-indentation))))
 
      ;; Flycheck
      (add-hook 'find-file-hook 'flycheck-mode)
