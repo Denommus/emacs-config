@@ -59,13 +59,13 @@
 ;;Clean up
 (defun cleanup-buffer-safe ()
   (interactive)
-  (untabify (point-min) (point-max))
   (delete-trailing-whitespace)
   (set-buffer-file-coding-system 'utf-8))
 (defun cleanup-buffer ()
   (interactive)
   (cleanup-buffer-safe)
-  (indent-region (point-min) (point-max)))
+  (indent-region (point-min) (point-max))
+  (untabify (point-min) (point-max)))
 (add-hook 'before-save-hook 'cleanup-buffer)
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
 
@@ -181,7 +181,6 @@
                       org
                       js2-mode
                       slime
-                      flycheck
                       csharp-mode
                       dired+
                       org-mime
@@ -207,9 +206,6 @@
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
      (setq inferior-lisp-program "sbcl --noinform --no-linedit")
      (add-hook 'slime-mode-hook '(lambda () (slime-setup '(slime-indentation))))
-
-     ;; Flycheck
-     (add-hook 'find-file-hook 'flycheck-mode)
 
      ;; Ruby
      ;;(global-rinari-mode)
