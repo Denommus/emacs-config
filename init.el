@@ -208,7 +208,7 @@
      (add-hook 'slime-mode-hook '(lambda () (slime-setup '(slime-indentation))))
 
      ;; Ruby
-     ;;(global-rinari-mode)
+     (global-rinari-mode)
 
      ;; Org2blog
      (setq org2blog/wp-blog-alist
