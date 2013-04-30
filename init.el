@@ -49,10 +49,10 @@
                               (setq indicate-buffer-boundaries t)))
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
-(global-set-key [C-left] 'windmove-left)
-(global-set-key [C-right] 'windmove-right)
-(global-set-key [C-up] 'windmove-up)
-(global-set-key [C-down] 'windmove-down)
+(global-set-key [S-left] 'windmove-left)
+(global-set-key [S-right] 'windmove-right)
+(global-set-key [S-up] 'windmove-up)
+(global-set-key [S-down] 'windmove-down)
 (put 'dired-find-alternate-file 'disabled nil)
 (ido-mode 1)
 
@@ -181,6 +181,7 @@
                       org
                       js2-mode
                       slime
+                      paredit
                       csharp-mode
                       dired+
                       org-mime
@@ -206,10 +207,19 @@
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
      (setq inferior-lisp-program "sbcl --noinform --no-linedit")
      (defun custom-repl-mode-hook ()
-       (define-key slime-repl-mode-map [C-up] 'windmove-up)
-       (define-key slime-repl-mode-map [C-down] 'windmove-down))
-     (add-hook 'slime-repl-mode-hook 'custom-repl-mode-hook)
-     (add-hook 'slime-mode-hook '(lambda () (slime-setup '(slime-indentation))))
+       (define-key slime-repl-mode-map [S-up] #'windmove-up)
+       (define-key slime-repl-mode-map [S-down] #'windmove-down))
+     (add-hook 'slime-repl-mode-hook #'custom-repl-mode-hook)
+     (add-hook 'slime-mode-hook #'(lambda () (slime-setup '(slime-indentation))))
+
+     ;; ParEdit
+     (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+     (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+     (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+     (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+     (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+     (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+     (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 
      ;; Ruby
      (global-rinari-mode)
