@@ -205,6 +205,10 @@
      ;; SLIME
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
      (setq inferior-lisp-program "sbcl --noinform --no-linedit")
+     (defun custom-repl-mode-hook ()
+       (define-key slime-repl-mode-map [C-up] 'windmove-up)
+       (define-key slime-repl-mode-map [C-down] 'windmove-down))
+     (add-hook 'slime-repl-mode-hook 'custom-repl-mode-hook)
      (add-hook 'slime-mode-hook '(lambda () (slime-setup '(slime-indentation))))
 
      ;; Ruby
