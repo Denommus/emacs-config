@@ -55,17 +55,18 @@
 (global-set-key [s-down] 'windmove-down)
 (put 'dired-find-alternate-file 'disabled nil)
 (ido-mode 1)
+(setq-default indent-tabs-mode nil)
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
   (interactive)
   (delete-trailing-whitespace)
-  (set-buffer-file-coding-system 'utf-8))
+  (set-buffer-file-coding-system 'utf-8)
+  (untabify (point-min) (point-max)))
 (defun cleanup-buffer ()
   (interactive)
   (cleanup-buffer-safe)
-  (indent-region (point-min) (point-max))
-  (untabify (point-min) (point-max)))
+  (indent-region (point-min) (point-max)))
 (add-hook 'before-save-hook 'cleanup-buffer)
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
 
