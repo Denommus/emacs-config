@@ -169,6 +169,11 @@
       #'(lambda ()
           (local-set-key (kbd "C-c C-r") 'browse-url-of-file)))
 
+;; C code
+(c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-hook 'c++-mode-hook #'(lambda () (c-set-style "qt")))
+
 ;;After Initialize
 (add-hook
  'after-init-hook
