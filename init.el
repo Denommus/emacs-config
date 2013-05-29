@@ -204,6 +204,7 @@
                       popup
                       org2blog
                       show-css
+                      pretty-symbols-mode
                       twittering-mode)))
        (mapcar #'(lambda (pkg)
                    (unless (package-installed-p pkg)
@@ -245,6 +246,14 @@
      (add-hook 'dired-mode-hook
                #'(lambda ()
                    (local-set-key (kbd "<f5>") 'magit-status)))
+
+     ;; Pretty Symbols
+     (add-to-list 'pretty-symbol-categories 'relational)
+     (add-to-list 'pretty-symbol-categories 'misc)
+     (add-to-list 'pretty-symbol-patterns '(?& misc "&amp;" (twittering-mode)))
+     (add-hook 'twittering-mode-hook #'pretty-symbols-mode)
+     (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
+     (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
 
      ;; YASnippet
      (require 'yasnippet)
