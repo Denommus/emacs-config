@@ -56,6 +56,7 @@
 (put 'dired-find-alternate-file 'disabled nil)
 (ido-mode 1)
 (setq-default indent-tabs-mode nil)
+(add-to-list 'auto-mode-alist '("PKGBUILD" . pkgbuild-mode))
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
