@@ -183,6 +183,8 @@
      (lexical-let ((auto-install-packages
                     '(bundler
                       auctex
+                      clojure-mode
+                      nrepl
                       yasnippet
                       magit
                       org
@@ -229,6 +231,7 @@
      (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
      (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
      (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+     (add-hook 'clojure-mode-hook          #'paredit-mode)
      (add-hook 'slime-repl-mode-hook #'(lambda () (paredit-mode +1)))
      (defun override-slime-repl-bindings-with-paredit ()
        (define-key slime-repl-mode-map
