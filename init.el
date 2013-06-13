@@ -206,6 +206,7 @@
                       org2blog
                       show-css
                       pretty-symbols-mode
+                      browse-kill-ring
                       twittering-mode)))
        (mapcar #'(lambda (pkg)
                    (unless (package-installed-p pkg)
