@@ -94,7 +94,8 @@
 (add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.40")
 (add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.41")
 (setq ercn-notify-rules
-      '((current-nick . all)))
+      '((current-nick . all)
+        (query-buffer . all)))
 (require 'notifications)
 (add-hook 'ercn-notify
           #'(lambda (nickname message)
