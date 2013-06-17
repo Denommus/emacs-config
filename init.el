@@ -200,6 +200,7 @@
                       clojure-mode
                       nrepl
                       ercn
+                      erc-image
                       yasnippet
                       magit
                       org
@@ -274,6 +275,11 @@
      (add-hook 'twittering-mode-hook #'pretty-symbols-mode)
      (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
+
+     ;; ERC
+     (require 'erc-image)
+     (add-to-list 'erc-modules 'image)
+     (erc-update-modules)
 
      ;; YASnippet
      (require 'yasnippet)
