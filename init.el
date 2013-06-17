@@ -81,12 +81,26 @@
 (setq erc-server "10.40.40.40")
 (setq erc-nick "Denommus")
 (setq erc-server-connect-function
-      'socks-open-network-stream)
+      #'(lambda (name buffer host service &rest parameters)
+          (let ((hosts (list "10.40.40.40" "10.40.40.41")))
+            (apply
+             (if (member host hosts)
+                 'socks-open-network-stream
+               'open-network-stream)
+             (append (list name buffer host service) parameters)))))
 (require 'socks)
 (require 'erc)
 (require 'erc-sasl)
 (add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.40")
 (add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.41")
+(setq ercn-notify-rules
+      '((current-nick . all)))
+(require 'notifications)
+(add-hook 'ercn-notify
+          #'(lambda (nickname message)
+              (notifications-notify
+               :title "ERC"
+               :body (concatenate 'string nickname ": " message))))
 
 ;; Tetris
 (setq tetris-score-file
@@ -185,6 +199,7 @@
                       auctex
                       clojure-mode
                       nrepl
+                      ercn
                       yasnippet
                       magit
                       org
