@@ -204,7 +204,6 @@
                       erc-image
                       yasnippet
                       magit
-                      org
                       js2-mode
                       slime
                       paredit
@@ -222,7 +221,6 @@
                       yaml-mode
                       jabber
                       popup
-                      org2blog
                       show-css
                       pretty-symbols-mode
                       browse-kill-ring
