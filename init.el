@@ -221,6 +221,7 @@
                       yaml-mode
                       jabber
                       popup
+                      elscreen
                       show-css
                       pretty-symbols-mode
                       browse-kill-ring
@@ -279,6 +280,11 @@
      (require 'erc-image)
      (add-to-list 'erc-modules 'image)
      (erc-update-modules)
+
+     ;; Elscreen
+     (elscreen-start)
+     (global-set-key (kbd "C-M-_") #'elscreen-previous)
+     (global-set-key (kbd "C-M-+") #'elscreen-next)
 
      ;; YASnippet
      (require 'yasnippet)
