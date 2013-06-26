@@ -57,6 +57,7 @@
 (ido-mode 1)
 (setq-default indent-tabs-mode nil)
 (add-to-list 'auto-mode-alist '("PKGBUILD" . pkgbuild-mode))
+(put 'upcase-region 'disabled nil)
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
@@ -289,6 +290,10 @@
      ;; YASnippet
      (require 'yasnippet)
      (yas--initialize)
-     (yas-load-directory "~/.emacs.d/snippets")))
+     (yas-load-directory "~/.emacs.d/snippets")
+
+     ;; CMake
+     (require 'cmake-mode)
+     (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))))
 (provide 'init)
 ;;; init.el ends here
