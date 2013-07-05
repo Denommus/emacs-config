@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;; init.el --- Configuration for my Emacs
 ;;; Commentary:
 ;;;;Copyright (C) 2012  Yuri da Costa Albuquerque
@@ -199,37 +200,37 @@
  'after-init-hook
  #'(lambda ()
      ;; Packages
-     (lexical-let ((auto-install-packages
-                    '(bundler
-                      auctex
-                      clojure-mode
-                      nrepl
-                      ercn
-                      erc-image
-                      yasnippet
-                      magit
-                      js2-mode
-                      slime
-                      paredit
-                      csharp-mode
-                      dired+
-                      org-mime
-                      git-commit-mode
-                      gitconfig-mode
-                      lua-mode
-                      pkgbuild-mode
-                      ruby-block
-                      ruby-compilation
-                      rinari
-                      zossima
-                      yaml-mode
-                      jabber
-                      popup
-                      elscreen
-                      show-css
-                      pretty-symbols-mode
-                      browse-kill-ring
-                      twittering-mode)))
+     (let ((auto-install-packages
+            '(bundler
+              auctex
+              clojure-mode
+              nrepl
+              ercn
+              erc-image
+              yasnippet
+              magit
+              js2-mode
+              slime
+              paredit
+              csharp-mode
+              dired+
+              org-mime
+              git-commit-mode
+              gitconfig-mode
+              lua-mode
+              pkgbuild-mode
+              ruby-block
+              ruby-compilation
+              rinari
+              zossima
+              yaml-mode
+              jabber
+              popup
+              elscreen
+              show-css
+              pretty-symbols-mode
+              browse-kill-ring
+              twittering-mode)))
        (mapcar #'(lambda (pkg)
                    (unless (package-installed-p pkg)
                      (package-install pkg))) auto-install-packages))
