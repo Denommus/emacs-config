@@ -72,7 +72,31 @@
   (indent-region (point-min) (point-max)))
 (add-hook 'before-save-hook 'cleanup-buffer)
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
+
+;; Semantic
 (semantic-mode 1)
+(defun git-project-p (dir)
+  (let ((directory (expand-file-name dir)))
+    (cond
+     ((string= directory "/")
+      nil)
+     ((file-exists-p (concat directory ".git"))
+      directory)
+     (t
+      (git-project-p (concat directory ".."))))))
+(defun cmake-project-p (dir)
+  (let ((directory (expand-file-name dir)))
+    (cond
+     ((string= directory "/")
+      nil)
+     ((file-exists-p (concat directory "CMakeLists.txt"))
+      directory)
+     (t
+      (git-project-p (concat directory ".."))))))
+(setq semanticdb-project-root-functions
+      (list
+       #'git-project-p
+       #'cmake-project-p))
 
 ;; Ruby
 (add-hook 'ruby-mode-hook 'zossima-mode)
