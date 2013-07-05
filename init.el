@@ -248,6 +248,7 @@
               rinari
               zossima
               yaml-mode
+              undo-tree
               jabber
               popup
               elscreen
