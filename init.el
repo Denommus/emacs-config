@@ -58,7 +58,6 @@
 (setq-default indent-tabs-mode nil)
 (add-to-list 'auto-mode-alist '("PKGBUILD" . pkgbuild-mode))
 (put 'upcase-region 'disabled nil)
-(global-undo-tree-mode 1)
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
@@ -294,6 +293,9 @@
      (require 'yasnippet)
      (yas--initialize)
      (yas-load-directory "~/.emacs.d/snippets")
+
+     ;; Undo tree
+     (global-undo-tree-mode 1)
 
      ;; CMake
      (require 'cmake-mode)
