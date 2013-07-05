@@ -133,10 +133,12 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-directory "~/Dropbox/org")
+(setq org-default-notes-file (concat org-directory "/capture.org"))
 (setq org-agenda-files
       (list
        (concat org-directory "/agenda.org")
-       (concat org-directory "/lpic.org")))
+       (concat org-directory "/lpic.org")
+       (concat org-directory "/capture.org")))
 (setq org-mobile-inbox-for-pull (concat org-directory "/agenda.org"))
 (setq org-mobile-directory (concat org-directory "/MobileOrg"))
 (load "~/.emacs.d/plugins/brazilian-holidays.el")
