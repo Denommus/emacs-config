@@ -71,6 +71,7 @@
   (indent-region (point-min) (point-max)))
 (add-hook 'before-save-hook 'cleanup-buffer)
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
+(semantic-mode 1)
 
 ;; Ruby
 (add-hook 'ruby-mode-hook 'zossima-mode)
