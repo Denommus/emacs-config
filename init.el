@@ -58,6 +58,7 @@
 (setq-default indent-tabs-mode nil)
 (add-to-list 'auto-mode-alist '("PKGBUILD" . pkgbuild-mode))
 (put 'upcase-region 'disabled nil)
+(global-undo-tree-mode 1)
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
