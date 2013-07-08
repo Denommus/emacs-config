@@ -75,25 +75,10 @@
 
 ;; Semantic
 (semantic-mode 1)
-(require 'cl)
-(cl-macrolet
- ((defsemantic-project (name root-file)
-    (let ((dir (gensym))
-          (directory (gensym)))
-      `(defun ,name (,dir)
-         (let ((,directory (expand-file-name ,dir)))
-           (cond ((string= ,directory "/")
-                  nil)
-                 ((file-exists-p (concat ,directory "/" ,root-file))
-                  ,directory)
-                 (t
-                  (,name (concat ,directory "/..")))))))))
- (defsemantic-project git-project-p ".git")
- (defsemantic-project cmake-project-p "CMakeLists.txt"))
 (setq semanticdb-project-root-functions
       (list
-       #'git-project-p
-       #'cmake-project-p))
+       #'(lambda (directory) (locate-dominating-file directory ".git"))
+       #'(lambda (directory) (locate-dominating-file directory "CMakeLists.txt"))))
 
 ;; Ruby
 (add-hook 'ruby-mode-hook 'zossima-mode)
