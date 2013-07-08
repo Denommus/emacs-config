@@ -188,10 +188,6 @@
 (setq twittering-use-master-password t)
 (setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
 (setq twittering-icon-mode t)
-(setq twittering-mode-hook
-      #'(lambda()
-          (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
-          (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 (setq twittering-initial-timeline-spec-string
       '(":home"
         ":replies"
@@ -301,10 +297,14 @@
      ;; Pretty Symbols
      (add-to-list 'pretty-symbol-categories 'relational)
      (add-to-list 'pretty-symbol-categories 'misc)
-     (add-to-list 'pretty-symbol-patterns '(?& misc "&amp;" (twittering-mode)))
-     (add-hook 'twittering-mode-hook #'pretty-symbols-mode)
      (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
+
+     ;; Twittering mode
+     (add-hook 'twittering-mode-hook
+               #'(lambda()
+                   (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
+                   (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 
      ;; ERC
      (require 'erc-image)
