@@ -75,24 +75,21 @@
 
 ;; Semantic
 (semantic-mode 1)
-(defun git-project-p (dir)
-  (let ((directory (expand-file-name dir)))
-    (cond
-     ((string= directory "/")
-      nil)
-     ((file-exists-p (concat directory "/.git"))
-      directory)
-     (t
-      (git-project-p (concat directory "/.."))))))
-(defun cmake-project-p (dir)
-  (let ((directory (expand-file-name dir)))
-    (cond
-     ((string= directory "/")
-      nil)
-     ((file-exists-p (concat directory "/CMakeLists.txt"))
-      directory)
-     (t
-      (git-project-p (concat directory "/.."))))))
+(require 'cl)
+(cl-macrolet
+ ((defsemantic-project (name root-file)
+    (let ((dir (gensym))
+          (directory (gensym)))
+      `(defun ,name (,dir)
+         (let ((,directory (expand-file-name ,dir)))
+           (cond ((string= ,directory "/")
+                  nil)
+                 ((file-exists-p (concat ,directory "/" ,root-file))
+                  ,directory)
+                 (t
+                  (,name (concat ,directory "/..")))))))))
+ (defsemantic-project git-project-p ".git")
+ (defsemantic-project cmake-project-p "CMakeLists.txt"))
 (setq semanticdb-project-root-functions
       (list
        #'git-project-p
