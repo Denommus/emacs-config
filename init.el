@@ -80,19 +80,19 @@
     (cond
      ((string= directory "/")
       nil)
-     ((file-exists-p (concat directory ".git"))
+     ((file-exists-p (concat directory "/.git"))
       directory)
      (t
-      (git-project-p (concat directory ".."))))))
+      (git-project-p (concat directory "/.."))))))
 (defun cmake-project-p (dir)
   (let ((directory (expand-file-name dir)))
     (cond
      ((string= directory "/")
       nil)
-     ((file-exists-p (concat directory "CMakeLists.txt"))
+     ((file-exists-p (concat directory "/CMakeLists.txt"))
       directory)
      (t
-      (git-project-p (concat directory ".."))))))
+      (git-project-p (concat directory "/.."))))))
 (setq semanticdb-project-root-functions
       (list
        #'git-project-p
