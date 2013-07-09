@@ -234,9 +234,9 @@
               pretty-symbols-mode
               browse-kill-ring
               twittering-mode)))
-       (mapcar #'(lambda (pkg)
-                   (unless (package-installed-p pkg)
-                     (package-install pkg))) auto-install-packages))
+       (mapc #'(lambda (pkg)
+                 (unless (package-installed-p pkg)
+                   (package-install pkg))) auto-install-packages))
 
      ;; SLIME
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
