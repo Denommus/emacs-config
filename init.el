@@ -295,8 +295,8 @@
 
      ;; Elscreen
      (elscreen-start)
-     (global-set-key (kbd "C-M-_") #'elscreen-previous)
-     (global-set-key (kbd "C-M-+") #'elscreen-next)
+     (global-set-key (kbd "<C-tab>") #'elscreen-previous)
+     (global-set-key (kbd "<C-S-iso-lefttab>") #'elscreen-next)
 
      ;; YASnippet
      (require 'yasnippet)
