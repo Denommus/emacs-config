@@ -60,6 +60,10 @@
 (add-to-list 'auto-mode-alist '("PKGBUILD" . pkgbuild-mode))
 (put 'upcase-region 'disabled nil)
 
+;; Fogus theme
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'fogus t)
+
 ;;Clean up
 (defun cleanup-buffer-safe ()
   (interactive)
