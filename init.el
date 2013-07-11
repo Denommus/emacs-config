@@ -229,6 +229,8 @@
               magit
               js2-mode
               slime
+              quack
+              geiser
               paredit
               csharp-mode
               dired+
