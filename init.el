@@ -78,11 +78,23 @@
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
 
 ;; Semantic
-(semantic-mode 1)
+(require 'semantic)
+(require 'semantic/ia)
+(require 'semantic/bovine/gcc)
 (setq semanticdb-project-root-functions
       (list
        #'(lambda (directory) (locate-dominating-file directory ".git"))
        #'(lambda (directory) (locate-dominating-file directory "CMakeLists.txt"))))
+(setq-mode-local c++-mode
+                 semanticdb-find-default-throttle
+                 '(project unloaded system recursive omniscience))
+(semanticdb-enable-gnu-global-databases 'c++-mode t)
+(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
+(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
+(semantic-mode 1)
 
 ;; Ruby
 (add-hook 'ruby-mode-hook 'zossima-mode)
