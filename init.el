@@ -256,6 +256,7 @@
      (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
      (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
      (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+     (add-hook 'geiser-repl-mode-hook      #'enable-paredit-mode)
      (add-hook 'clojure-mode-hook          #'paredit-mode)
      (add-hook 'slime-repl-mode-hook #'(lambda () (paredit-mode +1)))
      (defun override-slime-repl-bindings-with-paredit ()
@@ -336,6 +337,15 @@
 
      ;; Undo tree
      (global-undo-tree-mode 1)
+
+     ;; Quack
+     (require 'quack)
+
+     ;; Geiser
+     (require 'geiser)
+     (require 'scheme)
+     (define-key scheme-mode-map "\C-c\C-c"
+       #'geiser-compile-definition)
 
      ;; CMake
      (require 'cmake-mode)
