@@ -77,25 +77,6 @@
 (add-hook 'before-save-hook 'cleanup-buffer)
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
 
-;; Semantic
-(require 'semantic)
-(require 'semantic/ia)
-(require 'semantic/bovine/gcc)
-(setq semanticdb-project-root-functions
-      (list
-       #'(lambda (directory) (locate-dominating-file directory ".git"))
-       #'(lambda (directory) (locate-dominating-file directory "CMakeLists.txt"))))
-(setq-mode-local c++-mode
-                 semanticdb-find-default-throttle
-                 '(project unloaded system recursive omniscience))
-(semanticdb-enable-gnu-global-databases 'c++-mode t)
-(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
-(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
-(semantic-mode 1)
-
 ;; Ruby
 (add-hook 'ruby-mode-hook 'zossima-mode)
 (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
@@ -220,6 +201,8 @@
      ;; Packages
      (let ((auto-install-packages
             '(bundler
+              auto-complete
+              auto-complete-clang
               auctex
               clojure-mode
               nrepl
@@ -302,7 +285,7 @@
 
      ;; Twittering mode
      (add-hook 'twittering-mode-hook
-               #'(lambda()
+               #'(lambda ()
                    (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
                    (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 
@@ -318,8 +301,38 @@
 
      ;; YASnippet
      (require 'yasnippet)
-     (yas--initialize)
+     (yas-global-mode 1)
      (yas-load-directory "~/.emacs.d/snippets")
+
+     ;; Auto-complete
+     (require 'auto-complete-config)
+     (ac-config-default)
+     (ac-trigger-key-command "TAB")
+     (ac-trigger-key-command "<tab>")
+
+     ;; Auto-complete-clang
+     (require 'auto-complete-clang)
+     (global-set-key (kbd "C-c SPC") #'ac-complete-clang)
+     (add-hook 'c++-mode-hook
+               (lambda ()
+                 (setq ac-clang-flags
+                       (mapcar (lambda (item) (concat "-I" item))
+                               (append
+                                (split-string
+                                 "
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include
+ /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed
+ /usr/include
+"
+                                 )
+                                (split-string
+                                 (shell-command-to-string
+                                  (concat "find "
+                                          (locate-dominating-file (buffer-file-name) "CMakeLists.txt")
+                                          " -type d | grep -v '\.git' | grep -v 'bin'"))))))))
 
      ;; Undo tree
      (global-undo-tree-mode 1)
