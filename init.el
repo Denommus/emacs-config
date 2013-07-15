@@ -189,11 +189,6 @@
       #'(lambda ()
           (local-set-key (kbd "C-c C-r") 'browse-url-of-file)))
 
-;; C code
-(c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(add-hook 'c++-mode-hook #'(lambda () (c-set-style "qt")))
-
 ;;After Initialize
 (add-hook
  'after-init-hook
@@ -314,26 +309,30 @@
      ;; Auto-complete-clang
      (require 'auto-complete-clang)
      (global-set-key (kbd "C-c SPC") #'ac-complete-clang)
+     (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
      (add-hook 'c++-mode-hook
                (lambda ()
                  (setq ac-clang-flags
                        (mapcar (lambda (item) (concat "-I" item))
                                (append
-                                (split-string
-                                 "
- /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1
- /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu
- /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward
- /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include
- /usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed
- /usr/include
-"
-                                 )
-                                (split-string
-                                 (shell-command-to-string
-                                  (concat "find "
-                                          (locate-dominating-file (buffer-file-name) "CMakeLists.txt")
-                                          " -type d | grep -v '\.git' | grep -v 'bin'"))))))))
+                                (list
+                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1"
+                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu"
+                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward"
+                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include"
+                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed"
+                                 "/usr/include")
+                                (let ((dominating-file (locate-dominating-file (buffer-file-name) "CMakeLists.txt")))
+                                  (when dominating-file
+                                    (split-string
+                                     (shell-command-to-string
+                                      (concat "find "
+                                              dominating-file
+                                              " -type d | grep -v '\.git' | grep -v 'bin'"))))))))))
+
+     ;; C code
+     (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+     (add-hook 'c++-mode-hook #'(lambda () (c-set-style "qt")))
 
      ;; Undo tree
      (global-undo-tree-mode 1)
