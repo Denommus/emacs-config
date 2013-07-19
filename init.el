@@ -102,6 +102,7 @@
 (setq ercn-notify-rules
       '((current-nick . all)
         (query-buffer . all)))
+(erc-truncate-mode t)
 (require 'notifications)
 (add-hook 'ercn-notify
           #'(lambda (nickname message)
@@ -312,6 +313,7 @@
      (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
      (add-hook 'c++-mode-hook
                (lambda ()
+                 (make-local-variable 'ac-clang-flags)
                  (setq ac-clang-flags
                        (mapcar (lambda (item) (concat "-I" item))
                                (append
