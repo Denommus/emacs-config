@@ -203,7 +203,6 @@
               clojure-mode
               nrepl
               ercn
-              erc-image
               yasnippet
               magit
               js2-mode
@@ -285,11 +284,6 @@
                #'(lambda ()
                    (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
                    (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
-
-     ;; ERC
-     (require 'erc-image)
-     (add-to-list 'erc-modules 'image)
-     (erc-update-modules)
 
      ;; Elscreen
      (elscreen-start)
