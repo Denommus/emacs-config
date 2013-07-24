@@ -303,28 +303,56 @@
 
      ;; Auto-complete-clang
      (require 'auto-complete-clang)
+     (require 'cl)
      (global-set-key (kbd "C-c SPC") #'ac-complete-clang)
      (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
+
+     (defun ac-clang-parse-cmake-flags (file)
+       (cl-flet
+           ((filter-comments-and-blank-lines (line)
+                                             (or (string-equal line "")
+                                                 (char-equal (string-to-char line)
+                                                             (string-to-char "#")))))
+         (with-temp-buffer
+           (insert-file-contents file)
+           (remove-if-not
+            (lambda (element)
+              (and (not (string-equal element ""))
+                   (char-equal (elt element 0)
+                               (string-to-char "-"))
+                   (char-equal (elt element 1)
+                               (string-to-char "I"))))
+            (reduce #'append
+                    (mapcar (lambda (line)
+                              (split-string (elt (split-string line "=") 1) " "))
+                            (remove-if #'filter-comments-and-blank-lines
+                                       (split-string (buffer-string) "\n" t))))))))
+
+     (defun ac-clang-find-cmake-flags-files (dominating-file)
+       (mapcar (lambda (element)
+                 (concat element "/flags.make"))
+               (directory-files
+                (concat dominating-file "bin/CMakeFiles/") t "^.*\\.dir$")))
+
      (add-hook 'c++-mode-hook
                (lambda ()
                  (make-local-variable 'ac-clang-flags)
                  (setq ac-clang-flags
-                       (mapcar (lambda (item) (concat "-I" item))
-                               (append
+                       (append
+                        (mapcar (lambda (item) (concat "-I" item))
                                 (list
                                  "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1"
                                  "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu"
                                  "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward"
                                  "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include"
                                  "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed"
-                                 "/usr/include")
-                                (let ((dominating-file (locate-dominating-file (buffer-file-name) "CMakeLists.txt")))
-                                  (when dominating-file
-                                    (split-string
-                                     (shell-command-to-string
-                                      (concat "find "
-                                              dominating-file
-                                              " -type d | grep -v '\.git' | grep -v 'bin'"))))))))))
+                                 "/usr/include"))
+
+                        (let ((dominating-file (locate-dominating-file (buffer-file-name) "CMakeLists.txt")))
+                          (when dominating-file
+                            (reduce #'append
+                                    (mapcar #'ac-clang-parse-cmake-flags
+                                            (ac-clang-find-cmake-flags-files dominating-file)))))))))
 
      ;; C code
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
