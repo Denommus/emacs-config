@@ -278,6 +278,7 @@
      (add-to-list 'pretty-symbol-categories 'misc)
      (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
+     (add-hook 'c++-mode-hook #'pretty-symbols-mode)
 
      ;; Twittering mode
      (add-hook 'twittering-mode-hook
