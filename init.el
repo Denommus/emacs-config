@@ -278,7 +278,7 @@
      (add-to-list 'pretty-symbol-categories 'misc)
      (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
-     (add-hook 'c++-mode-hook #'pretty-symbols-mode)
+     (add-hook 'c-mode-common-hook #'pretty-symbols-mode)
 
      ;; Twittering mode
      (add-hook 'twittering-mode-hook
@@ -335,20 +335,18 @@
                (directory-files
                 (concat dominating-file "bin/CMakeFiles/") t "^.*\\.dir$")))
 
-     (add-hook 'c++-mode-hook
+     (add-hook 'c-mode-common-hook
                (lambda ()
                  (make-local-variable 'ac-clang-flags)
                  (setq ac-clang-flags
                        (append
-                        (mapcar (lambda (item) (concat "-I" item))
-                                (list
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1"
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu"
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward"
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include"
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed"
-                                 "/usr/include"))
-
+                        (list
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1"
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu"
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward"
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include"
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed"
+                         "-I/usr/include")
                         (let ((dominating-file (locate-dominating-file (buffer-file-name) "CMakeLists.txt")))
                           (when dominating-file
                             (reduce #'append
@@ -357,7 +355,7 @@
 
      ;; C code
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-     (add-hook 'c++-mode-hook #'(lambda () (c-set-style "qt")))
+     (add-hook 'c-mode-common-hook #'(lambda () (c-set-style "qt")))
 
      ;; Undo tree
      (global-undo-tree-mode 1)
