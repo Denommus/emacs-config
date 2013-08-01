@@ -198,7 +198,7 @@
      (let ((auto-install-packages
             '(bundler
               auto-complete
-              auto-complete-clang
+              auto-complete-clang-async
               auctex
               clojure-mode
               nrepl
@@ -278,7 +278,7 @@
      (add-to-list 'pretty-symbol-categories 'misc)
      (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
-     (add-hook 'c++-mode-hook #'pretty-symbols-mode)
+     (add-hook 'c-mode-common-hook #'pretty-symbols-mode)
 
      ;; Twittering mode
      (add-hook 'twittering-mode-hook
@@ -303,9 +303,13 @@
      (ac-trigger-key-command "<tab>")
 
      ;; Auto-complete-clang
-     (require 'auto-complete-clang)
+     (require 'auto-complete-clang-async)
      (require 'cl)
-     (global-set-key (kbd "C-c SPC") #'ac-complete-clang)
+     (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
+     (defun ac-clang-setup ()
+       (push 'ac-source-clang-async ac-sources)
+       (local-set-key (kbd "C-c SPC") #'ac-complete-clang-async)
+       (ac-clang-launch-completion-process))
      (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
 
      (defun ac-clang-parse-cmake-flags (file)
@@ -335,25 +339,23 @@
                (directory-files
                 (concat dominating-file "bin/CMakeFiles/") t "^.*\\.dir$")))
 
-     (add-hook 'c++-mode-hook
+     (add-hook 'c-mode-common-hook
                (lambda ()
-                 (make-local-variable 'ac-clang-flags)
-                 (setq ac-clang-flags
+                 (setq ac-clang-cflags
                        (append
-                        (mapcar (lambda (item) (concat "-I" item))
-                                (list
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1"
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu"
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward"
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include"
-                                 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed"
-                                 "/usr/include"))
-
+                        (list
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1"
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu"
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward"
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include"
+                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed"
+                         "-I/usr/include")
                         (let ((dominating-file (locate-dominating-file (buffer-file-name) "CMakeLists.txt")))
                           (when dominating-file
                             (reduce #'append
                                     (mapcar #'ac-clang-parse-cmake-flags
                                             (ac-clang-find-cmake-flags-files dominating-file)))))))))
+     (add-hook 'c-mode-common-hook #'ac-clang-setup)
 
      ;; C code
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
