@@ -262,12 +262,6 @@
      ;; Ruby
      (global-rinari-mode)
 
-     ;; Org2blog
-     (setq org2blog/wp-blog-alist
-           '(("wordpress"
-              :url "http://dharmaprogramming.wordpress.com/xmlrpc.php"
-              :username "Denommus")))
-
      ;; Magit
      (add-hook 'dired-mode-hook
                #'(lambda ()
