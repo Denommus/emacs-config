@@ -22,6 +22,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring scrolltobottom smiley stamp track truncate)))
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/lpic.org")))
  '(smtpmail-smtp-server "mail.tap4mobile.com.br")
@@ -102,7 +103,6 @@
 (setq ercn-notify-rules
       '((current-nick . all)
         (query-buffer . all)))
-(erc-truncate-mode t)
 (require 'notifications)
 (add-hook 'ercn-notify
           #'(lambda (nickname message)
