@@ -299,7 +299,11 @@
      ;; Auto-complete-clang
      (require 'auto-complete-clang)
      (require 'cl)
-     (global-set-key (kbd "C-c SPC") #'ac-complete-clang)
+     (defun ac-clang-setup ()
+       (push 'ac-source-clang ac-sources)
+       (local-set-key (kbd "C-c SPC") #'ac-complete-clang))
+     (add-hook 'c-mode-common-hook #'ac-clang-setup)
+
      (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
 
      (defun ac-clang-parse-cmake-flags (file)
@@ -324,10 +328,11 @@
                                        (split-string (buffer-string) "\n" t))))))))
 
      (defun ac-clang-find-cmake-flags-files (dominating-file)
-       (mapcar (lambda (element)
-                 (concat element "/flags.make"))
-               (directory-files
-                (concat dominating-file "bin/CMakeFiles/") t "^.*\\.dir$")))
+       (remove-if-not #'file-exists-p
+                      (mapcar (lambda (element)
+                                (concat element "/flags.make"))
+                              (directory-files
+                               (concat dominating-file "bin/CMakeFiles/") t "^.*\\.dir$"))))
 
      (add-hook 'c-mode-common-hook
                (lambda ()
