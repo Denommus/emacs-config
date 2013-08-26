@@ -354,7 +354,10 @@
 
      ;; C code
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-     (add-hook 'c-mode-common-hook #'(lambda () (c-set-style "qt")))
+     (add-hook 'c-mode-common-hook
+               #'(lambda ()
+                   (c-set-style "qt")
+                   (subword-mode 1)))
 
      ;; Undo tree
      (global-undo-tree-mode 1)
