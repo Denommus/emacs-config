@@ -229,10 +229,14 @@
               show-css
               pretty-symbols-mode
               browse-kill-ring
+              haskell-mode
               twittering-mode)))
        (mapc #'(lambda (pkg)
                  (unless (package-installed-p pkg)
                    (package-install pkg))) auto-install-packages))
+
+     ;; Haskell
+     (add-hook 'haskell-mode-hook #'turn-on-haskell-indent)
 
      ;; SLIME
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
