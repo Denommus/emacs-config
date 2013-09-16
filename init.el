@@ -91,7 +91,6 @@
   (interactive)
   (cleanup-buffer-safe)
   (indent-region (point-min) (point-max)))
-(add-hook 'before-save-hook 'cleanup-buffer)
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
 
 ;; Ruby
