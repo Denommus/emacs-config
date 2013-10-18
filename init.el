@@ -242,7 +242,7 @@
               popup
               elscreen
               show-css
-              pretty-symbols-mode
+              pretty-symbols
               browse-kill-ring
               haskell-mode
               twittering-mode)))
