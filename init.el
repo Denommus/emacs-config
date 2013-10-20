@@ -240,7 +240,7 @@
               undo-tree
               jabber
               popup
-              elscreen
+              escreen
               show-css
               pretty-symbols
               browse-kill-ring
@@ -300,10 +300,13 @@
                    (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
                    (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 
-     ;; Elscreen
-     (elscreen-start)
-     (global-set-key (kbd "<C-tab>") #'elscreen-next)
-     (global-set-key (kbd "<C-S-iso-lefttab>") #'elscreen-previous)
+     ;; Escreen
+     (require 'escreen)
+     (escreen-install)
+     (setq escreen-prefix-char "\C-z")
+     (global-set-key escreen-prefix-char #'escreen-prefix)
+     (global-set-key (kbd "<C-tab>") #'escreen-goto-next-screen)
+     (global-set-key (kbd "<C-S-iso-lefttab>") #'escreen-goto-prev-screen)
 
      ;; YASnippet
      (require 'yasnippet)
