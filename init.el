@@ -216,7 +216,7 @@
               auto-complete-clang
               auctex
               clojure-mode
-              nrepl
+              cider
               ercn
               yasnippet
               magit
@@ -273,7 +273,7 @@
      (add-hook 'geiser-repl-mode-hook      #'enable-paredit-mode)
      (add-hook 'clojure-mode-hook          #'enable-paredit-mode)
      (add-hook 'slime-repl-mode-hook #'(lambda () (paredit-mode +1)))
-     (add-hook 'nrepl-mode-hook #'enable-paredit-mode)
+     (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
      (defun override-slime-repl-bindings-with-paredit ()
        (define-key slime-repl-mode-map
          (read-kbd-macro paredit-backward-delete-key) nil))
