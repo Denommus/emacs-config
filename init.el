@@ -307,6 +307,7 @@
      (global-set-key escreen-prefix-char #'escreen-prefix)
      (global-set-key (kbd "<C-tab>") #'escreen-goto-next-screen)
      (global-set-key (kbd "<C-S-iso-lefttab>") #'escreen-goto-prev-screen)
+     (global-set-key (kbd "<C-S-tab>") #'escreen-goto-prev-screen)
 
      ;; YASnippet
      (require 'yasnippet)
