@@ -245,6 +245,7 @@
               pretty-symbols
               browse-kill-ring
               haskell-mode
+              projectile
               twittering-mode)))
        (mapc #'(lambda (pkg)
                  (unless (package-installed-p pkg)
@@ -394,6 +395,9 @@
      (require 'scheme)
      (define-key scheme-mode-map "\C-c\C-c"
        #'geiser-compile-definition)
+
+     ;; Projectile
+     (projectile-global-mode)
 
      ;; CMake
      (require 'cmake-mode)

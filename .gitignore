@@ -12,3 +12,4 @@ eshell/
 var/
 semanticdb/
 srecode-map.el
+projectile.cache
