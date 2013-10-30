@@ -13,3 +13,5 @@ var/
 semanticdb/
 srecode-map.el
 projectile.cache
+projectile-bookmarks.eld
+server/
