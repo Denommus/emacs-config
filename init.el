@@ -40,7 +40,9 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
 (setq make-backup-files nil)
 (setq gnus-button-url 'browse-url-generic
-      browse-url-generic-program "google-chrome"
+      browse-url-generic-program (if (eq system-type 'windows-nt)
+                                     "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+                                   "google-chrome")
       browse-url-browser-function gnus-button-url)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
@@ -405,7 +407,8 @@
      (projectile-global-mode)
 
      ;; CMake
-     (require 'cmake-mode)
-     (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))))
+     (unless (eq system-type 'windows-nt)
+       (require 'cmake-mode)
+       (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode)))))
 (provide 'init)
 ;;; init.el ends here
