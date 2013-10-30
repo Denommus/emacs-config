@@ -95,8 +95,12 @@
 
 ;; Ruby
 (add-hook 'ruby-mode-hook 'zossima-mode)
-(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+(cond ((eq system-type 'windows-nt)
+       (setenv "PATH" (concat "C:\\Program Files (x86)\\Git\\bin;" (getenv "PATH")))
+       (setq exec-path (cons "C:\\Program Files (x86)\\Git\\bin" exec-path)))
+      (t
+       (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+       (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))))
 
 ;; ERC + Tor
 (setq socks-override-functions nil)
@@ -121,9 +125,10 @@
 (require 'notifications)
 (add-hook 'ercn-notify
           #'(lambda (nickname message)
-              (notifications-notify
-               :title "ERC"
-               :body (concatenate 'string nickname ": " message))))
+              (unless (eq system-type 'windows-nt)
+                (notifications-notify
+                 :title "ERC"
+                 :body (concatenate 'string nickname ": " message)))))
 
 ;; Tetris
 (setq tetris-score-file
