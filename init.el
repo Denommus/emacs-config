@@ -422,7 +422,9 @@
        #'geiser-compile-definition)
 
      ;; Projectile
-     (projectile-global-mode)
+     (projectile-global-mode 1)
+     (setq projectile-indexing-method 'alien)
+     (setq projectile-enable-caching nil)
 
      ;; CMake
      (unless (eq system-type 'windows-nt)
