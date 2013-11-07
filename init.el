@@ -314,6 +314,7 @@
      (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'c-mode-common-hook #'pretty-symbols-mode)
+     (add-hook 'js-mode-hook #'pretty-symbols-mode)
 
      ;; Twittering mode
      (add-hook 'twittering-mode-hook
