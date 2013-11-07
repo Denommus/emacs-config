@@ -308,13 +308,17 @@
                #'(lambda ()
                    (local-set-key (kbd "<f5>") 'magit-status)))
 
+     ;; JS2-Mode
+     (require 'js2-mode)
+     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
      ;; Pretty Symbols
      (add-to-list 'pretty-symbol-categories 'relational)
      (add-to-list 'pretty-symbol-categories 'misc)
      (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
      (add-hook 'c-mode-common-hook #'pretty-symbols-mode)
-     (add-hook 'js-mode-hook #'pretty-symbols-mode)
+     (add-hook 'js2-mode-hook #'pretty-symbols-mode)
 
      ;; Twittering mode
      (add-hook 'twittering-mode-hook
