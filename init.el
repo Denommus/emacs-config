@@ -79,6 +79,19 @@
       apropos-do-all t
       mouse-yank-at-point t)
 
+;;;;;;;;;;;;;;;;;;;;
+;; set up unicode
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+;; This from a japanese individual.  I hope it works.
+(setq default-buffer-file-coding-system 'utf-8)
+;; From Emacs wiki
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+;; MS Windows clipboard is UTF-16LE
+(when (eq system-type 'windows-nt) (set-clipboard-coding-system 'utf-16le-dos))
+
 ;; Emacs theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'wilson t)
