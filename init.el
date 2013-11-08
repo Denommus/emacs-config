@@ -87,7 +87,7 @@
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
   (setq default-file-name-coding-system 'cp1252)
-  (add-hook 'minibuffer-setup-hook
+  (add-hook 'ido-minibuffer-setup-hook
             (lambda () (set-buffer-file-coding-system 'cp1252)))
   ;; From Emacs wiki
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
