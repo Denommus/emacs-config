@@ -238,6 +238,7 @@
               auto-complete
               auto-complete-clang
               auctex
+              cmake-mode
               clojure-mode
               cider
               ercn
