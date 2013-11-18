@@ -434,8 +434,7 @@
      ;;(setq projectile-enable-caching nil)
 
      ;; CMake
-     (unless (eq system-type 'windows-nt)
-       (require 'cmake-mode)
-       (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode)))))
+     (require 'cmake-mode)
+     (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))))
 (provide 'init)
 ;;; init.el ends here
