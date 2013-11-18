@@ -92,8 +92,8 @@
   ;; From Emacs wiki
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
   ;; MS Windows clipboard is UTF-16LE
-  (set-clipboard-coding-system 'utf-16le-dos)
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono-10"))
+  (set-clipboard-coding-system 'utf-16le-dos))
+(set-face-attribute 'default nil :font "DejaVu Sans Mono-10")
 
 ;; Emacs theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
