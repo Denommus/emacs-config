@@ -283,7 +283,7 @@
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
      (setq inferior-lisp-program
            (if (eq system-type 'windows-nt)
-               "wx86cl"
+               "wx86cl64"
              "sbcl --noinform --no-linedit"))
      (defun custom-repl-mode-hook ()
        (define-key slime-repl-mode-map [S-up] #'windmove-up)
