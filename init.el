@@ -237,6 +237,7 @@
             '(bundler
               auto-complete
               auto-complete-clang
+              flycheck
               ac-slime
               auctex
               cmake-mode
@@ -278,6 +279,9 @@
 
      ;; Haskell
      (add-hook 'haskell-mode-hook #'turn-on-haskell-indent)
+
+     ;; Flycheck
+     (global-flycheck-mode)
 
      ;; SLIME
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
