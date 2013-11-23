@@ -42,7 +42,7 @@
 (setq gnus-button-url 'browse-url-generic
       browse-url-generic-program (if (eq system-type 'windows-nt)
                                      "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
-                                   "google-chrome")
+                                   "google-chrome-stable")
       browse-url-browser-function gnus-button-url)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
