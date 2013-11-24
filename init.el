@@ -281,6 +281,7 @@
      (add-hook 'haskell-mode-hook #'turn-on-haskell-indent)
 
      ;; Flycheck
+     (setq sentence-end-double-space nil)
      (global-flycheck-mode)
 
      ;; SLIME
