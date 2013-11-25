@@ -122,7 +122,6 @@
 
 ;; ERC + Tor
 (setq socks-override-functions nil)
-(setq erc-server "10.40.40.40")
 (setq erc-nick "Denommus")
 (setq erc-server-connect-function
       #'(lambda (name buffer host service &rest parameters)
