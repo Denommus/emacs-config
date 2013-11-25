@@ -123,6 +123,8 @@
 ;; ERC + Tor
 (setq socks-override-functions nil)
 (setq erc-nick "Denommus")
+(setq erc-fill-function #'erc-fill-static)
+(setq erc-fill-static-center 15)
 (setq erc-server-connect-function
       #'(lambda (name buffer host service &rest parameters)
           (let ((hosts (list "10.40.40.40" "10.40.40.41")))
