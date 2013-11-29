@@ -205,7 +205,9 @@
 
 ;;Twittering Mode
 (setq twittering-use-master-password t)
-(setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
+(if (eq system-type 'windows-nt)
+    (setq twittering-cert-file "C:\\Program Files (x86)\\Git\\bin\\curl-ca-bundle.crt")
+  (setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt"))
 (setq twittering-icon-mode t)
 (setq twittering-initial-timeline-spec-string
       '(":home"
