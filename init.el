@@ -33,7 +33,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(magit-item-highlight ((t (:background "black")))))
+ '(magit-item-highlight ((t (:background "black"))))
+ '(default ((t (:font "DejaVu Sans Mono-10")))))
 
 ;; Misc
 (add-to-list 'load-path "~/.emacs.d/plugins")
@@ -92,8 +93,7 @@
   ;; From Emacs wiki
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
   ;; MS Windows clipboard is UTF-16LE
-  (set-clipboard-coding-system 'utf-16le-dos)
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono-10"))
+  (set-clipboard-coding-system 'utf-16le-dos))
 
 ;; Emacs theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
