@@ -52,6 +52,7 @@
 (add-hook 'emacs-lisp-mode-hook #'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook #'turn-on-eldoc-mode)
 (add-hook 'ielm-mode-hook #'turn-on-eldoc-mode)
+(setq delete-by-moving-to-trash t)
 (global-auto-revert-mode 1)
 (add-hook 'after-change-major-mode-hook #'(lambda ()
                                             (setq indicate-buffer-boundaries t)))
