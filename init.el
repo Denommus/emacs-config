@@ -227,9 +227,10 @@
                             (file-name-nondirectory buffer-file-name)))))
 
 ;; HTML
-(setq html-mode-hook
+(add-hook 'html-mode-hook
       #'(lambda ()
-          (local-set-key (kbd "C-c C-r") 'browse-url-of-file)))
+          (local-set-key (kbd "C-c C-r") 'browse-url-of-file)
+          (set (make-local-variable 'sgml-basic-offset) 4)))
 
 ;;After Initialize
 (add-hook
