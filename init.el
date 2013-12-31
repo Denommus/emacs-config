@@ -275,6 +275,7 @@
               browse-kill-ring
               haskell-mode
               projectile
+              qml-mode
               twittering-mode)))
        (mapc #'(lambda (pkg)
                  (unless (package-installed-p pkg)
