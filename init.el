@@ -152,6 +152,8 @@
                 (notifications-notify
                  :title "ERC"
                  :body (concatenate 'string nickname ": " message)))))
+(setq erc-autojoin-channels-alist
+      '(("freenode.net" "#emacs" "##programming" "#lisp")))
 
 ;; Tetris
 (setq tetris-score-file
