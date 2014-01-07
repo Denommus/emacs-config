@@ -25,8 +25,6 @@
  '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring scrolltobottom smiley stamp track truncate)))
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/lpic.org")))
- '(smtpmail-smtp-server "mail.tap4mobile.com.br")
- '(smtpmail-smtp-service 25)
  '(socks-server (quote ("Default server" "localhost" 9050 5))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
