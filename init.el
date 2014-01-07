@@ -25,14 +25,15 @@
  '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring scrolltobottom smiley stamp track truncate)))
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/lpic.org")))
+ '(send-mail-function (quote mailclient-send-it))
  '(socks-server (quote ("Default server" "localhost" 9050 5))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(magit-item-highlight ((t (:background "black"))))
- '(default ((t (:font "DejaVu Sans Mono-10")))))
+ '(default ((t (:font "DejaVu Sans Mono-10"))))
+ '(magit-item-highlight ((t (:background "black"))) t))
 
 ;; Misc
 (add-to-list 'load-path "~/.emacs.d/plugins")
@@ -172,6 +173,16 @@
 (setq bbdb-complete-name-full-completion t)
 (setq bbdb-completion-type 'primary-or-name)
 (setq bbdb-complete-name-allow-cycling t)
+
+;; Mail
+(setq read-mail-command 'mew)
+(setq mail-user-agent 'mew-user-agent)
+(define-mail-user-agent
+  'mew-user-agent
+  'mew-user-agent-compose
+  'mew-draft-send-message
+  'mew-draft-kill
+  'mew-send-hook)
 
 ;;Org-Mode
 (setq org-log-done 'time)
