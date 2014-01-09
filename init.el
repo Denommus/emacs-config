@@ -273,6 +273,7 @@
               lua-mode
               pkgbuild-mode
               ruby-block
+              mew
               ruby-compilation
               rinari
               zossima
