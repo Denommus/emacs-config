@@ -213,11 +213,6 @@
         (minibuffer . t)))
 (setq calendar-date-style "european")
 
-;;Jabber
-(setq jabber-account-list '(("yuridenommus@gmail.com"
-                             (:network-server . "talk.google.com")
-                             (:connection-type . ssl))))
-
 ;;Twittering Mode
 (setq twittering-use-master-password t)
 (if (eq system-type 'windows-nt)
@@ -279,7 +274,6 @@
               zossima
               yaml-mode
               undo-tree
-              jabber
               popup
               escreen
               show-css
