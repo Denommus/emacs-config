@@ -249,6 +249,7 @@
               ac-slime
               auctex
               cmake-mode
+              rust-mode
               clojure-mode
               cider
               ercn
