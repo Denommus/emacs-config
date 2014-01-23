@@ -83,6 +83,11 @@
       apropos-do-all t
       mouse-yank-at-point t)
 
+(defun convert-to-underscore ()
+  (interactive)
+  (replace-regexp "\\([A-Z]\\)" "_\\1" nil (region-beginning) (region-end))
+  (downcase-region (region-beginning) (region-end)))
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
 (when (eq system-type 'windows-nt)
