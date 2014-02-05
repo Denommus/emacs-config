@@ -4,3 +4,6 @@
 [submodule "plugins/org-git-link"]
 	path = plugins/org-git-link
 	url = git://github.com/ReimarFinken/org-git-link.git
+[submodule "org-mode"]
+	path = org-mode
+	url = git://orgmode.org/org-mode.git

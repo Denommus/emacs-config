@@ -38,6 +38,9 @@
 ;; Misc
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
+(add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
+(add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp" t)
+(require 'org)
 (setq make-backup-files nil)
 (setq gnus-button-url 'browse-url-generic
       browse-url-generic-program (if (eq system-type 'windows-nt)
