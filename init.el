@@ -91,6 +91,12 @@
   (replace-regexp "\\([A-Z]\\)" "_\\1" nil (region-beginning) (region-end))
   (downcase-region (region-beginning) (region-end)))
 
+(global-set-key (kbd "C-x C-c")
+                (lambda ()
+                  (interactive)
+                  (when (yes-or-no-p "Are you really sure?")
+                    (call-interactively #'save-buffers-kill-emacs))))
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
 (when (eq system-type 'windows-nt)
