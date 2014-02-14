@@ -36,6 +36,8 @@
  '(magit-item-highlight ((t (:background "black")))))
 
 ;; Misc
+(add-to-list 'default-frame-alist
+             '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
 (add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
