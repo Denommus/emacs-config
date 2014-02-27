@@ -330,6 +330,9 @@
 
      ;; SLIME
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
+     (load (expand-file-name (if (eq system-type 'windows-nt)
+                                 "~/AppData/Roaming/npm/node_modules/swank-js/slime-js.el"
+                               "~/.nvm/v0.10.26/lib/node_modules/swank-js/slime-js.el")))
      (setq inferior-lisp-program
            (if (eq system-type 'windows-nt)
                "wx86cl64"
@@ -360,14 +363,17 @@
      ;; Ruby
      (global-rinari-mode)
 
-     ;; Magit
-     (add-hook 'dired-mode-hook
-               #'(lambda ()
-                   (local-set-key (kbd "<f5>") 'magit-status)))
-
      ;; JS2-Mode
      (require 'js2-mode)
      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+     (require 'slime-js)
+     (global-set-key (kbd "<f5>") #'slime-js-reload)
+     (add-hook 'js2-mode-hook
+               #'(lambda () (slime-js-minor-mode 1)))
+     (add-hook 'css-mode-hook
+               #'(lambda ()
+                   (define-key css-mode-map (kbd "C-M-x") #'slime-js-refresh-css)
+                   (define-key css-mode-map (kbd "C-c C-r") #'slime-js-embed-css)))
 
      ;; Pretty Symbols
      (add-to-list 'pretty-symbol-categories 'relational)
