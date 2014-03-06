@@ -316,6 +316,7 @@
               haskell-mode
               projectile
               qml-mode
+              workgroups2
               twittering-mode)))
        (mapc #'(lambda (pkg)
                  (unless (package-installed-p pkg)
@@ -342,6 +343,16 @@
        (define-key slime-repl-mode-map [S-down] #'windmove-down))
      (add-hook 'slime-repl-mode-hook #'custom-repl-mode-hook)
      (add-hook 'slime-mode-hook #'(lambda () (slime-setup '(slime-indentation))))
+
+     ;; Workgroups
+     (require 'workgroups2)
+     (global-set-key (kbd "C-x b") #'wg-switch-to-buffer)
+     (global-unset-key (kbd "C-z"))
+     (setq wg-prefix-key (kbd "C-z"))
+     (global-set-key (kbd "<C-tab>") #'wg-switch-to-workgroup-right)
+     (global-set-key (kbd "<C-S-tab>") #'wg-switch-to-workgroup-left)
+     (setq wg-use-default-session-file nil)
+     (workgroups-mode 1)
 
      ;; ParEdit
      (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
