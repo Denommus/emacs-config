@@ -26,7 +26,8 @@
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/lpic.org")))
  '(send-mail-function (quote mailclient-send-it))
- '(socks-server (quote ("Default server" "localhost" 9050 5))))
+ '(socks-server (quote ("Default server" "localhost" 9050 5)))
+ '(wg-emacs-exit-save-behavior nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
