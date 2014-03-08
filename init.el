@@ -352,6 +352,7 @@
      (setq wg-prefix-key (kbd "C-z"))
      (global-set-key (kbd "<C-tab>") #'wg-switch-to-workgroup-right)
      (global-set-key (kbd "<C-S-tab>") #'wg-switch-to-workgroup-left)
+     (global-set-key (kbd "<C-S-iso-lefttab>") #'wg-switch-to-workgroup-left)
      (setq wg-use-default-session-file nil)
      (workgroups-mode 1)
 
