@@ -290,6 +290,7 @@
               ercn
               yasnippet
               magit
+              magit-svn
               js2-mode
               slime
               quack
@@ -507,6 +508,11 @@
      (projectile-global-mode 1)
      (setq projectile-indexing-method 'alien)
      ;;(setq projectile-enable-caching nil)
+
+     ;; Magit
+     (add-hook 'magit-mode-hook
+               #'(lambda ()
+                   (local-set-key (kbd "V") #'magit-key-mode-popup-svn)))
 
      ;; CMake
      (require 'cmake-mode)
