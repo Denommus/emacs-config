@@ -278,14 +278,14 @@
      ;; Packages
      (let ((auto-install-packages
             '(bundler
-              auto-complete
-              auto-complete-clang
               flycheck
-              ac-slime
               auctex
               cmake-mode
               rust-mode
               clojure-mode
+              company
+              company-cider
+              slime-company
               cider
               ercn
               yasnippet
@@ -408,71 +408,8 @@
      (yas-global-mode 1)
      (yas-load-directory "~/.emacs.d/snippets" t)
 
-     ;; Auto-complete
-     (require 'auto-complete-config)
-     (ac-config-default)
-     (ac-trigger-key-command "TAB")
-     (ac-trigger-key-command "<tab>")
-     (add-hook 'slime-mode-hook 'set-up-slime-ac)
-     (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-     (eval-after-load "auto-complete"
-       '(add-to-list 'ac-modes 'slime-repl-mode))
-
-     ;; Auto-complete-clang
-     (require 'auto-complete-clang)
-     (require 'cl)
-     (defun ac-clang-setup ()
-       (push 'ac-source-clang ac-sources)
-       (local-set-key (kbd "C-c SPC") #'ac-complete-clang))
-     (add-hook 'c-mode-common-hook #'ac-clang-setup)
-
-     (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
-
-     (defun ac-clang-parse-cmake-flags (file)
-       (cl-flet
-           ((filter-comments-and-blank-lines (line)
-                                             (or (string-equal line "")
-                                                 (char-equal (string-to-char line)
-                                                             (string-to-char "#")))))
-         (with-temp-buffer
-           (insert-file-contents file)
-           (remove-if-not
-            (lambda (element)
-              (and (not (string-equal element ""))
-                   (char-equal (elt element 0)
-                               (string-to-char "-"))
-                   (char-equal (elt element 1)
-                               (string-to-char "I"))))
-            (reduce #'append
-                    (mapcar (lambda (line)
-                              (split-string (elt (split-string line "=") 1) " "))
-                            (remove-if #'filter-comments-and-blank-lines
-                                       (split-string (buffer-string) "\n" t))))))))
-
-     (defun ac-clang-find-cmake-flags-files (dominating-file)
-       (remove-if-not #'file-exists-p
-                      (mapcar (lambda (element)
-                                (concat element "/flags.make"))
-                              (directory-files
-                               (concat dominating-file "bin/CMakeFiles/") t "^.*\\.dir$"))))
-
-     (add-hook 'c-mode-common-hook
-               (lambda ()
-                 (make-local-variable 'ac-clang-flags)
-                 (setq ac-clang-flags
-                       (append
-                        (list
-                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1"
-                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/x86_64-unknown-linux-gnu"
-                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/../../../../include/c++/4.8.1/backward"
-                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include"
-                         "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.1/include-fixed"
-                         "-I/usr/include")
-                        (let ((dominating-file (locate-dominating-file (buffer-file-name) "CMakeLists.txt")))
-                          (when dominating-file
-                            (reduce #'append
-                                    (mapcar #'ac-clang-parse-cmake-flags
-                                            (ac-clang-find-cmake-flags-files dominating-file)))))))))
+     ;; Company
+     (global-company-mode 1)
 
      ;; Web Mode
      (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
