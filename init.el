@@ -450,6 +450,7 @@
      ;; Magit
      (add-hook 'magit-mode-hook
                #'(lambda ()
+                   (require 'magit-svn)
                    (local-set-key (kbd "V") #'magit-key-mode-popup-svn)))
 
      ;; CMake
