@@ -345,7 +345,7 @@
        (define-key slime-repl-mode-map [S-up] #'windmove-up)
        (define-key slime-repl-mode-map [S-down] #'windmove-down))
      (add-hook 'slime-repl-mode-hook #'custom-repl-mode-hook)
-     (add-hook 'slime-mode-hook #'(lambda () (slime-setup '(slime-indentation))))
+     (add-hook 'slime-mode-hook #'(lambda () (slime-setup '(slime-indentation slime-company))))
 
      ;; Workgroups
      (require 'workgroups2)
