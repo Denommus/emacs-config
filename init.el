@@ -423,6 +423,7 @@
      (setq web-mode-markup-indent-offset 4)
 
      ;; C code
+     (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
      (add-hook 'c-mode-common-hook
                #'(lambda ()
