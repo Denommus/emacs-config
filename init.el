@@ -223,23 +223,6 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
 (require 'org-git-link)
 (setq org-export-with-toc nil)
-(setq org-publish-project-alist
-      '(("denommus-org"
-         :base-directory "~/Projects/denommus-blog/org/"
-         :base-extension "org"
-         :publishing-directory "~/Projects/denommus-blog/jekyll/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4
-         :html-extension "html"
-         :body-only t)
-        ("denommus-static"
-         :base-directory "~/Projects/denommus-blog/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|mp3\\|ogg"
-         :publishing-directory "~/Projects/denommus-blog/jekyll"
-         :recursive t
-         :publishing-function org-publish-attachment)
-        ("denommus" :components ("denommus-org" "denommus-static"))))
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
