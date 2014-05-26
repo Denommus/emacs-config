@@ -24,7 +24,7 @@
  ;; If there is more than one, they won't work right.
  '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring scrolltobottom smiley stamp track truncate)))
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org")))
+ '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(send-mail-function (quote mailclient-send-it))
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
  '(tab-width 4)
