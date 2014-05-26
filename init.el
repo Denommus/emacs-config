@@ -24,7 +24,7 @@
  ;; If there is more than one, they won't work right.
  '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring scrolltobottom smiley stamp track truncate)))
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/lpic.org")))
+ '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org")))
  '(send-mail-function (quote mailclient-send-it))
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
  '(tab-width 4)
@@ -211,12 +211,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq org-directory "~/Dropbox/org")
 (setq org-default-notes-file (concat org-directory "/capture.org"))
-(setq org-agenda-files
-      (list
-       (concat org-directory "/agenda.org")
-       (concat org-directory "/lpic.org")
-       (concat org-directory "/capture.org")))
-(setq org-mobile-inbox-for-pull (concat org-directory "/agenda.org"))
+(setq org-mobile-inbox-for-pull (concat org-directory "/mobile.org"))
 (setq org-mobile-directory (concat org-directory "/MobileOrg"))
 (load "~/.emacs.d/plugins/brazilian-holidays.el")
 (add-hook 'org-mode-hook 'visual-line-mode)
