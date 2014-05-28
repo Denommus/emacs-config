@@ -159,16 +159,16 @@
 (require 'erc-sasl)
 (add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.40")
 (add-to-list 'erc-sasl-server-regexp-list "10\\.40\\.40\\.41")
-(setq ercn-notify-rules
-      '((current-nick . all)
-        (query-buffer . all)))
-(require 'notifications)
-(add-hook 'ercn-notify
-          #'(lambda (nickname message)
-              (unless (eq system-type 'windows-nt)
-                (notifications-notify
-                 :title "ERC"
-                 :body (concatenate 'string nickname ": " message)))))
+(unless (eq system-type 'windows-nt)
+  (require 'notifications)
+  (defun erc-notification-notify (nickname message)
+    (notifications-notify
+     :title "ERC"
+     :body (concat nickname ": " message)))
+  (setq ercn-notify-rules
+        '((current-nick . all)
+          (query-buffer . all)))
+  (add-hook 'ercn-notify #'erc-notification-notify))
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "##programming" "#lisp")))
 
