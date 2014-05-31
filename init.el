@@ -433,6 +433,9 @@
 
      ;; CMake
      (require 'cmake-mode)
-     (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))))
+     (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))
+
+     ;;Rust
+     (add-hook 'rust-mode-hook #'subword-mode)))
 (provide 'init)
 ;;; init.el ends here
