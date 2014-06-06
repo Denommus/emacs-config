@@ -171,7 +171,6 @@
   (add-hook 'ercn-notify #'erc-notification-notify))
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "##programming" "#lisp")))
-(add-hook 'erc-mode-hook #'(lambda () (company-mode 0)))
 
 ;; Tetris
 (setq tetris-score-file
