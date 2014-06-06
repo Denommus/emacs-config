@@ -261,6 +261,7 @@
               auctex
               cmake-mode
               rust-mode
+              ggtags
               clojure-mode
               company
               company-cider
@@ -436,6 +437,9 @@
      (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))
 
      ;;Rust
-     (add-hook 'rust-mode-hook #'subword-mode)))
+     (add-hook 'rust-mode-hook #'subword-mode)
+     (add-hook 'prog-mode-hook #'(lambda ()
+                                   (when (derived-mode-p 'rust-mode)
+                                     (ggtags-mode 1))))))
 (provide 'init)
 ;;; init.el ends here
