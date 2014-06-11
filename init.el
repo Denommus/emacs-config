@@ -170,7 +170,8 @@
           (query-buffer . all)))
   (add-hook 'ercn-notify #'erc-notification-notify))
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "##programming" "#lisp")))
+      '(("freenode.net" "#emacs" "##programming" "#lisp")
+        ("mozilla.org" "#rust" "#rust-gamedev")))
 
 ;; Tetris
 (setq tetris-score-file
