@@ -16,3 +16,4 @@ projectile.cache
 projectile-bookmarks.eld
 server/
 bookmarks
+flycheck_init.el

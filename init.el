@@ -43,6 +43,7 @@
              '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
+(add-to-list 'load-path "~/.emacs.d/plugins/ghc-mod")
 (add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp" t)
 (require 'org)
@@ -252,6 +253,12 @@
    (list (gud-query-cmdline pdb-path
                             (file-name-nondirectory buffer-file-name)))))
 
+;; GHC
+(require 'ghc)
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook #'ghc-init)
+
 ;;After Initialize
 (add-hook
  'after-init-hook
@@ -266,6 +273,7 @@
               ggtags
               clojure-mode
               company
+              company-ghc
               company-cider
               slime-company
               cider
@@ -391,6 +399,8 @@
 
      ;; Company
      (global-company-mode 1)
+     (require 'company-ghc)
+     (add-to-list 'company-backends 'company-ghc)
 
      ;; Web Mode
      (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
