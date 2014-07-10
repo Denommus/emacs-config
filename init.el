@@ -269,6 +269,7 @@
               flycheck
               auctex
               cmake-mode
+              toml-mode
               rust-mode
               ggtags
               clojure-mode
