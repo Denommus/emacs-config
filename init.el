@@ -145,6 +145,8 @@
 
 ;; ERC + Tor
 (setq socks-override-functions nil)
+(setq erc-server "irc.ayr-ton.net")
+(setq erc-port "1025")
 (setq erc-nick "Denommus")
 (setq erc-fill-function #'erc-fill-static)
 (setq erc-fill-static-center 15)
