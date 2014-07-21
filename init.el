@@ -270,6 +270,7 @@
             '(bundler
               flycheck
               flycheck-haskell
+              tuareg
               auctex
               cmake-mode
               toml-mode
