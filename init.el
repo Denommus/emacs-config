@@ -266,6 +266,7 @@
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook #'ghc-init)
+(add-hook 'haskell-mode-hook #'subword-mode)
 
 ;;After Initialize
 (add-hook
