@@ -43,7 +43,7 @@
              '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
-(add-to-list 'load-path "~/.emacs.d/plugins/ghc-mod")
+(add-to-list 'load-path "~/.cabal/share/x86_64-linux-ghc-7.8.3/ghc-mod-5.1.1.0/")
 (add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp" t)
 (require 'org)
@@ -265,7 +265,7 @@
 (require 'ghc)
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook #'ghc-init)
+(add-hook 'haskell-mode-hook #'ghc-comp-init)
 (add-hook 'haskell-mode-hook #'subword-mode)
 
 ;;After Initialize
