@@ -327,11 +327,12 @@
 
      ;; Haskell
      (add-hook 'haskell-mode-hook #'turn-on-haskell-indent)
-     (add-hook 'haskell-mode-hook #'inf-haskell-mode)
+     (add-hook 'haskell-mode-hook #'interactive-haskell-mode)
      (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
      (setenv "PATH" (concat (getenv "HOME") "/.cabal/bin:" (getenv "PATH")))
      (setq exec-path (cons (concat (getenv "HOME") "/.cabal/bin") exec-path))
      (setq haskell-program-name "cabal repl")
+     (setq haskell-process-type 'cabal-repl)
 
      ;; Flycheck
      (setq sentence-end-double-space nil)
