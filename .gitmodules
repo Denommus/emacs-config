@@ -1,6 +1,3 @@
-[submodule "plugins/erc-sasl"]
-	path = plugins/erc-sasl
-	url = https://github.com/joseph-gay/erc-sasl
 [submodule "plugins/org-git-link"]
 	path = plugins/org-git-link
 	url = git://github.com/ReimarFinken/org-git-link.git
