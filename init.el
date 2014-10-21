@@ -23,7 +23,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(erc-ignore-list (quote ("ihatehex")))
- '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring scrolltobottom smiley stamp track truncate)))
+ '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring smiley stamp track truncate)))
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(send-mail-function (quote mailclient-send-it))
@@ -161,19 +161,10 @@
              (append (list name buffer host service) parameters)))))
 (require 'socks)
 (require 'erc)
-(unless (eq system-type 'windows-nt)
-  (require 'notifications)
-  (defun erc-notification-notify (nickname message)
-    (notifications-notify
-     :title "ERC"
-     :body (concat nickname ": " message)))
-  (setq ercn-notify-rules
-        '((current-nick . all)
-          (query-buffer . all)))
-  (add-hook 'ercn-notify #'erc-notification-notify))
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "##programming" "#lisp")
         ("mozilla.org" "#rust" "#rust-gamedev")))
+(load-file "~/.emacs.d/erc-better-scroll.el")
 
 ;; Tetris
 (setq tetris-score-file
@@ -287,7 +278,6 @@
               company-cider
               slime-company
               cider
-              ercn
               yasnippet
               magit
               magit-svn
