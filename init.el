@@ -165,6 +165,15 @@
       '(("freenode.net" "#emacs" "##programming" "#lisp")
         ("mozilla.org" "#rust" "#rust-gamedev")))
 (load-file "~/.emacs.d/erc-better-scroll.el")
+(defun erc-recenter-top-bottom (&optional arg)
+  (interactive "P")
+  (if arg
+      (recenter-top-bottom arg)
+    (recenter-top-bottom -1)))
+(add-hook 'erc-mode-hook
+          #'(lambda ()
+              (company-mode 0)
+              (local-set-key (kbd "C-l") #'erc-recenter-top-bottom)))
 
 ;; Tetris
 (setq tetris-score-file
