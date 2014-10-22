@@ -85,6 +85,7 @@
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
+(electric-indent-mode 0)
 
 (show-paren-mode 1)
 (setq x-select-enable-clipboard t
