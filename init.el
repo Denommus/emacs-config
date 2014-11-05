@@ -28,8 +28,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(send-mail-function (quote mailclient-send-it))
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
- '(tab-width 4)
- '(wg-emacs-exit-save-behavior nil))
+ '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -104,6 +103,9 @@
                   (interactive)
                   (when (yes-or-no-p "Are you really sure?")
                     (call-interactively #'save-buffers-kill-emacs))))
+
+(global-unset-key (kbd "C-z"))
+(setq projectile-keymap-prefix (kbd "C-z"))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
@@ -317,7 +319,6 @@
               haskell-mode
               projectile
               qml-mode
-              workgroups2
               twittering-mode)))
        (mapc #'(lambda (pkg)
                  (unless (package-installed-p pkg)
@@ -350,17 +351,6 @@
        (define-key slime-repl-mode-map [S-down] #'windmove-down))
      (add-hook 'slime-repl-mode-hook #'custom-repl-mode-hook)
      (add-hook 'slime-mode-hook #'(lambda () (slime-setup '(slime-indentation slime-company))))
-
-     ;; Workgroups
-     (require 'workgroups2)
-     (global-set-key (kbd "C-x b") #'wg-switch-to-buffer)
-     (global-unset-key (kbd "C-z"))
-     (setq wg-prefix-key (kbd "C-z"))
-     (global-set-key (kbd "<C-tab>") #'wg-switch-to-workgroup-right)
-     (global-set-key (kbd "<C-S-tab>") #'wg-switch-to-workgroup-left)
-     (global-set-key (kbd "<C-S-iso-lefttab>") #'wg-switch-to-workgroup-left)
-     (setq wg-use-default-session-file nil)
-     (workgroups-mode 1)
 
      ;; ParEdit
      (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
