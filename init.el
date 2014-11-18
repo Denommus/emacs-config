@@ -310,7 +310,6 @@
               clojure-mode
               company
               company-ghc
-              company-cider
               slime-company
               cider
               yasnippet
