@@ -38,6 +38,7 @@
  '(magit-item-highlight ((t (:background "black"))) t))
 
 ;; Misc
+(require 'cl)
 (setq visible-bell 1)
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-11"))
