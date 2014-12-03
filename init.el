@@ -316,6 +316,7 @@
               magit
               magit-svn
               js2-mode
+              jsx-mode
               slime
               quack
               geiser
@@ -440,6 +441,9 @@
      (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
      (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
      (setq web-mode-markup-indent-offset 4)
+
+     ;; JSX Mode
+     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 
      ;; C code
      (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
