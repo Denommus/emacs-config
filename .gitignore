@@ -18,3 +18,4 @@ server/
 bookmarks
 flycheck_init.el
 /abbrev_defs
+ido.last
