@@ -291,6 +291,10 @@
 (add-hook 'haskell-mode-hook #'ghc-comp-init)
 (add-hook 'haskell-mode-hook #'subword-mode)
 
+;; MPC
+(add-hook 'mpc-mode-hook #'(lambda () (tool-bar-mode 1)))
+(advice-add 'mpc-quit :after #'(lambda () (tool-bar-mode -1)))
+
 ;;After Initialize
 (add-hook
  'after-init-hook
