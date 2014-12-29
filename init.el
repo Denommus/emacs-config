@@ -43,7 +43,6 @@
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
-(add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
 ;;; This function takes the last possible version of GHC mod. I should probably adapt it to be more generic in the future.
 (defun last-ghc-mod ()
   (cl-labels ((compare-versions (v1 v2)
@@ -171,6 +170,7 @@
        (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))))
 
 ;; ERC + Tor
+(setq erc-autojoin-timing 'ident)
 (setq socks-override-functions nil)
 (setq erc-server "irc.freenode.net")
 (setq erc-nick "Denommus")
