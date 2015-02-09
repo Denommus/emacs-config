@@ -468,6 +468,10 @@
      (require 'cmake-mode)
      (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))
 
+     ;; OCaml
+     (add-to-list 'load-path "/home/yuri/.opam/system/share/emacs/site-lisp")
+     (require 'ocp-indent)
+
      ;;Rust
      (add-hook 'rust-mode-hook #'subword-mode)
      (add-hook 'prog-mode-hook #'(lambda ()
