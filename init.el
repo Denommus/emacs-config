@@ -173,7 +173,19 @@
 ;; ERC + Tor
 (require 'erc)
 (require 'erc-sasl)
-(add-to-list 'erc-sasl-server-regexp-list "irc\\.freenode\\.net")
+(add-to-list 'erc-sasl-server-regexp-list
+             ".*")
+(setq erc-sasl-use-sasl t)
+(setq socks-override-functions nil)
+(setq erc-server-connect-function
+      #'(lambda (name buffer host service &rest parameters)
+          (let ((hosts (list "10.40.40.40")))
+            (apply
+             (if (member host hosts)
+                 'socks-open-network-stream
+               'open-network-stream)
+             (append (list name buffer host service) parameters)))))
+(require 'socks)
 (setq erc-autojoin-timing 'ident)
 (setq socks-override-functions nil)
 (setq erc-server "irc.freenode.net")
