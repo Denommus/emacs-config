@@ -43,6 +43,7 @@
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
+(add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
 ;;; This function takes the last possible version of GHC mod. I should probably adapt it to be more generic in the future.
 (defun last-ghc-mod ()
   (cl-labels ((compare-versions (v1 v2)
@@ -170,24 +171,17 @@
        (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))))
 
 ;; ERC + Tor
+(require 'erc)
+(require 'erc-sasl)
+(add-to-list 'erc-sasl-server-regexp-list "irc\\.freenode\\.net")
 (setq erc-autojoin-timing 'ident)
 (setq socks-override-functions nil)
 (setq erc-server "irc.freenode.net")
 (setq erc-nick "Denommus")
 (setq erc-fill-function #'erc-fill-static)
 (setq erc-fill-static-center 15)
-(setq erc-server-connect-function
-      #'(lambda (name buffer host service &rest parameters)
-          (let ((hosts (list "10.40.40.40" "10.40.40.41")))
-            (apply
-             (if (member host hosts)
-                 'socks-open-network-stream
-               'open-network-stream)
-             (append (list name buffer host service) parameters)))))
-(require 'socks)
-(require 'erc)
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "##programming" "#lisp")
+      '(("freenode.net" "#emacs" "##programming" "#lisp" "#haskell" "#ocaml")
         ("mozilla.org" "#rust" "#rust-gamedev")))
 (load-file "~/.emacs.d/erc-better-scroll.el")
 (defun erc-recenter-top-bottom (&optional arg)

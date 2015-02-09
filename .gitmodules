@@ -4,3 +4,6 @@
 [submodule "org-mode"]
 	path = org-mode
 	url = git://orgmode.org/org-mode.git
+[submodule "plugins/erc-sasl"]
+	path = plugins/erc-sasl
+	url = git@github.com:joseph-gay/erc-sasl.git
