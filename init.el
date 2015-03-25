@@ -258,6 +258,16 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
 (require 'org-git-link)
 (setq org-export-with-toc nil)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t)
+   (emacs-lisp . t)
+   (haskell . t)
+   (lisp . t)
+   (ocaml . t)
+   (makefile . t)
+   (calc . t)
+   (ditaa . t)))
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
