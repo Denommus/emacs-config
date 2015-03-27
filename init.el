@@ -319,7 +319,7 @@
      (let ((auto-install-packages
             '(bundler
               flycheck
-              flycheck-haskell
+              flycheck-hdevtools
               tuareg
               auctex
               cmake-mode
@@ -328,7 +328,7 @@
               ggtags
               clojure-mode
               company
-              company-ghc
+              company-ghci
               slime-company
               cider
               yasnippet
@@ -369,7 +369,6 @@
      ;; Haskell
      (add-hook 'haskell-mode-hook #'turn-on-haskell-indent)
      (add-hook 'haskell-mode-hook #'interactive-haskell-mode)
-     (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
      (setenv "PATH" (concat (getenv "HOME") "/.cabal/bin:" (getenv "PATH")))
      (setq exec-path (cons (concat (getenv "HOME") "/.cabal/bin") exec-path))
      (setq haskell-program-name "cabal repl")
@@ -438,8 +437,8 @@
 
      ;; Company
      (global-company-mode 1)
-     (require 'company-ghc)
-     (add-to-list 'company-backends 'company-ghc)
+     (require 'company-ghci)
+     (add-to-list 'company-backends 'company-ghci)
 
      ;; Web Mode
      (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
