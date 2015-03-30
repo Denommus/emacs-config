@@ -44,29 +44,6 @@
              '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
-;;; This function takes the last possible version of GHC mod. I should probably adapt it to be more generic in the future.
-(defun last-ghc-mod ()
-  (cl-labels ((compare-versions (v1 v2)
-                                (let ((version1 (mapcar #'string-to-number (split-string v1 "\.")))
-                                      (version2 (mapcar #'string-to-number (split-string v2 "\."))))
-                                  (cl-labels ((aux (a b)
-                                                   (cond
-                                                    ((eq a nil) t)
-                                                    ((eq b nil) nil)
-                                                    ((= (car a) (car b))
-                                                     (aux (cdr a) (cdr b)))
-                                                    (t (< a b)))))
-                                    (aux version1 version2)))))
-    (let* ((last-ghcs (file-expand-wildcards "~/.cabal/share/x86_64-linux-ghc-*"))
-           (last-ghcs-versions (mapcar (lambda (g) (car (last (split-string g "-")))) last-ghcs))
-           (last-ghc-version (car (sort last-ghcs-versions #'compare-versions)))
-           (last-ghc (concat "~/.cabal/share/x86_64-linux-ghc-" last-ghc-version))
-
-           (last-ghc-mods (file-expand-wildcards (concat last-ghc "/ghc-mod-*")))
-           (last-ghc-mods-versions (mapcar (lambda (g) (car (last (split-string g "-")))) last-ghc-mods))
-           (last-ghc-mod-version (car (sort last-ghc-mods-versions #'compare-versions))))
-      (concat last-ghc "/ghc-mod-" last-ghc-mod-version))))
-(add-to-list 'load-path (last-ghc-mod))
 (add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp" t)
 (require 'org)
@@ -301,10 +278,8 @@
                             (file-name-nondirectory buffer-file-name)))))
 
 ;; GHC
-(require 'ghc)
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook #'ghc-comp-init)
 (add-hook 'haskell-mode-hook #'subword-mode)
 
 ;; MPC
