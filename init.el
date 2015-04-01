@@ -71,8 +71,6 @@
 (global-set-key [s-up] 'windmove-up)
 (global-set-key [s-down] 'windmove-down)
 (put 'dired-find-alternate-file 'disabled nil)
-(ido-mode 1)
-(setq ido-enable-flex-matching t)
 (setq-default indent-tabs-mode nil)
 (add-to-list 'auto-mode-alist '("PKGBUILD" . pkgbuild-mode))
 (put 'upcase-region 'disabled nil)
@@ -115,8 +113,6 @@
   (set-terminal-coding-system 'utf-8)
   (set-keyboard-coding-system 'utf-8)
   (setq default-file-name-coding-system 'cp1252)
-  (add-hook 'ido-minibuffer-setup-hook
-            (lambda () (set-buffer-file-coding-system 'cp1252)))
   ;; From Emacs wiki
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
   ;; MS Windows clipboard is UTF-16LE
@@ -295,6 +291,8 @@
             '(bundler
               flycheck
               flycheck-hdevtools
+              helm
+              helm-projectile
               tuareg
               auctex
               cmake-mode
@@ -332,7 +330,6 @@
               popup
               show-css
               pretty-symbols
-              browse-kill-ring
               haskell-mode
               projectile
               qml-mode
@@ -340,6 +337,19 @@
        (mapc #'(lambda (pkg)
                  (unless (package-installed-p pkg)
                    (package-install pkg))) auto-install-packages))
+
+     ;; Helm
+     (require 'helm)
+     (require 'helm-config)
+     (helm-mode 1)
+     (global-unset-key (kbd "C-x c"))
+     (global-set-key (kbd "C-c h") #'helm-command-prefix)
+     (global-set-key (kbd "M-x") #'helm-M-x)
+     (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
+     (define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
+     (define-key helm-map (kbd "C-z") #'helm-select-action)
+     (global-set-key (kbd "C-c y") #'helm-show-kill-ring)
+     (global-set-key (kbd "C-x C-f") #'helm-find-files)
 
      ;; Haskell
      (add-hook 'haskell-mode-hook #'turn-on-haskell-indent)
@@ -453,6 +463,8 @@
      (projectile-global-mode 1)
      (setq projectile-indexing-method 'alien)
      ;;(setq projectile-enable-caching nil)
+     (require 'helm-projectile)
+     (helm-projectile-on)
 
      ;; Magit
      (add-hook 'magit-mode-hook
