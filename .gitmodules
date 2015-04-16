@@ -7,3 +7,6 @@
 [submodule "plugins/erc-sasl"]
 	path = plugins/erc-sasl
 	url = git@github.com:joseph-gay/erc-sasl.git
+[submodule "plugins/org-ox-bbcode"]
+	path = plugins/org-ox-bbcode
+	url = https://github.com/Denommus/org-ox-bbcode

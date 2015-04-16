@@ -46,6 +46,7 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
 (add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
 (add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp" t)
+(add-to-list 'load-path "~/.emacs.d/plugins/org-ox-bbcode")
 (require 'org)
 (setq make-backup-files nil)
 (setq gnus-button-url 'browse-url-generic
@@ -242,6 +243,7 @@
    (calc . t)
    (ditaa . t)))
 (eval-after-load 'ox '(require 'ox-koma-letter))
+(eval-after-load 'ox '(require 'ox-bbcode))
 (eval-after-load 'ox-koma-letter
   '(progn
      (add-to-list 'org-latex-classes
@@ -255,6 +257,7 @@
      (setq org-koma-letter-default-class "letter")))
 (eval-after-load 'ox-latex
   '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
+(require 'ox)
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
