@@ -494,7 +494,10 @@
      (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))
 
      ;; OCaml
-     (add-to-list 'load-path "/home/yuri/.opam/system/share/emacs/site-lisp")
+     (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+     (setq opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1))
+     (setq ocp-indent-path (concat opam-bin "/ocp-indent"))
+     (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
      (require 'ocp-indent)
 
      ;;Rust
