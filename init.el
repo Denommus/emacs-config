@@ -497,8 +497,11 @@
      (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
      (setq opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1))
      (setq ocp-indent-path (concat opam-bin "/ocp-indent"))
+     (setq merlin-command (concat opam-bin "/ocamlmerlin"))
      (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
      (require 'ocp-indent)
+     (require 'merlin)
+     (add-hook 'tuareg-mode-hook #'merlin-mode)
 
      ;;Rust
      (add-hook 'rust-mode-hook #'subword-mode)
