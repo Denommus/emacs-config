@@ -502,6 +502,7 @@
      (require 'ocp-indent)
      (require 'merlin)
      (add-hook 'tuareg-mode-hook #'merlin-mode)
+     (add-to-list 'company-backends 'merlin-company-backend)
 
      ;;Rust
      (add-hook 'rust-mode-hook #'subword-mode)
