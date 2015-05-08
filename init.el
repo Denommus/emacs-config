@@ -463,6 +463,7 @@
                #'(lambda ()
                    (c-set-style "qt")
                    (subword-mode 1)))
+     (setq flycheck-clang-language-standard "c++14")
 
      ;; Undo tree
      (global-undo-tree-mode 1)
