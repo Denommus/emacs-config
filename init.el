@@ -307,7 +307,7 @@
      (let ((auto-install-packages
             '(bundler
               flycheck
-              flycheck-hdevtools
+              flycheck-haskell
               helm
               helm-projectile
               tuareg
@@ -379,6 +379,7 @@
      ;; Flycheck
      (setq sentence-end-double-space nil)
      (global-flycheck-mode)
+     (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
 
      ;; SLIME
      (load (expand-file-name "~/quicklisp/slime-helper.el"))
