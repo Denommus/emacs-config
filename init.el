@@ -149,7 +149,7 @@
 (require 'erc-sasl)
 (add-to-list 'erc-sasl-server-regexp-list
              ".*")
-(setq erc-sasl-use-sasl t)
+(setq erc-sasl-server-regexp-list '("irc\\.freenode\\.net"))
 (setq socks-override-functions nil)
 (setq erc-server-connect-function
       #'(lambda (name buffer host service &rest parameters)
