@@ -105,6 +105,15 @@
 
 (global-unset-key (kbd "C-z"))
 (setq projectile-keymap-prefix (kbd "C-z"))
+(defun empty-trash (decision)
+  (interactive (list (yes-or-no-p "Really empty the trash? ")))
+  (if decision
+      (let ((delete-by-moving-to-trash nil))
+        (cl-loop for directory in '("~/.local/share/Trash/files/"
+                                    "~/.local/share/Trash/info/")
+                 do (cl-loop for file in (directory-files directory)
+                          unless (or (string= file ".") (string= file ".."))
+                          do (delete-file (concat directory file)))))))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
