@@ -514,7 +514,7 @@
      (require 'merlin)
      (add-hook 'tuareg-mode-hook #'merlin-mode)
      (add-to-list 'company-backends 'merlin-company-backend)
-     (add-to-list 'auto-mode-alist '("\\.mly\\'" . 'tuareg-mode))
+     (add-to-list 'auto-mode-alist '("\\.mly\\'" . tuareg-mode))
 
      ;;Rust
      (add-hook 'rust-mode-hook #'subword-mode)
