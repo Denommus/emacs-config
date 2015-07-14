@@ -342,7 +342,6 @@
               csharp-mode
               dired+
               org-mime
-              git-commit-mode
               gitconfig-mode
               web-mode
               lua-mode
