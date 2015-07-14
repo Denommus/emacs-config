@@ -498,6 +498,7 @@
                #'(lambda ()
                    (require 'magit-svn)
                    (local-set-key (kbd "V") #'magit-key-mode-popup-svn)))
+     (setq magit-last-seen-setup-instructions "1.4.0")
 
      ;; CMake
      (require 'cmake-mode)
