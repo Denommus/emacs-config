@@ -378,7 +378,7 @@
      (global-set-key (kbd "C-x C-f") #'helm-find-files)
 
      ;; Haskell
-     (add-hook 'haskell-mode-hook #'turn-on-haskell-indent)
+     (add-hook 'haskell-mode-hook #'turn-on-haskell-indentation)
      (add-hook 'haskell-mode-hook #'interactive-haskell-mode)
      (setenv "PATH" (concat (getenv "HOME") "/.cabal/bin:" (getenv "PATH")))
      (setq exec-path (cons (concat (getenv "HOME") "/.cabal/bin") exec-path))
