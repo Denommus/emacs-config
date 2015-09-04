@@ -268,6 +268,14 @@
   '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
 (require 'ox)
 
+(setq org2blog/wp-blog-alist
+      '(("dharmaprogramming"
+         :url "https://dharmaprogramming.wordpress.com/xmlrpc.php"
+         :username "Denommus"
+         :default-title "Hello World"
+         :default-categories ("org2blog" "emacs")
+         :tags-as-categories nil)))
+
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
 (setq calendar-and-diary-frame-parameters
