@@ -26,7 +26,6 @@
  '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track truncate)))
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
- '(send-mail-function (quote mailclient-send-it))
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
  '(tab-width 4))
 (custom-set-faces
@@ -210,14 +209,14 @@
 (setq bbdb-complete-name-allow-cycling t)
 
 ;; Mail
-(setq read-mail-command 'mew)
-(setq mail-user-agent 'mew-user-agent)
-(define-mail-user-agent
-  'mew-user-agent
-  'mew-user-agent-compose
-  'mew-draft-send-message
-  'mew-draft-kill
-  'mew-send-hook)
+(setq message-send-mail-function 'smtpmail-send-it) ; if you use message/Gnus
+(setq send-mail-function 'smtpmail-send-it)
+(setq user-full-name "Yuri Albuquerque")
+(setq user-mail-address "yurialbuquerque@galileostudio.com.br")
+(setq smtpmail-default-smtp-server "smtp.galileostudio.com.br") ; set before loading library
+(setq smtpmail-smtp-service 587)
+(setq compose-mail-user-agent-warnings nil)
+(setq smtpmail-debug-info t) ; only to debug problems
 
 ;;Org-Mode
 (setq org-log-done 'time)
