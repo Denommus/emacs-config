@@ -23,9 +23,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(erc-ignore-list (quote ("ihatehex" "ams")))
- '(erc-modules (quote (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track truncate)))
+ '(erc-modules
+   (quote
+    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track truncate)))
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
+ '(org-agenda-files
+   (quote
+    ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
  '(tab-width 4))
 (custom-set-faces
@@ -33,8 +37,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 110 :family "Anonymous Pro"))))
- '(magit-item-highlight ((t (:background "black"))) t))
+ '(default ((t (:height 110 :family "Anonymous Pro")))))
 
 ;; Misc
 (require 'cl)
@@ -126,10 +129,6 @@
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
   ;; MS Windows clipboard is UTF-16LE
   (set-clipboard-coding-system 'utf-16le-dos))
-
-;; Emacs theme
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'wilson t)
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
@@ -527,6 +526,10 @@
      (add-hook 'rust-mode-hook #'subword-mode)
      (add-hook 'prog-mode-hook #'(lambda ()
                                    (when (derived-mode-p 'rust-mode)
-                                     (ggtags-mode 1))))))
+                                     (ggtags-mode 1))))
+
+     ;; Emacs theme
+     (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+     (load-theme 'birds-of-paradise-plus t)))
 (provide 'init)
 ;;; init.el ends here
