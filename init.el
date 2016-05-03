@@ -364,6 +364,7 @@
               haskell-mode
               projectile
               qml-mode
+              cyberpunk-theme
               twittering-mode)))
        (mapc #'(lambda (pkg)
                  (unless (package-installed-p pkg)
@@ -531,6 +532,6 @@
 
      ;; Emacs theme
      (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-     (load-theme 'birds-of-paradise-plus t)))
+     (load-theme 'cyberpunk t)))
 (provide 'init)
 ;;; init.el ends here
