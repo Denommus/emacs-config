@@ -143,7 +143,7 @@
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
 
 ;; Ruby
-(add-hook 'ruby-mode-hook 'zossima-mode)
+(add-hook 'ruby-mode-hook 'robe-mode)
 (cond ((eq system-type 'windows-nt)
        (setenv "PATH" (concat "C:\\Program Files (x86)\\Git\\bin;" (getenv "PATH")))
        (setq exec-path (cons "C:\\Program Files (x86)\\Git\\bin" exec-path)))
@@ -355,7 +355,7 @@
               mew
               ruby-compilation
               rinari
-              zossima
+              robe
               yaml-mode
               undo-tree
               popup
@@ -456,6 +456,7 @@
      (global-company-mode 1)
      (require 'company-ghci)
      (add-to-list 'company-backends 'company-ghci)
+     (add-to-list 'company-backends 'company-robe)
 
      ;; Web Mode
      (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
