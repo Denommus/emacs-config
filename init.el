@@ -344,7 +344,7 @@
               slime
               quack
               geiser
-              paredit
+              smartparens
               csharp-mode
               dired+
               org-mime
@@ -408,22 +408,23 @@
      (add-hook 'slime-repl-mode-hook #'custom-repl-mode-hook)
      (add-hook 'slime-mode-hook #'(lambda () (slime-setup '(slime-indentation slime-company))))
 
-     ;; ParEdit
-     (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-     (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-     (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-     (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-     (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-     (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-     (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-     (add-hook 'geiser-repl-mode-hook      #'enable-paredit-mode)
-     (add-hook 'clojure-mode-hook          #'enable-paredit-mode)
-     (add-hook 'slime-repl-mode-hook #'(lambda () (paredit-mode +1)))
-     (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
-     (defun override-slime-repl-bindings-with-paredit ()
-       (define-key slime-repl-mode-map
-         (read-kbd-macro paredit-backward-delete-key) nil))
-     (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
+
+     ;; SmartParens
+     (require 'smartparens-config)
+     (defun enable-smartparens-mode ()
+       (smartparens-mode +1))
+     (add-hook 'js2-mode-hook #'enable-smartparens-mode)
+     (add-hook 'emacs-lisp-mode-hook       #'enable-smartparens-mode)
+     (add-hook 'eval-expression-minibuffer-setup-hook #'enable-smartparens-mode)
+     (add-hook 'ielm-mode-hook             #'enable-smartparens-mode)
+     (add-hook 'lisp-mode-hook             #'enable-smartparens-mode)
+     (add-hook 'lisp-interaction-mode-hook #'enable-smartparens-mode)
+     (add-hook 'scheme-mode-hook           #'enable-smartparens-mode)
+     (add-hook 'geiser-repl-mode-hook      #'enable-smartparens-mode)
+     (add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
+     (add-hook 'slime-repl-mode-hook #'enable-smartparens-mode)
+     (add-hook 'cider-repl-mode-hook #'enable-smartparens-mode)
+     (add-hook 'ruby-mode #'enable-smartparens-mode)
 
      ;; Ruby
      (global-rinari-mode)
