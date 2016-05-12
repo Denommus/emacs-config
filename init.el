@@ -325,7 +325,6 @@
               flycheck-haskell
               helm
               helm-projectile
-              tuareg
               auctex
               cmake-mode
               toml-mode
@@ -334,14 +333,12 @@
               clojure-mode
               company
               company-ghci
-              slime-company
               cider
               yasnippet
               magit
               magit-svn
               js2-mode
               jsx-mode
-              slime
               quack
               geiser
               smartparens
@@ -395,19 +392,6 @@
      (setq sentence-end-double-space nil)
      (global-flycheck-mode)
      (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
-
-     ;; SLIME
-     (load (expand-file-name "~/quicklisp/slime-helper.el"))
-     (setq inferior-lisp-program
-           (if (eq system-type 'windows-nt)
-               "wx86cl64"
-             "sbcl --noinform --no-linedit"))
-     (defun custom-repl-mode-hook ()
-       (define-key slime-repl-mode-map [S-up] #'windmove-up)
-       (define-key slime-repl-mode-map [S-down] #'windmove-down))
-     (add-hook 'slime-repl-mode-hook #'custom-repl-mode-hook)
-     (add-hook 'slime-mode-hook #'(lambda () (slime-setup '(slime-indentation slime-company))))
-
 
      ;; SmartParens
      (require 'smartparens-config)
@@ -512,18 +496,6 @@
      ;; CMake
      (require 'cmake-mode)
      (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))
-
-     ;; OCaml
-     (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-     (setq opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1))
-     (setq ocp-indent-path (concat opam-bin "/ocp-indent"))
-     (setq merlin-command (concat opam-bin "/ocamlmerlin"))
-     (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-     (require 'ocp-indent)
-     (require 'merlin)
-     (add-hook 'tuareg-mode-hook #'merlin-mode)
-     (add-to-list 'company-backends 'merlin-company-backend)
-     (add-to-list 'auto-mode-alist '("\\.mly\\'" . tuareg-mode))
 
      ;;Rust
      (add-hook 'rust-mode-hook #'subword-mode)
