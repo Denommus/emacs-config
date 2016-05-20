@@ -14,4 +14,5 @@
         helm-M-x
         isearch-abort
         isearch-delete-char
+        yas-expand
         ))
