@@ -248,7 +248,9 @@
    (ocaml . t)
    (makefile . t)
    (calc . t)
-   (ditaa . t)))
+   (ditaa . t)
+   (js . t)
+   (ruby . t)))
 (eval-after-load 'ox '(require 'ox-koma-letter))
 (eval-after-load 'ox '(require 'ox-bbcode))
 (eval-after-load 'ox-koma-letter
