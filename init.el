@@ -266,6 +266,14 @@
      (setq org-koma-letter-default-class "letter")))
 (eval-after-load 'ox-latex
   '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
+(eval-after-load 'ox-latex
+  '(add-to-list 'org-latex-packages-alist '("" "minted")))
+(eval-after-load 'ox-latex
+  '(setq org-latex-listings 'minted))
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 (require 'ox)
 
 (setq org2blog/wp-blog-alist
