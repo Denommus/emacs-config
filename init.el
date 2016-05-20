@@ -417,6 +417,8 @@
      (require 'js2-mode)
      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
      (global-set-key (kbd "<f5>") #'slime-js-reload)
+     (setq js2-basic-offset 2)
+     (setq js-indent-level 2)
 
 
      ;; Pretty Symbols
