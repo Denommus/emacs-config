@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: example
+# key: ex
+# --
+example '$1' do
+  $0
+end
