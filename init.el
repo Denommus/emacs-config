@@ -410,7 +410,8 @@
      (add-hook 'lisp-interaction-mode-hook #'enable-smartparens-mode)
      (add-hook 'scheme-mode-hook           #'enable-smartparens-mode)
      (add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
-     (add-hook 'ruby-mode #'enable-smartparens-mode)
+     (add-hook 'ruby-mode-hook #'enable-smartparens-mode)
+     (require 'smartparens-haskell)
 
      ;; Ruby
      (global-rinari-mode)
