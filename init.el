@@ -343,14 +343,10 @@
               clojure-mode
               company
               company-ghci
-              cider
               yasnippet
               magit
               magit-svn
               js2-mode
-              jsx-mode
-              quack
-              geiser
               smartparens
               csharp-mode
               dired+
@@ -367,7 +363,6 @@
               undo-tree
               popup
               show-css
-              pretty-symbols
               haskell-mode
               projectile
               qml-mode
@@ -414,10 +409,7 @@
      (add-hook 'lisp-mode-hook             #'enable-smartparens-mode)
      (add-hook 'lisp-interaction-mode-hook #'enable-smartparens-mode)
      (add-hook 'scheme-mode-hook           #'enable-smartparens-mode)
-     (add-hook 'geiser-repl-mode-hook      #'enable-smartparens-mode)
      (add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
-     (add-hook 'slime-repl-mode-hook #'enable-smartparens-mode)
-     (add-hook 'cider-repl-mode-hook #'enable-smartparens-mode)
      (add-hook 'ruby-mode #'enable-smartparens-mode)
 
      ;; Ruby
@@ -426,18 +418,9 @@
      ;; JS2-Mode
      (require 'js2-mode)
      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-     (global-set-key (kbd "<f5>") #'slime-js-reload)
      (setq js2-basic-offset 2)
      (setq js-indent-level 2)
-
-
-     ;; Pretty Symbols
-     (add-to-list 'pretty-symbol-categories 'relational)
-     (add-to-list 'pretty-symbol-categories 'misc)
-     (add-hook 'lisp-mode-hook #'pretty-symbols-mode)
-     (add-hook 'emacs-lisp-mode-hook #'pretty-symbols-mode)
-     (add-hook 'c-mode-common-hook #'pretty-symbols-mode)
-     (add-hook 'js2-mode-hook #'pretty-symbols-mode)
+     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
 
      ;; Twittering mode
      (add-hook 'twittering-mode-hook
@@ -467,9 +450,6 @@
      (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
      (setq web-mode-markup-indent-offset 4)
 
-     ;; JSX Mode
-     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-
      ;; C code
      (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
@@ -481,15 +461,6 @@
 
      ;; Undo tree
      (global-undo-tree-mode 1)
-
-     ;; Quack
-     (require 'quack)
-
-     ;; Geiser
-     (require 'geiser)
-     (require 'scheme)
-     (define-key scheme-mode-map "\C-c\C-c"
-       #'geiser-compile-definition)
 
      ;; Projectile
      (projectile-global-mode 1)
