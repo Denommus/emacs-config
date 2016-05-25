@@ -347,6 +347,8 @@
               magit
               magit-svn
               js2-mode
+              bind-key
+              hydra
               smartparens
               csharp-mode
               dired+
@@ -412,6 +414,7 @@
      (add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
      (add-hook 'ruby-mode-hook #'enable-smartparens-mode)
      (require 'smartparens-haskell)
+     (load-file "~/.emacs.d/smartparens.el")
 
      ;; Ruby
      (global-rinari-mode)
