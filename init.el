@@ -436,6 +436,7 @@
      (require 'yasnippet)
      (yas-global-mode 1)
      (yas-load-directory "~/.emacs.d/snippets" t)
+     (add-hook 'term-mode-hook #'(lambda () (yas-minor-mode -1)))
 
      ;; Company
      (global-company-mode 1)
