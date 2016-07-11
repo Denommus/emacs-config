@@ -46,8 +46,6 @@
              '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
-(add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
-(add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp" t)
 (add-to-list 'load-path "~/.emacs.d/plugins/org-ox-bbcode")
 (require 'org)
 (setq make-backup-files nil)
@@ -114,8 +112,8 @@
         (cl-loop for directory in '("~/.local/share/Trash/files/"
                                     "~/.local/share/Trash/info/")
                  do (cl-loop for file in (directory-files directory)
-                          unless (or (string= file ".") (string= file ".."))
-                          do (delete-file (concat directory file)))))))
+                             unless (or (string= file ".") (string= file ".."))
+                             do (delete-file (concat directory file)))))))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
@@ -217,72 +215,6 @@
 (setq compose-mail-user-agent-warnings nil)
 (setq smtpmail-debug-info t) ; only to debug problems
 
-;;Org-Mode
-(setq org-log-done 'time)
-(setq org-agenda-include-diary t)
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(setq org-directory "~/Dropbox/org")
-(setq org-default-notes-file (concat org-directory "/capture.org"))
-(setq org-mobile-inbox-for-pull (concat org-directory "/mobile.org"))
-(setq org-mobile-directory (concat org-directory "/MobileOrg"))
-(load "~/.emacs.d/plugins/brazilian-holidays.el")
-(add-hook 'org-mode-hook 'visual-line-mode)
-(defun org-bindings ()
-  (local-set-key (kbd "M-n") #'org-move-item-down)
-  (local-set-key (kbd "M-p") #'org-move-item-up)
-  (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
-  (local-set-key (kbd "C-M-p") #'org-move-subtree-up))
-(add-hook 'org-mode-hook #'org-bindings)
-(add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
-(require 'org-git-link)
-(setq org-export-with-toc nil)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((dot . t)
-   (emacs-lisp . t)
-   (haskell . t)
-   (lisp . t)
-   (ocaml . t)
-   (makefile . t)
-   (calc . t)
-   (ditaa . t)
-   (js . t)
-   (ruby . t)))
-(eval-after-load 'ox '(require 'ox-koma-letter))
-(eval-after-load 'ox '(require 'ox-bbcode))
-(eval-after-load 'ox-koma-letter
-  '(progn
-     (add-to-list 'org-latex-classes
-                  '("letter"
-                    "\\documentclass\{scrlttr2\}
-     \\usepackage[english]{babel}
-     \\setkomavar{frombank}{(1234)\\,567\\,890}
-     \[DEFAULT-PACKAGES]
-     \[PACKAGES]
-     \[EXTRA]"))
-     (setq org-koma-letter-default-class "letter")))
-(eval-after-load 'ox-latex
-  '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
-(eval-after-load 'ox-latex
-  '(add-to-list 'org-latex-packages-alist '("" "minted")))
-(eval-after-load 'ox-latex
-  '(setq org-latex-listings 'minted))
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-(require 'ox)
-
-(setq org2blog/wp-blog-alist
-      '(("dharmaprogramming"
-         :url "https://dharmaprogramming.wordpress.com/xmlrpc.php"
-         :username "Denommus"
-         :default-title "Hello World"
-         :default-categories ("org2blog" "emacs")
-         :tags-as-categories nil)))
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
@@ -363,6 +295,7 @@
               robe
               yaml-mode
               undo-tree
+              org
               popup
               show-css
               haskell-mode
@@ -491,8 +424,68 @@
                                    (when (derived-mode-p 'rust-mode)
                                      (ggtags-mode 1))))
 
+     ;; Winner
+     (winner-mode 1)
+     (global-set-key (kbd "C-c f") #'winner-redo)
+     (global-set-key (kbd "C-c b") #'winner-undo)
+
      ;; Emacs theme
      (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-     (load-theme 'cyberpunk t)))
+     (load-theme 'cyberpunk t)
+
+     ;;Org-Mode
+     (setq org-log-done 'time)
+     (setq org-agenda-include-diary t)
+     (global-set-key "\C-cl" 'org-store-link)
+     (global-set-key "\C-cc" 'org-capture)
+     (global-set-key "\C-ca" 'org-agenda)
+     (global-set-key "\C-cb" 'org-iswitchb)
+     (setq org-directory "~/Dropbox/org")
+     (setq org-default-notes-file (concat org-directory "/capture.org"))
+     (setq org-mobile-inbox-for-pull (concat org-directory "/mobile.org"))
+     (setq org-mobile-directory (concat org-directory "/MobileOrg"))
+     (load "~/.emacs.d/plugins/brazilian-holidays.el")
+     (add-hook 'org-mode-hook 'visual-line-mode)
+     (defun org-bindings ()
+       (local-set-key (kbd "M-n") #'org-move-item-down)
+       (local-set-key (kbd "M-p") #'org-move-item-up)
+       (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
+       (local-set-key (kbd "C-M-p") #'org-move-subtree-up))
+     (add-hook 'org-mode-hook #'org-bindings)
+     (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
+     (require 'org-git-link)
+     (setq org-export-with-toc nil)
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((dot . t)
+        (emacs-lisp . t)
+        (haskell . t)
+        (lisp . t)
+        (ocaml . t)
+        (makefile . t)
+        (calc . t)
+        (ditaa . t)
+        (js . t)
+        (ruby . t)))
+     (eval-after-load 'ox '(require 'ox-bbcode))
+     (eval-after-load 'ox-latex
+       '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
+     (eval-after-load 'ox-latex
+       '(add-to-list 'org-latex-packages-alist '("" "minted")))
+     (eval-after-load 'ox-latex
+       '(setq org-latex-listings 'minted))
+     (setq org-latex-pdf-process
+           '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+     (require 'ox)
+
+     (setq org2blog/wp-blog-alist
+           '(("dharmaprogramming"
+              :url "https://dharmaprogramming.wordpress.com/xmlrpc.php"
+              :username "Denommus"
+              :default-title "Hello World"
+              :default-categories ("org2blog" "emacs")
+              :tags-as-categories nil)))))
 (provide 'init)
 ;;; init.el ends here
