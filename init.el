@@ -103,8 +103,7 @@
                   (when (yes-or-no-p "Are you really sure?")
                     (call-interactively #'save-buffers-kill-emacs))))
 
-(global-unset-key (kbd "C-z"))
-(setq projectile-keymap-prefix (kbd "C-z"))
+(setq projectile-keymap-prefix (kbd "C-c"))
 (defun empty-trash (decision)
   (interactive (list (yes-or-no-p "Really empty the trash? ")))
   (if decision
@@ -288,6 +287,7 @@
               gitconfig-mode
               web-mode
               lua-mode
+              elscreen
               ruby-block
               mew
               ruby-compilation
@@ -486,6 +486,11 @@
               :username "Denommus"
               :default-title "Hello World"
               :default-categories ("org2blog" "emacs")
-              :tags-as-categories nil)))))
+              :tags-as-categories nil)))
+
+     ;; Elscreen
+     (elscreen-start)
+     (global-set-key (kbd "<C-tab>") #'elscreen-next)
+     (global-set-key (kbd "<C-iso-lefttab>") #'elscreen-previous)))
 (provide 'init)
 ;;; init.el ends here
