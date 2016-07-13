@@ -411,7 +411,8 @@
      (add-hook 'magit-mode-hook
                #'(lambda ()
                    (require 'magit-svn)
-                   (local-set-key (kbd "V") #'magit-key-mode-popup-svn)))
+                   (local-set-key (kbd "V") #'magit-key-mode-popup-svn)
+                   (local-unset-key (kbd "<C-tab>"))))
      (setq magit-last-seen-setup-instructions "1.4.0")
 
      ;; CMake
