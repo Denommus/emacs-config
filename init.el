@@ -46,8 +46,6 @@
              '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
-(add-to-list 'load-path "~/.emacs.d/plugins/org-ox-bbcode")
-(require 'org)
 (setq make-backup-files nil)
 (setq gnus-button-url 'browse-url-generic
       browse-url-generic-program (if (eq system-type 'windows-nt)
@@ -435,6 +433,8 @@
      (load-theme 'cyberpunk t)
 
      ;;Org-Mode
+     (add-to-list 'load-path "~/.emacs.d/plugins/org-ox-bbcode")
+     (require 'org)
      (setq org-log-done 'time)
      (setq org-agenda-include-diary t)
      (global-set-key "\C-cl" 'org-store-link)
