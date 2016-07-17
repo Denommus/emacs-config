@@ -253,6 +253,18 @@
 (add-hook 'mpc-mode-hook #'(lambda () (tool-bar-mode 1)))
 (advice-add 'mpc-quit :after #'(lambda () (tool-bar-mode -1)))
 
+(defun delete-file-and-buffer ()
+  "Kills the current buffer and the file that it is visiting"
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (if (vc-backend filename)
+          (vc-delete-file filename)
+        (progn
+          (delete-file filename)
+          (message "Deleted file %s" filename)
+          (kill-buffer))))))
+
 ;;After Initialize
 (add-hook
  'after-init-hook
