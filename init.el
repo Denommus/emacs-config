@@ -501,6 +501,21 @@
               :default-categories ("org2blog" "emacs")
               :tags-as-categories nil)))
 
+     ;; OCaml
+     (when (executable-find "opam")
+       (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+             (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
+         (add-to-list 'exec-path opam-bin)
+         (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+         (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
+           (setenv (car var) (cadr var)))
+
+         (require 'ocp-indent)
+         (require 'merlin)
+         (setq merlin-command "ocamlmerlin")
+         (add-hook 'tuareg-mode-hook #'merlin-mode)
+         (add-hook 'caml-mode-hook #'merlin-mode)))
+
      ;; Elscreen
      (elscreen-start)
      (global-set-key (kbd "<C-tab>") #'elscreen-next)
