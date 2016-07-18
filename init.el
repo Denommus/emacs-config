@@ -442,6 +442,8 @@
 
      ;; Emacs theme
      (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+     (defadvice load-theme (before theme-dont-propagate activate)
+       (mapcar #'disable-theme custom-enabled-themes))
      (load-theme 'cyberpunk t)
 
      ;;Org-Mode
