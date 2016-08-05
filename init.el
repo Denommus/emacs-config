@@ -101,7 +101,7 @@
                   (when (yes-or-no-p "Are you really sure?")
                     (call-interactively #'save-buffers-kill-emacs))))
 
-(setq projectile-keymap-prefix (kbd "C-c"))
+(setq projectile-keymap-prefix (kbd "C-z"))
 (defun empty-trash (decision)
   (interactive (list (yes-or-no-p "Really empty the trash? ")))
   (if decision
@@ -522,6 +522,7 @@
          (add-hook 'caml-mode-hook #'merlin-mode)))
 
      ;; Elscreen
+     (setq elscreen-prefix-key (kbd "s-z"))
      (elscreen-start)
      (global-set-key (kbd "<C-tab>") #'elscreen-next)
      (global-set-key (kbd "<C-iso-lefttab>") #'elscreen-previous)))
