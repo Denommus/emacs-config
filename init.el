@@ -413,6 +413,7 @@
      ;; Projectile
      (projectile-global-mode 1)
      (setq projectile-indexing-method 'alien)
+     (setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower because of the mode line
      ;;(setq projectile-enable-caching nil)
      (require 'helm-projectile)
      (helm-projectile-on)
