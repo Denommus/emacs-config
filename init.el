@@ -17,19 +17,44 @@
 ;;;;along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Code:
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
+ '(custom-safe-themes
+   (quote
+    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(erc-ignore-list (quote ("ihatehex" "ams")))
  '(erc-modules
    (quote
     (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track truncate)))
+ '(fci-rule-color "#383838")
  '(inhibit-startup-screen t)
  '(org-agenda-files
    (quote
     ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
+ '(package-selected-packages
+   (quote
+    (multiple-cursors nix-mode feature-mode color-theme-solarized tuareg yasnippet yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css rust-mode ruby-block robe rinari qml-mode org-mime org mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags flycheck-haskell elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+ '(safe-local-variable-values
+   (quote
+    ((web-mode-engines-alist
+      ("django" . "*\\.html\\'"))
+     (ruby-compilation-executable . "ruby")
+     (ruby-compilation-executable . "ruby1.8")
+     (ruby-compilation-executable . "ruby1.9")
+     (ruby-compilation-executable . "rbx")
+     (ruby-compilation-executable . "jruby"))))
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
  '(tab-width 4))
 (custom-set-faces
@@ -265,267 +290,217 @@
           (message "Deleted file %s" filename)
           (kill-buffer))))))
 
-;;After Initialize
-(add-hook
- 'after-init-hook
- #'(lambda ()
-     ;; Packages
-     (let ((auto-install-packages
-            '(bundler
-              flycheck
-              flycheck-haskell
-              helm
-              helm-projectile
-              auctex
-              cmake-mode
-              toml-mode
-              rust-mode
-              ggtags
-              clojure-mode
-              company
-              company-ghci
-              yasnippet
-              magit
-              magit-svn
-              js2-mode
-              bind-key
-              hydra
-              smartparens
-              csharp-mode
-              dired+
-              org-mime
-              gitconfig-mode
-              web-mode
-              lua-mode
-              elscreen
-              ruby-block
-              mew
-              ruby-compilation
-              rinari
-              robe
-              yaml-mode
-              undo-tree
-              org
-              popup
-              show-css
-              haskell-mode
-              projectile
-              qml-mode
-              cyberpunk-theme
-              twittering-mode)))
-       (mapc #'(lambda (pkg)
-                 (unless (package-installed-p pkg)
-                   (package-install pkg))) auto-install-packages))
+;; Helm
+(require 'helm)
+(require 'helm-config)
+(helm-mode 1)
+(global-unset-key (kbd "C-x c"))
+(global-set-key (kbd "C-c h") #'helm-command-prefix)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-z") #'helm-select-action)
+(global-set-key (kbd "C-c y") #'helm-show-kill-ring)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
 
-     ;; Helm
-     (require 'helm)
-     (require 'helm-config)
-     (helm-mode 1)
-     (global-unset-key (kbd "C-x c"))
-     (global-set-key (kbd "C-c h") #'helm-command-prefix)
-     (global-set-key (kbd "M-x") #'helm-M-x)
-     (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-     (define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
-     (define-key helm-map (kbd "C-z") #'helm-select-action)
-     (global-set-key (kbd "C-c y") #'helm-show-kill-ring)
-     (global-set-key (kbd "C-x C-f") #'helm-find-files)
+;; Haskell
+(add-hook 'haskell-mode-hook #'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook #'interactive-haskell-mode)
+(setenv "PATH" (concat (getenv "HOME") "/.cabal/bin:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.cabal/bin") exec-path))
+(setq haskell-program-name "cabal repl")
+(setq haskell-process-type 'cabal-repl)
 
-     ;; Haskell
-     (add-hook 'haskell-mode-hook #'turn-on-haskell-indentation)
-     (add-hook 'haskell-mode-hook #'interactive-haskell-mode)
-     (setenv "PATH" (concat (getenv "HOME") "/.cabal/bin:" (getenv "PATH")))
-     (setq exec-path (cons (concat (getenv "HOME") "/.cabal/bin") exec-path))
-     (setq haskell-program-name "cabal repl")
-     (setq haskell-process-type 'cabal-repl)
+;; Flycheck
+(setq sentence-end-double-space nil)
+(global-flycheck-mode)
+(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
 
-     ;; Flycheck
-     (setq sentence-end-double-space nil)
-     (global-flycheck-mode)
-     (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+;; SmartParens
+(require 'smartparens-config)
+(defun enable-smartparens-mode ()
+  (smartparens-mode +1))
+(add-hook 'js2-mode-hook #'enable-smartparens-mode)
+(add-hook 'emacs-lisp-mode-hook       #'enable-smartparens-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-smartparens-mode)
+(add-hook 'ielm-mode-hook             #'enable-smartparens-mode)
+(add-hook 'lisp-mode-hook             #'enable-smartparens-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-smartparens-mode)
+(add-hook 'scheme-mode-hook           #'enable-smartparens-mode)
+(add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
+(add-hook 'ruby-mode-hook #'enable-smartparens-mode)
+(require 'smartparens-haskell)
+(load-file "~/.emacs.d/smartparens.el")
 
-     ;; SmartParens
-     (require 'smartparens-config)
-     (defun enable-smartparens-mode ()
-       (smartparens-mode +1))
-     (add-hook 'js2-mode-hook #'enable-smartparens-mode)
-     (add-hook 'emacs-lisp-mode-hook       #'enable-smartparens-mode)
-     (add-hook 'eval-expression-minibuffer-setup-hook #'enable-smartparens-mode)
-     (add-hook 'ielm-mode-hook             #'enable-smartparens-mode)
-     (add-hook 'lisp-mode-hook             #'enable-smartparens-mode)
-     (add-hook 'lisp-interaction-mode-hook #'enable-smartparens-mode)
-     (add-hook 'scheme-mode-hook           #'enable-smartparens-mode)
-     (add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
-     (add-hook 'ruby-mode-hook #'enable-smartparens-mode)
-     (require 'smartparens-haskell)
-     (load-file "~/.emacs.d/smartparens.el")
+;; Ruby
+(global-rinari-mode)
 
-     ;; Ruby
-     (global-rinari-mode)
+;; JS2-Mode
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(setq js2-basic-offset 2)
+(setq js-indent-level 2)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
 
-     ;; JS2-Mode
-     (require 'js2-mode)
-     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-     (setq js2-basic-offset 2)
-     (setq js-indent-level 2)
-     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
+;; Twittering mode
+(add-hook 'twittering-mode-hook
+          #'(lambda ()
+              (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
+              (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 
-     ;; Twittering mode
-     (add-hook 'twittering-mode-hook
-               #'(lambda ()
-                   (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
-                   (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
+;; YASnippet
+(require 'yasnippet)
+(yas-global-mode 1)
+(yas-load-directory "~/.emacs.d/snippets" t)
+(add-hook 'term-mode-hook #'(lambda () (yas-minor-mode -1)))
 
-     ;; YASnippet
-     (require 'yasnippet)
-     (yas-global-mode 1)
-     (yas-load-directory "~/.emacs.d/snippets" t)
-     (add-hook 'term-mode-hook #'(lambda () (yas-minor-mode -1)))
+;; Company
+(global-company-mode 1)
+(require 'company-ghci)
+(add-to-list 'company-backends 'company-ghci)
+(add-to-list 'company-backends 'company-robe)
 
-     ;; Company
-     (global-company-mode 1)
-     (require 'company-ghci)
-     (add-to-list 'company-backends 'company-ghci)
-     (add-to-list 'company-backends 'company-robe)
+;; Web Mode
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(setq web-mode-enable-engine-detection t)
+(setq web-mode-markup-indent-offset 4)
 
-     ;; Web Mode
-     (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-     (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-     (setq web-mode-markup-indent-offset 4)
+;; C code
+(c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-hook 'c-mode-common-hook
+          #'(lambda ()
+              (c-set-style "qt")
+              (subword-mode 1)))
+(setq flycheck-clang-language-standard "c++14")
 
-     ;; C code
-     (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
-     (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-     (add-hook 'c-mode-common-hook
-               #'(lambda ()
-                   (c-set-style "qt")
-                   (subword-mode 1)))
-     (setq flycheck-clang-language-standard "c++14")
+;; Undo tree
+(global-undo-tree-mode 1)
 
-     ;; Undo tree
-     (global-undo-tree-mode 1)
+;; Projectile
+(projectile-global-mode 1)
+(setq projectile-indexing-method 'alien)
+(setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower because of the mode line
+;;(setq projectile-enable-caching nil)
+(require 'helm-projectile)
+(helm-projectile-on)
 
-     ;; Projectile
-     (projectile-global-mode 1)
-     (setq projectile-indexing-method 'alien)
-     (setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower because of the mode line
-     ;;(setq projectile-enable-caching nil)
-     (require 'helm-projectile)
-     (helm-projectile-on)
+;; Magit
+(add-hook 'magit-mode-hook
+          #'(lambda ()
+              (require 'magit-svn)
+              (local-set-key (kbd "V") #'magit-key-mode-popup-svn)
+              (local-unset-key (kbd "<C-tab>"))))
+(setq magit-last-seen-setup-instructions "1.4.0")
 
-     ;; Magit
-     (add-hook 'magit-mode-hook
-               #'(lambda ()
-                   (require 'magit-svn)
-                   (local-set-key (kbd "V") #'magit-key-mode-popup-svn)
-                   (local-unset-key (kbd "<C-tab>"))))
-     (setq magit-last-seen-setup-instructions "1.4.0")
+;; CMake
+(require 'cmake-mode)
+(add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))
 
-     ;; CMake
-     (require 'cmake-mode)
-     (add-to-list 'auto-mode-alist '("CMakeLists.txt" . cmake-mode))
+;;Rust
+(add-hook 'rust-mode-hook #'subword-mode)
+(add-hook 'prog-mode-hook #'(lambda ()
+                              (when (derived-mode-p 'rust-mode)
+                                (ggtags-mode 1))))
 
-     ;;Rust
-     (add-hook 'rust-mode-hook #'subword-mode)
-     (add-hook 'prog-mode-hook #'(lambda ()
-                                   (when (derived-mode-p 'rust-mode)
-                                     (ggtags-mode 1))))
+;; Winner
+(winner-mode 1)
+(global-set-key (kbd "C-c f") #'winner-redo)
+(global-set-key (kbd "C-c b") #'winner-undo)
 
-     ;; Winner
-     (winner-mode 1)
-     (global-set-key (kbd "C-c f") #'winner-redo)
-     (global-set-key (kbd "C-c b") #'winner-undo)
+;; Emacs theme
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(defadvice load-theme (before theme-dont-propagate activate)
+  (mapcar #'disable-theme custom-enabled-themes))
+(load-theme 'cyberpunk t)
 
-     ;; Emacs theme
-     (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-     (defadvice load-theme (before theme-dont-propagate activate)
-       (mapcar #'disable-theme custom-enabled-themes))
-     (load-theme 'cyberpunk t)
+;;Org-Mode
+(add-to-list 'load-path "~/.emacs.d/plugins/org-ox-bbcode")
+(require 'org)
+(setq org-log-done 'time)
+(setq org-agenda-include-diary t)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-directory "~/Dropbox/org")
+(setq org-default-notes-file (concat org-directory "/capture.org"))
+(setq org-mobile-inbox-for-pull (concat org-directory "/mobile.org"))
+(setq org-mobile-directory (concat org-directory "/MobileOrg"))
+                                        ;(load "~/.emacs.d/plugins/brazilian-holidays.el")
+(defun deactivate-c-tab ()
+  (local-unset-key (kbd "<C-tab>")))
+(add-hook 'org-mode-hook #'visual-line-mode)
+(add-hook 'org-mode-hook #'deactivate-c-tab)
+(defun org-bindings ()
+  (local-set-key (kbd "M-n") #'org-move-item-down)
+  (local-set-key (kbd "M-p") #'org-move-item-up)
+  (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
+  (local-set-key (kbd "C-M-p") #'org-move-subtree-up))
+(add-hook 'org-mode-hook #'org-bindings)
+(add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
+(require 'org-git-link)
+(setq org-export-with-toc nil)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t)
+   (emacs-lisp . t)
+   (haskell . t)
+   (lisp . t)
+   (ocaml . t)
+   (makefile . t)
+   (calc . t)
+   (ditaa . t)
+   (js . t)
+   (ruby . t)))
+(eval-after-load 'ox '(require 'ox-bbcode))
+(eval-after-load 'ox-latex
+  '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
+(eval-after-load 'ox-latex
+  '(add-to-list 'org-latex-packages-alist '("" "minted")))
+(eval-after-load 'ox-latex
+  '(setq org-latex-listings 'minted))
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(require 'ox)
 
-     ;;Org-Mode
-     (add-to-list 'load-path "~/.emacs.d/plugins/org-ox-bbcode")
-     (require 'org)
-     (setq org-log-done 'time)
-     (setq org-agenda-include-diary t)
-     (global-set-key "\C-cl" 'org-store-link)
-     (global-set-key "\C-cc" 'org-capture)
-     (global-set-key "\C-ca" 'org-agenda)
-     (global-set-key "\C-cb" 'org-iswitchb)
-     (setq org-directory "~/Dropbox/org")
-     (setq org-default-notes-file (concat org-directory "/capture.org"))
-     (setq org-mobile-inbox-for-pull (concat org-directory "/mobile.org"))
-     (setq org-mobile-directory (concat org-directory "/MobileOrg"))
-     (load "~/.emacs.d/plugins/brazilian-holidays.el")
-     (defun deactivate-c-tab ()
-       (local-unset-key (kbd "<C-tab>")))
-     (add-hook 'org-mode-hook #'visual-line-mode)
-     (add-hook 'org-mode-hook #'deactivate-c-tab)
-     (defun org-bindings ()
-       (local-set-key (kbd "M-n") #'org-move-item-down)
-       (local-set-key (kbd "M-p") #'org-move-item-up)
-       (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
-       (local-set-key (kbd "C-M-p") #'org-move-subtree-up))
-     (add-hook 'org-mode-hook #'org-bindings)
-     (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
-     (require 'org-git-link)
-     (setq org-export-with-toc nil)
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((dot . t)
-        (emacs-lisp . t)
-        (haskell . t)
-        (lisp . t)
-        (ocaml . t)
-        (makefile . t)
-        (calc . t)
-        (ditaa . t)
-        (js . t)
-        (ruby . t)))
-     (eval-after-load 'ox '(require 'ox-bbcode))
-     (eval-after-load 'ox-latex
-       '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
-     (eval-after-load 'ox-latex
-       '(add-to-list 'org-latex-packages-alist '("" "minted")))
-     (eval-after-load 'ox-latex
-       '(setq org-latex-listings 'minted))
-     (setq org-latex-pdf-process
-           '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-     (require 'ox)
+(setq org2blog/wp-blog-alist
+      '(("dharmaprogramming"
+         :url "https://dharmaprogramming.wordpress.com/xmlrpc.php"
+         :username "Denommus"
+         :default-title "Hello World"
+         :default-categories ("org2blog" "emacs")
+         :tags-as-categories nil)))
 
-     (setq org2blog/wp-blog-alist
-           '(("dharmaprogramming"
-              :url "https://dharmaprogramming.wordpress.com/xmlrpc.php"
-              :username "Denommus"
-              :default-title "Hello World"
-              :default-categories ("org2blog" "emacs")
-              :tags-as-categories nil)))
+;; OCaml
+(when (executable-find "opam")
+  (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+        (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
+    (add-to-list 'exec-path opam-bin)
+    (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+    (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
+      (setenv (car var) (cadr var)))
 
-     ;; OCaml
-     (when (executable-find "opam")
-       (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-             (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
-         (add-to-list 'exec-path opam-bin)
-         (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-         (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
-           (setenv (car var) (cadr var)))
+    (require 'ocp-indent)
+    (require 'merlin)
+    (setq merlin-command "ocamlmerlin")
+    (add-hook 'tuareg-mode-hook #'merlin-mode)
+    (add-hook 'caml-mode-hook #'merlin-mode)))
 
-         (require 'ocp-indent)
-         (require 'merlin)
-         (setq merlin-command "ocamlmerlin")
-         (add-hook 'tuareg-mode-hook #'merlin-mode)
-         (add-hook 'caml-mode-hook #'merlin-mode)))
-
-     ;; Elscreen
-     (setq elscreen-prefix-key (kbd "s-z"))
-     (elscreen-start)
-     (global-set-key (kbd "<C-tab>") #'elscreen-next)
-     (global-set-key (kbd "<C-iso-lefttab>") #'elscreen-previous)))
+;; Elscreen
+(setq elscreen-prefix-key (kbd "s-z"))
+(elscreen-start)
+(global-set-key (kbd "<C-tab>") #'elscreen-next)
+(global-set-key (kbd "<C-iso-lefttab>") #'elscreen-previous)
 (provide 'init)
 ;;; init.el ends here
