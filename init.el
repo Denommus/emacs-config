@@ -503,5 +503,8 @@
 (elscreen-start)
 (global-set-key (kbd "<C-tab>") #'elscreen-next)
 (global-set-key (kbd "<C-iso-lefttab>") #'elscreen-previous)
+
+;; Editor config
+(editorconfig-mode 1)
 (provide 'init)
 ;;; init.el ends here
