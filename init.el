@@ -65,6 +65,7 @@
  '(default ((t (:height 110 :family "Anonymous Pro")))))
 
 ;; Misc
+(setenv "SSH_AUTH_SOCK" (concat (getenv "XDG_RUNTIME_DIR") "/ssh-agent.socket"))
 (require 'cl)
 (setq visible-bell 1)
 (add-to-list 'default-frame-alist
