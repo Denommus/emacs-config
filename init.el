@@ -33,7 +33,7 @@
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
  '(custom-safe-themes
    (quote
-    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+    ("cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(erc-ignore-list (quote ("ihatehex" "ams")))
  '(erc-modules
    (quote
@@ -45,10 +45,80 @@
     ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(package-selected-packages
    (quote
-    (fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized tuareg yasnippet yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css rust-mode ruby-block robe rinari qml-mode org-mime org mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags flycheck-haskell elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (tronesque-theme use-package fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized tuareg yasnippet yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css rust-mode ruby-block robe rinari qml-mode org-mime org mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags flycheck-haskell elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
-    ((web-mode-engines-alist
+    ((eval load-file "clocktable/org-export-customize.el")
+     (eval defun org-table-time-seconds-to-string
+           (secs &optional output-format)
+           "Mofifies org function to truncate the seconds"
+           (let*
+               ((secs0
+                 (abs secs))
+                (res
+                 (cond
+                  ((eq output-format
+                       (quote days))
+                   (format "%.3f"
+                           (/
+                            (float secs0)
+                            86400)))
+                  ((eq output-format
+                       (quote hours))
+                   (format "%.2f"
+                           (/
+                            (float secs0)
+                            3600)))
+                  ((eq output-format
+                       (quote minutes))
+                   (format "%.1f"
+                           (/
+                            (float secs0)
+                            60)))
+                  ((eq output-format
+                       (quote seconds))
+                   (format "%d" secs0))
+                  (t
+                   (org-format-seconds "%.2h:%.2m" secs0)))))
+             (if
+                 (< secs 0)
+                 (concat "-" res)
+               res)))
+     (eval add-hook
+           (quote org-export-before-parsing-hook)
+           (lambda
+             (_)
+             (org-update-all-dblocks))
+           t t)
+     (eval defun get-clock-files nil "Org clock table does not like relative paths."
+           (mapcar
+            (lambda
+              (name)
+              (file-truename
+               (concatenate
+                (quote string)
+                "../" name ".org")))
+            (quote
+             ("emb" "yca" "flbc" "aab" "tlewis"))))
+     (eval defun my-org-clocktable-notodo
+           (ipos tables params)
+           (setf *ipos* ipos *tables* tables *params* params)
+           (cl-loop for tbl in tables for entries =
+                    (nth 2 tbl)
+                    do
+                    (cl-loop for entry in entries for headline =
+                             (nth 1 entry)
+                             do
+                             (setq headline
+                                   (replace-regexp-in-string "TODO \\|DONE \\|NEXT \\|WAITING \\|CANCELLED \\|" "" headline))
+                             do
+                             (setcar
+                              (nthcdr 1 entry)
+                              headline)))
+           (org-clocktable-write-default ipos tables params))
+     (table-html-th-rows . 1)
+     (org-time-clocksum-format :hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
+     (web-mode-engines-alist
       ("django" . "*\\.html\\'"))
      (ruby-compilation-executable . "ruby")
      (ruby-compilation-executable . "ruby1.8")
@@ -355,10 +425,14 @@
 (add-hook 'term-mode-hook #'(lambda () (yas-minor-mode -1)))
 
 ;; Company
-(global-company-mode 1)
-(require 'company-ghci)
-(add-to-list 'company-backends 'company-ghci)
-(add-to-list 'company-backends 'company-robe)
+(use-package company
+  :demand t
+  :ensure t
+  :config
+  (global-company-mode 1)
+  (require 'company-ghci)
+  (add-to-list 'company-backends 'company-ghci)
+  (add-to-list 'company-backends 'company-robe))
 
 ;; Web Mode
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -383,7 +457,11 @@
 (setq flycheck-clang-language-standard "c++14")
 
 ;; Undo tree
-(global-undo-tree-mode 1)
+(use-package undo-tree
+  :demand t
+  :ensure t
+  :config
+  (global-undo-tree-mode 1))
 
 ;; Projectile
 (projectile-global-mode 1)
@@ -423,7 +501,6 @@
 (load-theme 'cyberpunk t)
 
 ;;Org-Mode
-(add-to-list 'load-path "~/.emacs.d/plugins/org-ox-bbcode")
 (require 'org)
 (setq org-log-done 'time)
 (setq org-agenda-include-diary t)
@@ -461,7 +538,6 @@
    (ditaa . t)
    (js . t)
    (ruby . t)))
-(eval-after-load 'ox '(require 'ox-bbcode))
 (eval-after-load 'ox-latex
   '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
 (eval-after-load 'ox-latex
@@ -474,36 +550,37 @@
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 (require 'ox)
 
-(setq org2blog/wp-blog-alist
-      '(("dharmaprogramming"
-         :url "https://dharmaprogramming.wordpress.com/xmlrpc.php"
-         :username "Denommus"
-         :default-title "Hello World"
-         :default-categories ("org2blog" "emacs")
-         :tags-as-categories nil)))
-
 ;; OCaml
-(when (executable-find "opam")
-  (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-        (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
-    (add-to-list 'exec-path opam-bin)
-    (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-    (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
-      (setenv (car var) (cadr var)))
+(use-package tuareg-mode
+  :config
+  (when (executable-find "opam")
+    (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+          (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
+      (add-to-list 'exec-path opam-bin)
+      (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+      (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
+        (setenv (car var) (cadr var)))
 
-    (require 'ocp-indent)
-    (require 'merlin)
-    (setq merlin-command "ocamlmerlin")
-    (add-hook 'tuareg-mode-hook #'merlin-mode)
-    (add-hook 'caml-mode-hook #'merlin-mode)))
+      (require 'ocp-indent)
+      (require 'merlin)
+      (setq merlin-command "ocamlmerlin")
+      (add-hook 'tuareg-mode-hook #'merlin-mode)
+      (add-hook 'caml-mode-hook #'merlin-mode))))
 
 ;; Elscreen
-(setq elscreen-prefix-key (kbd "s-z"))
-(elscreen-start)
-(global-set-key (kbd "<C-tab>") #'elscreen-next)
-(global-set-key (kbd "<C-iso-lefttab>") #'elscreen-previous)
+(use-package elscreen
+  :demand t
+  :ensure t
+  :bind (("<C-tab>" . elscreen-next)
+         ("<C-iso-lefttab>" . elscreen-previous))
+  :init
+  (setq elscreen-prefix-key (kbd "s-z"))
+  :config
+  (elscreen-start))
 
 ;; Editor config
-(editorconfig-mode 1)
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
 (provide 'init)
 ;;; init.el ends here
