@@ -33,7 +33,7 @@
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
  '(custom-safe-themes
    (quote
-    ("cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+    ("38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(erc-ignore-list (quote ("ihatehex" "ams")))
  '(erc-modules
    (quote
@@ -45,10 +45,23 @@
     ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(package-selected-packages
    (quote
-    (tronesque-theme use-package fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized tuareg yasnippet yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css rust-mode ruby-block robe rinari qml-mode org-mime org mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags flycheck-haskell elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme use-package fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized tuareg yasnippet yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css rust-mode ruby-block robe rinari qml-mode org-mime org mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
-    ((eval load-file "clocktable/org-export-customize.el")
+    ((eval load-file
+           (concat my-project-path "/conf/org-export-customize.el"))
+     (eval set
+           (make-local-variable
+            (quote my-project-path))
+           (file-name-directory
+            (let
+                ((d
+                  (dir-locals-find-file ".")))
+              (if
+                  (stringp d)
+                  d
+                (car d)))))
+     (eval load-file "clocktable/org-export-customize.el")
      (eval defun org-table-time-seconds-to-string
            (secs &optional output-format)
            "Mofifies org function to truncate the seconds"
@@ -284,7 +297,8 @@
 
 ;; Packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 ;;BBDB
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
@@ -375,11 +389,9 @@
 
 ;; Haskell
 (add-hook 'haskell-mode-hook #'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook #'interactive-haskell-mode)
-(setenv "PATH" (concat (getenv "HOME") "/.cabal/bin:" (getenv "PATH")))
-(setq exec-path (cons (concat (getenv "HOME") "/.cabal/bin") exec-path))
-(setq haskell-program-name "cabal repl")
-(setq haskell-process-type 'cabal-repl)
+(use-package intero
+  :config
+  (add-hook 'haskell-mode-hook #'intero-mode))
 
 ;; Flycheck
 (setq sentence-end-double-space nil)
@@ -537,6 +549,7 @@
    (calc . t)
    (ditaa . t)
    (js . t)
+   (org . t)
    (ruby . t)))
 (eval-after-load 'ox-latex
   '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
@@ -551,7 +564,7 @@
 (require 'ox)
 
 ;; OCaml
-(use-package tuareg-mode
+(use-package tuareg
   :config
   (when (executable-find "opam")
     (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))

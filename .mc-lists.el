@@ -3,10 +3,18 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        backward-sexp
+        backward-up-list
+        electric-newline-and-maybe-indent
+        forward-sexp
         isearch-backward-regexp
         isearch-forward-regexp
         isearch-printing-char
         kill-region
+        org-beginning-of-line
+        org-end-of-line
+        org-yank
+        orgtbl-self-insert-command
         ))
 
 (setq mc/cmds-to-run-once
