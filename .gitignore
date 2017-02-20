@@ -20,3 +20,5 @@ bookmarks
 flycheck_init.el
 /abbrev_defs
 ido.last
+network-security.data
+.emacs.desktop

@@ -7,10 +7,12 @@
         backward-up-list
         electric-newline-and-maybe-indent
         forward-sexp
+        indent-for-tab-command
         isearch-backward-regexp
         isearch-forward-regexp
         isearch-printing-char
         kill-region
+        nxml-electric-slash
         org-beginning-of-line
         org-end-of-line
         org-yank
