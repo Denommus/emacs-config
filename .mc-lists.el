@@ -15,14 +15,18 @@
         nxml-electric-slash
         org-beginning-of-line
         org-end-of-line
+        org-kill-line
         org-yank
         orgtbl-self-insert-command
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        beginning-of-buffer
+        end-of-buffer
         helm-M-x
         isearch-abort
         isearch-delete-char
+        isearch-exit
         yas-expand
         ))

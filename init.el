@@ -45,10 +45,11 @@
     ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(package-selected-packages
    (quote
-    (idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme use-package fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized tuareg yasnippet yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css rust-mode ruby-block robe rinari qml-mode org-mime org mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (php-mode ob-php slime idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme use-package fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized tuareg yasnippet yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css rust-mode ruby-block robe rinari qml-mode org-mime org mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
-    ((eval load-file
+    ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
+     (eval load-file
            (concat my-project-path "/conf/org-export-customize.el"))
      (eval set
            (make-local-variable
@@ -396,7 +397,7 @@
 ;; Flycheck
 (setq sentence-end-double-space nil)
 (global-flycheck-mode)
-(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+;(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
 
 ;; SmartParens
 (require 'smartparens-config)
@@ -411,6 +412,7 @@
 (add-hook 'scheme-mode-hook           #'enable-smartparens-mode)
 (add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
 (add-hook 'ruby-mode-hook #'enable-smartparens-mode)
+(add-hook 'slime-repl-mode-hook #'enable-smartparens-mode)
 (require 'smartparens-haskell)
 (load-file "~/.emacs.d/smartparens.el")
 
@@ -550,7 +552,8 @@
    (ditaa . t)
    (js . t)
    (org . t)
-   (ruby . t)))
+   (ruby . t)
+   (php . t)))
 (eval-after-load 'ox-latex
   '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
 (eval-after-load 'ox-latex
@@ -590,6 +593,10 @@
   (setq elscreen-prefix-key (kbd "s-z"))
   :config
   (elscreen-start))
+
+;; Slime
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(setq slime-contribs '(slime-fancy))
 
 ;; Editor config
 (use-package editorconfig
