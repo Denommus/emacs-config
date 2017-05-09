@@ -299,7 +299,8 @@
 ;; Packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
 
 ;;BBDB
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
@@ -516,6 +517,8 @@
 
 ;;Org-Mode
 (require 'org)
+(add-to-list 'org-export-backends 'taskjuggler)
+(require 'ox-taskjuggler)
 (setq org-log-done 'time)
 (setq org-agenda-include-diary t)
 (global-set-key "\C-cl" 'org-store-link)
