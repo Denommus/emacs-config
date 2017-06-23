@@ -29,11 +29,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
  '(custom-safe-themes
    (quote
-    ("38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+    ("235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(erc-ignore-list (quote ("ihatehex" "ams")))
  '(erc-modules
    (quote
@@ -45,7 +47,7 @@
     ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(package-selected-packages
    (quote
-    (php-mode ob-php slime idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme use-package fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized tuareg yasnippet yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css rust-mode ruby-block robe rinari qml-mode org-mime org mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe rinari qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -303,15 +305,16 @@
                          ("org" . "http://orgmode.org/elpa/")))
 
 ;;BBDB
-(add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
-(require 'bbdb)
-(bbdb-initialize 'gnus 'message)
-(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-(add-hook 'mail-setup-hook 'bbdb'insinuate-sendmail)
-(setq bbdb-file "~/Dropbox/bbdb")
-(setq bbdb-complete-name-full-completion t)
-(setq bbdb-completion-type 'primary-or-name)
-(setq bbdb-complete-name-allow-cycling t)
+(use-package bbdb
+  :config
+  (progn
+    (bbdb-initialize 'gnus 'message)
+    (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+    (add-hook 'mail-setup-hook 'bbdb'insinuate-sendmail)
+    (setq bbdb-file "~/Dropbox/bbdb.gpg")
+    (setq bbdb-complete-name-full-completion t)
+    (setq bbdb-completion-type 'primary-or-name)
+    (setq bbdb-complete-name-allow-cycling t)))
 
 ;; Mail
 (setq message-send-mail-function 'smtpmail-send-it) ; if you use message/Gnus
