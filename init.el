@@ -316,17 +316,6 @@
     (setq bbdb-completion-type 'primary-or-name)
     (setq bbdb-complete-name-allow-cycling t)))
 
-;; Mail
-(setq message-send-mail-function 'smtpmail-send-it) ; if you use message/Gnus
-(setq send-mail-function 'smtpmail-send-it)
-(setq user-full-name "Yuri Albuquerque")
-(setq user-mail-address "yurialbuquerque@galileostudio.com.br")
-(setq smtpmail-default-smtp-server "smtp.galileostudio.com.br") ; set before loading library
-(setq smtpmail-smtp-service 587)
-(setq compose-mail-user-agent-warnings nil)
-(setq smtpmail-debug-info t) ; only to debug problems
-
-
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
 (setq calendar-and-diary-frame-parameters
@@ -608,5 +597,33 @@
 (use-package editorconfig
   :config
   (editorconfig-mode 1))
+
+;; Mu4e
+(require 'mu4e)
+(require 'smtpmail)
+(setq
+   message-send-mail-function    'smtpmail-send-it
+   smtpmail-stream-type          'starttls
+   smtpmail-smtp-service         587
+   smtpmail-default-smtp-server  "smtp.gmail.com"
+   smtpmail-smtp-server          "smtp.gmail.com"
+   smtpmail-local-domain         "gmail.com"
+   mu4e-trash-folder             "/[Gmail].Trash"
+   mu4e-sent-folder              "/[Gmail].Sent Mail"
+   mu4e-drafts-folder            "/[Gmail].Drafts"
+   mu4e-sent-messages-behavior   'delete
+   mu4e-get-mail-command         "offlineimap")
+(setq mu4e-maildir-shortcuts
+    '( ("/INBOX"               . ?i)
+       ("/[Gmail].Sent Mail"   . ?s)
+       ("/[Gmail].Trash"       . ?t)
+       ("/[Gmail].All Mail"    . ?a)))
+(setq message-kill-buffer-on-exit t)
+(setq
+   user-mail-address "yurialbuquerque@brickabode.com"
+   user-full-name  "Yuri Albuquerque"
+   mu4e-compose-signature
+    (concat
+      "Yuri Albuquerque\n"))
 (provide 'init)
 ;;; init.el ends here
