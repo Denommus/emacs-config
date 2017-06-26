@@ -612,7 +612,10 @@
    mu4e-sent-folder              "/[Gmail].Sent Mail"
    mu4e-drafts-folder            "/[Gmail].Drafts"
    mu4e-sent-messages-behavior   'delete
-   mu4e-get-mail-command         "offlineimap")
+   mu4e-get-mail-command         "offlineimap"
+   mu4e-view-show-images t)
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
 (setq mu4e-maildir-shortcuts
     '( ("/INBOX"               . ?i)
        ("/[Gmail].Sent Mail"   . ?s)
