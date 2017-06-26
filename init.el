@@ -560,6 +560,25 @@
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 (require 'ox)
+;; Use minted
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+
+;; Add the shell-escape flag
+(setq org-latex-pdf-process '(
+                              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                              ;; "bibtex %b"
+                              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                              ))
+
+;; Sample minted options.
+(setq org-latex-minted-options '(
+                                 ("frame" "lines")
+                                 ("fontsize" "\\scriptsize")
+                                 ("xleftmargin" "\\parindent")
+                                 ("linenos" "")
+                                 ))
 
 ;; OCaml
 (use-package tuareg
