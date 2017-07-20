@@ -18,6 +18,7 @@
         org-kill-line
         org-yank
         orgtbl-self-insert-command
+        yaml-electric-backspace
         ))
 
 (setq mc/cmds-to-run-once
