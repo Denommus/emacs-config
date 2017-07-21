@@ -213,7 +213,6 @@
                   (when (yes-or-no-p "Are you really sure?")
                     (call-interactively #'save-buffers-kill-emacs))))
 
-(setq projectile-keymap-prefix (kbd "C-z"))
 (defun empty-trash (decision)
   (interactive (list (yes-or-no-p "Really empty the trash? ")))
   (if decision
@@ -471,12 +470,15 @@
   (global-undo-tree-mode 1))
 
 ;; Projectile
-(projectile-global-mode 1)
-(setq projectile-indexing-method 'alien)
-(setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower because of the mode line
-;;(setq projectile-enable-caching nil)
-(require 'helm-projectile)
-(helm-projectile-on)
+(use-package projectile
+  :init
+  (setq projectile-keymap-prefix (kbd "C-z"))
+  :config
+  (projectile-global-mode 1)
+  (setq projectile-indexing-method 'alien)
+  (setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower because of the mode line
+  (require 'helm-projectile)
+  (helm-projectile-on))
 
 ;; Magit
 (add-hook 'magit-mode-hook
