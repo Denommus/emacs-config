@@ -481,12 +481,13 @@
   (helm-projectile-on))
 
 ;; Magit
-(add-hook 'magit-mode-hook
-          #'(lambda ()
-              (require 'magit-svn)
-              (local-set-key (kbd "V") #'magit-key-mode-popup-svn)
-              (local-unset-key (kbd "<C-tab>"))))
-(setq magit-last-seen-setup-instructions "1.4.0")
+(use-package magit
+  :init
+  (require 'magit-svn)
+  :config
+  (defun magit-custom ()
+    (local-unset-key (kbd "<C-tab>")))
+  (add-hook 'magit-mode-hook #'magit-custom))
 
 ;; CMake
 (require 'cmake-mode)
