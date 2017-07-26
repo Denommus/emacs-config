@@ -387,9 +387,13 @@
   (add-hook 'haskell-mode-hook #'intero-mode))
 
 ;; Flycheck
-(setq sentence-end-double-space nil)
-(global-flycheck-mode)
-;(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
+(use-package flycheck
+  :init
+  (setq sentence-end-double-space nil)
+  (flycheck-add-mode 'html-tidy 'web-mode)
+  (flycheck-add-mode 'css-csslint 'web-mode)
+  :config
+  (global-flycheck-mode))
 
 ;; SmartParens
 (require 'smartparens-config)
