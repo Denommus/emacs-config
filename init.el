@@ -396,21 +396,25 @@
   (global-flycheck-mode))
 
 ;; SmartParens
-(require 'smartparens-config)
-(defun enable-smartparens-mode ()
-  (smartparens-mode +1))
-(add-hook 'js2-mode-hook #'enable-smartparens-mode)
-(add-hook 'emacs-lisp-mode-hook       #'enable-smartparens-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-smartparens-mode)
-(add-hook 'ielm-mode-hook             #'enable-smartparens-mode)
-(add-hook 'lisp-mode-hook             #'enable-smartparens-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-smartparens-mode)
-(add-hook 'scheme-mode-hook           #'enable-smartparens-mode)
-(add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
-(add-hook 'ruby-mode-hook #'enable-smartparens-mode)
-(add-hook 'slime-repl-mode-hook #'enable-smartparens-mode)
-(require 'smartparens-haskell)
-(load-file "~/.emacs.d/smartparens.el")
+(use-package smartparens
+  :init
+  (use-package smartparens-config)
+  (use-package smartparens-haskell)
+  :config
+  (defun enable-smartparens-mode ()
+    (smartparens-mode +1)
+    (smartparens-strict-mode 1))
+  (add-hook 'js2-mode-hook #'enable-smartparens-mode)
+  (add-hook 'emacs-lisp-mode-hook       #'enable-smartparens-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-smartparens-mode)
+  (add-hook 'ielm-mode-hook             #'enable-smartparens-mode)
+  (add-hook 'lisp-mode-hook             #'enable-smartparens-mode)
+  (add-hook 'lisp-interaction-mode-hook #'enable-smartparens-mode)
+  (add-hook 'scheme-mode-hook           #'enable-smartparens-mode)
+  (add-hook 'clojure-mode-hook          #'enable-smartparens-mode)
+  (add-hook 'ruby-mode-hook #'enable-smartparens-mode)
+  (add-hook 'slime-repl-mode-hook #'enable-smartparens-mode)
+  (load-file "~/.emacs.d/smartparens.el"))
 
 ;; Ruby
 (global-rinari-mode)
