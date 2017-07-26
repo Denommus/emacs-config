@@ -419,11 +419,13 @@
   (load-file "~/.emacs.d/smartparens.el"))
 
 ;; JS2-Mode
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(setq js2-basic-offset 2)
-(setq js-indent-level 2)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
+(use-package js2-mode
+  :mode
+  "\\.js\\'"
+  "\\.jsx\\'"
+  :config
+  (setq js2-basic-offset 2)
+  (setq js-indent-level 2))
 
 ;; Twittering mode
 (add-hook 'twittering-mode-hook
