@@ -434,10 +434,11 @@
               (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 
 ;; YASnippet
-(require 'yasnippet)
-(yas-global-mode 1)
-(yas-load-directory "~/.emacs.d/snippets" t)
-(add-hook 'term-mode-hook #'(lambda () (yas-minor-mode -1)))
+(use-package yasnippet
+  :config
+  (yas-global-mode 1)
+  (yas-load-directory "~/.emacs.d/snippets" t)
+  (add-hook 'term-mode-hook #'(lambda () (yas-minor-mode -1))))
 
 ;; Company
 (use-package company
