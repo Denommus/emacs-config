@@ -486,8 +486,9 @@
   (projectile-global-mode 1)
   (setq projectile-indexing-method 'alien)
   (setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower because of the mode line
-  (require 'helm-projectile)
-  (helm-projectile-on))
+  (use-package helm-projectile
+    :config
+    (helm-projectile-on)))
 
 ;; Magit
 (use-package magit
