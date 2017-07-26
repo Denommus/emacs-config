@@ -185,7 +185,6 @@
 (put 'upcase-region 'disabled nil)
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
