@@ -134,8 +134,6 @@
            (org-clocktable-write-default ipos tables params))
      (table-html-th-rows . 1)
      (org-time-clocksum-format :hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
-     (web-mode-engines-alist
-      ("django" . "*\\.html\\'"))
      (ruby-compilation-executable . "ruby")
      (ruby-compilation-executable . "ruby1.8")
      (ruby-compilation-executable . "ruby1.9")
@@ -421,8 +419,7 @@
 ;; JS2-Mode
 (use-package js2-mode
   :mode
-  "\\.js\\'"
-  "\\.jsx\\'"
+  "\\.jsx?\\'"
   :config
   (setq js2-basic-offset 2)
   (setq js-indent-level 2))
@@ -451,17 +448,20 @@
   (add-to-list 'company-backends 'company-robe))
 
 ;; Web Mode
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(setq web-mode-enable-engine-detection t)
-(setq web-mode-markup-indent-offset 4)
+(use-package web-mode
+  :mode
+  "\\.html?\\'"
+  "\\.phtml\\'"
+  "\\.tpl\\.php\\'"
+  "\\.php\\'"
+  "\\.jsp\\'"
+  "\\.as[cp]x\\'"
+  "\\.erb\\'"
+  "\\.mustache\\'"
+  "\\.djhtml\\'"
+  :init
+  (setq web-mode-enable-engine-detection t)
+  (setq web-mode-markup-indent-offset 4))
 
 ;; C code
 (c-add-style "qt" '("stroustrup" (indent-tabs-mode . nil) (tab-width . 4)))
