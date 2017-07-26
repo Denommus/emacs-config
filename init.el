@@ -368,17 +368,19 @@
           (kill-buffer))))))
 
 ;; Helm
-(require 'helm)
-(require 'helm-config)
-(helm-mode 1)
-(global-unset-key (kbd "C-x c"))
-(global-set-key (kbd "C-c h") #'helm-command-prefix)
-(global-set-key (kbd "M-x") #'helm-M-x)
-(define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-z") #'helm-select-action)
-(global-set-key (kbd "C-c y") #'helm-show-kill-ring)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(use-package helm
+  :init
+  (use-package helm-config)
+  :bind
+  (("C-c h" . helm-command-prefix)
+   ("M-x" . helm-M-x)
+   ("C-c y" . helm-show-kill-ring)
+   ("C-x C-f" . helm-find-files))
+  :config
+  (helm-mode 1)
+  (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-z") #'helm-select-action))
 
 ;; Haskell
 (add-hook 'haskell-mode-hook #'turn-on-haskell-indentation)
