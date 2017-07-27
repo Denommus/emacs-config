@@ -150,7 +150,7 @@
 
 ;; Misc
 (setenv "SSH_AUTH_SOCK" (concat (getenv "XDG_RUNTIME_DIR") "/ssh-agent.socket"))
-(require 'cl)
+(require 'cl-lib)
 (setq visible-bell 1)
 (add-to-list 'default-frame-alist
              '(font . "Anonymous Pro-11"))
@@ -200,6 +200,7 @@
       mouse-yank-at-point t)
 
 (defun convert-to-underscore ()
+  "Convert camel case to underscore."
   (interactive)
   (replace-regexp "\\([A-Z]\\)" "_\\1" nil (region-beginning) (region-end))
   (downcase-region (region-beginning) (region-end)))
@@ -211,6 +212,7 @@
                     (call-interactively #'save-buffers-kill-emacs))))
 
 (defun empty-trash (decision)
+  "Empty the trash. DECISION confirms whether that's what you want."
   (interactive (list (yes-or-no-p "Really empty the trash? ")))
   (if decision
       (let ((delete-by-moving-to-trash nil))
@@ -235,11 +237,13 @@
 
 ;;Clean up
 (defun cleanup-buffer-safe ()
+  "Set encoding, remove trailing whitespace, replace tab by spaces."
   (interactive)
   (delete-trailing-whitespace)
   (set-buffer-file-coding-system 'utf-8)
   (untabify (point-min) (point-max)))
 (defun cleanup-buffer ()
+  "As `cleanup-buffer-safe', but also indent the buffer."
   (interactive)
   (cleanup-buffer-safe)
   (indent-region (point-min) (point-max)))
@@ -281,6 +285,7 @@
         ("mozilla.org" "#rust" "#rust-gamedev")))
 (load-file "~/.emacs.d/erc-better-scroll.el")
 (defun erc-recenter-top-bottom (&optional arg)
+  "Scrolls the cursor to bottom. ARG is the same from `recenter-top-bottom'."
   (interactive "P")
   (if arg
       (recenter-top-bottom arg)
@@ -303,14 +308,13 @@
 ;;BBDB
 (use-package bbdb
   :config
-  (progn
-    (bbdb-initialize 'gnus 'message)
-    (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-    (add-hook 'mail-setup-hook 'bbdb'insinuate-sendmail)
-    (setq bbdb-file "~/Dropbox/bbdb.gpg")
-    (setq bbdb-complete-name-full-completion t)
-    (setq bbdb-completion-type 'primary-or-name)
-    (setq bbdb-complete-name-allow-cycling t)))
+  (bbdb-initialize 'gnus 'message)
+  (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+  (add-hook 'mail-setup-hook 'bbdb'insinuate-sendmail)
+  (setq bbdb-file "~/Dropbox/bbdb.gpg")
+  (setq bbdb-complete-name-full-completion t)
+  (setq bbdb-completion-type 'primary-or-name)
+  (setq bbdb-complete-name-allow-cycling t))
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
@@ -517,6 +521,7 @@
 ;; Emacs theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (defadvice load-theme (before theme-dont-propagate activate)
+  "I don't want to combine multiple themes."
   (mapc #'disable-theme custom-enabled-themes))
 (load-theme 'cyberpunk t)
 
@@ -536,10 +541,12 @@
 (setq org-mobile-directory (concat org-directory "/MobileOrg"))
                                         ;(load "~/.emacs.d/plugins/brazilian-holidays.el")
 (defun deactivate-c-tab ()
+  "Deactivate a key in `org-mode'."
   (local-unset-key (kbd "<C-tab>")))
 (add-hook 'org-mode-hook #'visual-line-mode)
 (add-hook 'org-mode-hook #'deactivate-c-tab)
 (defun org-bindings ()
+  "Defines `org-mode' custom bindings."
   (local-set-key (kbd "M-n") #'org-move-item-down)
   (local-set-key (kbd "M-p") #'org-move-item-up)
   (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
