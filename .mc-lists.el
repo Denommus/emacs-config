@@ -18,6 +18,7 @@
         org-kill-line
         org-yank
         orgtbl-self-insert-command
+        sp-kill-hybrid-sexp
         yaml-electric-backspace
         ))
 
