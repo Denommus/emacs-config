@@ -545,6 +545,7 @@
   (local-unset-key (kbd "<C-tab>")))
 (add-hook 'org-mode-hook #'visual-line-mode)
 (add-hook 'org-mode-hook #'deactivate-c-tab)
+(add-hook 'org-mode-hook #'auto-fill-mode)
 (defun org-bindings ()
   "Defines `org-mode' custom bindings."
   (local-set-key (kbd "M-n") #'org-move-item-down)
