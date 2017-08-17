@@ -47,7 +47,7 @@
     ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
  '(package-selected-packages
    (quote
-    (nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -556,6 +556,8 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
 (require 'org-git-link)
 (setq org-export-with-toc nil)
+(setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+(setq org-confirm-babel-evaluate nil)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((dot . t)
@@ -569,7 +571,8 @@
    (js . t)
    (org . t)
    (ruby . t)
-   (php . t)))
+   (php . t)
+   (plantuml . t)))
 (eval-after-load 'ox-latex
   '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
 (eval-after-load 'ox-latex
@@ -643,6 +646,11 @@
 (use-package helm-flyspell
   :config
   (define-key flyspell-mode-map (kbd "C-;") #'helm-flyspell-correct))
+
+;; Plantuml
+(use-package plantuml-mode
+  :init
+  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar"))
 
 ;; Mu4e
 (require 'mu4e)
