@@ -548,83 +548,76 @@
 (load-theme 'cyberpunk t)
 
 ;;Org-Mode
-(require 'org)
-(add-to-list 'org-export-backends 'taskjuggler)
-(require 'ox-taskjuggler)
-(setq org-log-done 'time)
-(setq org-agenda-include-diary t)
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(setq org-directory "~/Dropbox/org")
-(setq org-default-notes-file (concat org-directory "/capture.org"))
-(setq org-mobile-inbox-for-pull (concat org-directory "/mobile.org"))
-(setq org-mobile-directory (concat org-directory "/MobileOrg"))
-                                        ;(load "~/.emacs.d/plugins/brazilian-holidays.el")
-(defun deactivate-c-tab ()
-  "Deactivate a key in `org-mode'."
-  (local-unset-key (kbd "<C-tab>")))
-(add-hook 'org-mode-hook #'visual-line-mode)
-(add-hook 'org-mode-hook #'deactivate-c-tab)
-(add-hook 'org-mode-hook #'auto-fill-mode)
-(defun org-bindings ()
-  "Defines `org-mode' custom bindings."
-  (local-set-key (kbd "M-n") #'org-move-item-down)
-  (local-set-key (kbd "M-p") #'org-move-item-up)
-  (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
-  (local-set-key (kbd "C-M-p") #'org-move-subtree-up))
-(add-hook 'org-mode-hook #'org-bindings)
-(add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
-(require 'org-git-link)
-(setq org-export-with-toc nil)
-(setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
-(setq org-confirm-babel-evaluate nil)
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((dot . t)
-   (emacs-lisp . t)
-   (haskell . t)
-   (lisp . t)
-   (ocaml . t)
-   (makefile . t)
-   (calc . t)
-   (ditaa . t)
-   (js . t)
-   (org . t)
-   (ruby . t)
-   (php . t)
-   (plantuml . t)))
-(eval-after-load 'ox-latex
-  '(add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t))
-(eval-after-load 'ox-latex
-  '(add-to-list 'org-latex-packages-alist '("" "minted")))
-(eval-after-load 'ox-latex
-  '(setq org-latex-listings 'minted))
-(setq org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-(require 'ox)
-;; Use minted
-(add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted)
+(use-package org
+  :bind
+  (("C-c l" . org-store-link)
+   ("C-c c" . org-capture)
+   ("C-c a" . org-agenda)
+   ("C-c b" . org-iswitchb))
+  :init
+  (setq org-log-done 'time)
+  (setq org-agenda-include-diary t)
+  (setq org-directory "~/Dropbox/org")
+  (setq org-default-notes-file (concat org-directory "/capture.org"))
+  (setq org-mobile-inbox-for-pull (concat org-directory "/mobile.org"))
+  (setq org-mobile-directory (concat org-directory "/MobileOrg"))
+  (setq org-export-with-toc nil)
+  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  (setq org-confirm-babel-evaluate nil)
+  ;; Use minted
+  (setq org-latex-listings 'minted)
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-;; Add the shell-escape flag
-(setq org-latex-pdf-process '(
-                              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                              ;; "bibtex %b"
-                              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                              ))
+  ;; Sample minted options.
+  (setq org-latex-minted-options '(("frame" "lines")
+                                   ("fontsize" "\\scriptsize")
+                                   ("xleftmargin" "\\parindent")
+                                   ("linenos" "")))
+  :config
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (use-package ox-taskjuggler
+    :init
+    (add-to-list 'org-export-backends 'taskjuggler))
+  (defun deactivate-c-tab ()
+    "Deactivate a key in `org-mode'."
+    (local-unset-key (kbd "<C-tab>")))
+  (defun org-bindings ()
+    "Defines `org-mode' custom bindings."
+    (local-set-key (kbd "M-n") #'org-move-item-down)
+    (local-set-key (kbd "M-p") #'org-move-item-up)
+    (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
+    (local-set-key (kbd "C-M-p") #'org-move-subtree-up))
+  (add-hook 'org-mode-hook #'visual-line-mode)
+  (add-hook 'org-mode-hook #'deactivate-c-tab)
+  (add-hook 'org-mode-hook #'auto-fill-mode)
+  (add-hook 'org-mode-hook #'org-bindings)
+  (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
+  (use-package org-git-link)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)
+     (emacs-lisp . t)
+     (haskell . t)
+     (lisp . t)
+     (ocaml . t)
+     (makefile . t)
+     (calc . t)
+     (ditaa . t)
+     (js . t)
+     (org . t)
+     (ruby . t)
+     (php . t)
+     (plantuml . t)))
+  (use-package ox-latex
+    :config
+    (add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t)
+    (add-to-list 'org-latex-packages-alist '("" "minted"))
+    (setq org-latex-listings 'minted))
+  (use-package ox))
 
-;; Sample minted options.
-(setq org-latex-minted-options '(
-                                 ("frame" "lines")
-                                 ("fontsize" "\\scriptsize")
-                                 ("xleftmargin" "\\parindent")
-                                 ("linenos" "")
-                                 ))
 
 ;; OCaml
 (use-package tuareg
