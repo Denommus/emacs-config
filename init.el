@@ -558,6 +558,11 @@
   (setq org-export-with-toc nil)
   (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
   (setq org-confirm-babel-evaluate nil)
+  (setq org-capture-templates
+        `(("j" "Journal" entry (file+datetree ,(concat org-directory "/diario.org"))
+           "* %?\nEntrada dia %U\n %i\n")
+          ("t" "Task" entry (file+headline ,(concat org-directory "/agenda.org") "Tasks")
+           "* TODO %?\n  %i\n  %a")))
   ;; Use minted
   (setq org-latex-listings 'minted)
   (setq org-latex-pdf-process
