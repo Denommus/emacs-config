@@ -33,9 +33,11 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
+ '(ansi-term-color-vector
+   [unspecified "#081724" "#ff694d" "#68f6cb" "#fffe4e" "#bad6e2" "#afc0fd" "#d2f1ff" "#d3f9ee"])
  '(custom-safe-themes
    (quote
-    ("d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "af9761c65a81bd14ee3f32bc2ffc966000f57e0c9d31e392bc011504674c07d6" "235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+    ("a4f8d45297894ffdd98738551505a336a7b3096605b467da83fae00f53b13f01" "d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "af9761c65a81bd14ee3f32bc2ffc966000f57e0c9d31e392bc011504674c07d6" "235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(erc-ignore-list (quote ("ihatehex" "ams")))
  '(erc-modules
    (quote
@@ -140,20 +142,40 @@
      (ruby-compilation-executable . "rbx")
      (ruby-compilation-executable . "jruby"))))
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
- '(tab-width 4))
+ '(tab-width 4)
+ '(vc-annotate-background "#202020")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#C99090")
+     (40 . "#D9A0A0")
+     (60 . "#ECBC9C")
+     (80 . "#DDCC9C")
+     (100 . "#EDDCAC")
+     (120 . "#FDECBC")
+     (140 . "#6C8C6C")
+     (160 . "#8CAC8C")
+     (180 . "#9CBF9C")
+     (200 . "#ACD2AC")
+     (220 . "#BCE5BC")
+     (240 . "#CCF8CC")
+     (260 . "#A0EDF0")
+     (280 . "#79ADB0")
+     (300 . "#89C5C8")
+     (320 . "#99DDE0")
+     (340 . "#9CC7FB")
+     (360 . "#E090C7"))))
+ '(vc-annotate-very-old-color "#E090C7"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 110 :family "Anonymous Pro")))))
+ '(default ((t (:height 110 :family "Fira Code")))))
 
 ;; Misc
 (setenv "SSH_AUTH_SOCK" (concat (getenv "XDG_RUNTIME_DIR") "/ssh-agent.socket"))
 (require 'cl-lib)
 (setq visible-bell 1)
-(add-to-list 'default-frame-alist
-             '(font . "Anonymous Pro-11"))
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
 (setq make-backup-files nil)
