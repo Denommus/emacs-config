@@ -37,19 +37,17 @@
    [unspecified "#081724" "#ff694d" "#68f6cb" "#fffe4e" "#bad6e2" "#afc0fd" "#d2f1ff" "#d3f9ee"])
  '(custom-safe-themes
    (quote
-    ("a4f8d45297894ffdd98738551505a336a7b3096605b467da83fae00f53b13f01" "d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "af9761c65a81bd14ee3f32bc2ffc966000f57e0c9d31e392bc011504674c07d6" "235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+    ("bb749a38c5cb7d13b60fa7fc40db7eced3d00aa93654d150b9627cabd2d9b361" "a4f8d45297894ffdd98738551505a336a7b3096605b467da83fae00f53b13f01" "d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "af9761c65a81bd14ee3f32bc2ffc966000f57e0c9d31e392bc011504674c07d6" "235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
  '(erc-ignore-list (quote ("ihatehex" "ams")))
  '(erc-modules
    (quote
     (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track truncate)))
  '(fci-rule-color "#383838")
  '(inhibit-startup-screen t)
- '(org-agenda-files
-   (quote
-    ("~/Dropbox/org/metas.org" "~/Dropbox/org/agenda.org" "~/Dropbox/org/mobile.org" "~/Dropbox/org/capture.org")))
+ '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (org-bullets org-beautify-theme plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode intero exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -542,10 +540,8 @@
 
 ;; Emacs theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(defadvice load-theme (before theme-dont-propagate activate)
-  "I don't want to combine multiple themes."
-  (mapc #'disable-theme custom-enabled-themes))
-(load-theme 'cyberpunk t)
+(load-theme 'solarized t)
+(load-theme 'org-beautify t)
 
 ;;Org-Mode
 (use-package org
@@ -558,9 +554,7 @@
   (setq org-log-done 'time)
   (setq org-agenda-include-diary t)
   (setq org-directory "~/Dropbox/org")
-  (setq org-default-notes-file (concat org-directory "/capture.org"))
-  (setq org-mobile-inbox-for-pull (concat org-directory "/mobile.org"))
-  (setq org-mobile-directory (concat org-directory "/MobileOrg"))
+  (setq org-default-notes-file (concat org-directory "/agenda.org"))
   (setq org-export-with-toc nil)
   (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
   (setq org-confirm-babel-evaluate nil)
@@ -594,6 +588,7 @@
   (add-hook 'org-mode-hook #'deactivate-c-tab)
   (add-hook 'org-mode-hook #'auto-fill-mode)
   (add-hook 'org-mode-hook #'org-bindings)
+  (add-hook 'org-mode-hook #'org-bullets-mode)
   (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
   (use-package org-git-link)
   (org-babel-do-load-languages
