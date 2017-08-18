@@ -334,7 +334,16 @@
   (setq bbdb-file "~/Dropbox/bbdb.gpg")
   (setq bbdb-complete-name-full-completion t)
   (setq bbdb-completion-type 'primary-or-name)
-  (setq bbdb-complete-name-allow-cycling t))
+  (setq bbdb-complete-name-allow-cycling t)
+
+  (autoload 'bbdb-insinuate-mu4e "bbdb-mu4e")
+  (bbdb-initialize 'message 'mu4e)
+  (setq bbdb-mail-user-agent 'mu4e-user-agent)
+  (setq mu4e-view-mode-hook 'bbdb-mua-auto-update)
+  (setq mu4e-compose-complete-addresses nil)
+  (setq bbdb-mua-pop-up t)
+  (setq bbdb-mua-pop-up-window-size 5)
+  (setq mu4e-view-show-addresses t))
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
@@ -596,6 +605,7 @@
   (add-hook 'org-mode-hook #'org-bullets-mode)
   (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
   (use-package org-git-link)
+  (require 'org-mu4e)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((dot . t)
