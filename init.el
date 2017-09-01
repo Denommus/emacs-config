@@ -598,7 +598,6 @@
     (local-set-key (kbd "M-p") #'org-move-item-up)
     (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
     (local-set-key (kbd "C-M-p") #'org-move-subtree-up))
-  (add-hook 'org-mode-hook #'visual-line-mode)
   (add-hook 'org-mode-hook #'deactivate-c-tab)
   (add-hook 'org-mode-hook #'auto-fill-mode)
   (add-hook 'org-mode-hook #'org-bindings)
