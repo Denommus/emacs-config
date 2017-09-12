@@ -621,6 +621,9 @@
      (org . t)
      (ruby . t)
      (php . t)
+     (sql . t)
+     (sqlite . t)
+     (python .)
      (plantuml . t)))
   (use-package ox-latex
     :config
