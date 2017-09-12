@@ -571,7 +571,9 @@
         `(("j" "Journal" entry (file+datetree ,(concat org-directory "/diario.org"))
            "* %?\nEntrada dia %U\n %i\n")
           ("t" "Task" entry (file+headline ,(concat org-directory "/agenda.org") "Tasks")
-           "* TODO %?\n  %i\n  %a")))
+           "* TODO %?\n  %i\n  %a")
+          ("n" "Note" entry (file+headline ,(concat org-directory "/agenda.org") "Notes")
+           "* %?\n  %i\n  %a")))
   ;; Use minted
   (setq org-latex-listings 'minted)
   (setq org-latex-pdf-process
