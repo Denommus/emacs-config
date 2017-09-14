@@ -454,6 +454,7 @@
   :mode
   "\\.jsx?\\'"
   :config
+  (setq js2-switch-indent-offset 2)
   (setq js2-basic-offset 2)
   (setq js-indent-level 2))
 
@@ -504,6 +505,7 @@
               (c-set-style "qt")
               (subword-mode 1)))
 (setq flycheck-clang-language-standard "c++14")
+(c-set-offset 'case-label '+)
 
 ;; Undo tree
 (use-package undo-tree
