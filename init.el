@@ -591,6 +591,13 @@
                                    ("linenos" "")))
   :config
   (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (add-to-list 'org-latex-classes
+               '("tccv" "\\documentclass[11pt]{tccv}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))  (add-to-list 'org-latex-packages-alist '("" "minted"))
   (use-package ox-taskjuggler
     :init
     (add-to-list 'org-export-backends 'taskjuggler))
