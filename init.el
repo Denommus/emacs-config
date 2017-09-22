@@ -240,8 +240,11 @@
         (cl-loop for directory in '("~/.local/share/Trash/files/"
                                     "~/.local/share/Trash/info/")
                  do (cl-loop for file in (directory-files directory)
+                             with fullpath = (concat directory file)
                              unless (or (string= file ".") (string= file ".."))
-                             do (delete-file (concat directory file)))))))
+                             do (if (file-directory-p fullpath)
+                                    (delete-directory fullpath t)
+                                  (delete-file fullpath)))))))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
