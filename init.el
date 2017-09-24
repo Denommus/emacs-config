@@ -351,6 +351,9 @@
 
 ;;Diary
 (setq diary-file "~/Dropbox/diary")
+(setq calendar-latitude -27.594870
+      calendar-longitude -48.548219
+      calendar-location-name "Florianópolis, Brazil")
 (setq calendar-and-diary-frame-parameters
       '((name . "Calendar") (title . "Calendar")
         (height . 20) (width . 78)
