@@ -706,26 +706,59 @@
    smtpmail-default-smtp-server  "smtp.gmail.com"
    smtpmail-smtp-server          "smtp.gmail.com"
    smtpmail-local-domain         "gmail.com"
-   mu4e-trash-folder             "/[Gmail].Trash"
-   mu4e-sent-folder              "/[Gmail].Sent Mail"
-   mu4e-drafts-folder            "/[Gmail].Drafts"
    mu4e-sent-messages-behavior   'delete
    mu4e-get-mail-command         "offlineimap"
+   mu4e-maildir "~/.Maildir"
    mu4e-view-show-images t)
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
-(setq mu4e-maildir-shortcuts
-    '( ("/INBOX"               . ?i)
-       ("/[Gmail].Sent Mail"   . ?s)
-       ("/[Gmail].Trash"       . ?t)
-       ("/[Gmail].All Mail"    . ?a)))
 (setq message-kill-buffer-on-exit t)
-(setq
-   user-mail-address "yurialbuquerque@brickabode.com"
-   user-full-name  "Yuri Albuquerque"
-   mu4e-compose-signature
-    (concat
-      "Yuri Albuquerque\n"))
+(setq mu4e-contexts
+      `(,(make-mu4e-context
+          :name "BA"
+          :enter-func (lambda () (mu4e-message "Entering BA context"))
+          :leave-func (lambda () (mu4e-message "Leaving BA context"))
+          :match-func (lambda (msg)
+                        (when msg
+                          ;; (mu4e-message-contact-field-matches
+                          ;;  msg :to "yurialbuquerque@brickabode.com")
+                          (string-prefix-p "/ba" (mu4e-message-field msg :maildir))))
+          :vars '((mu4e-trash-folder . "/ba/[Gmail].Trash")
+                  (mu4e-sent-folder . "/ba/[Gmail].Sent Mail")
+                  (mu4e-drafts-folder . "/ba/[Gmail].Drafts")
+                  (mu4e-maildir-shortcuts . (("/ba/INBOX"               . ?i)
+                                             ("/ba/[Gmail].Sent Mail"   . ?s)
+                                             ("/ba/[Gmail].Trash"       . ?t)
+                                             ("/ba/[Gmail].All Mail"    . ?a)))
+                  (user-mail-address . "yurialbuquerque@brickabode.com")
+                  (user-full-name . "Yuri Albuquerque")
+                  (mu4e-compose-signature . "Yuri Albuquerque")))
+        ,(make-mu4e-context
+          :name "Personal"
+          :enter-func (lambda () (mu4e-message "Entering Personal context"))
+          :leave-func (lambda () (mu4e-message "Leaving Personal context"))
+          :match-func (lambda (msg)
+                        (when msg
+                          ;; (mu4e-message-contact-field-matches
+                          ;;  msg :to "yuridenommus@gmail.com")
+                          (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
+          :vars '((mu4e-trash-folder . "/personal/[Gmail].Lixeira")
+                  (mu4e-sent-folder . "/personal/[Gmail].E-mails enviados")
+                  (mu4e-drafts-folder . "/personal/[Gmail].Rascunhos")
+                  (mu4e-maildir-shortcuts . (("/personal/INBOX"                    . ?i)
+                                             ("/personal/[Gmail].E-mails enviados" . ?e)
+                                             ("/personal/[Gmail].Lixeira"          . ?l)
+                                             ("/personal/[Gmail].Todos os e-mails" . ?t)))
+                  (user-mail-address . "yuridenommus@gmail.com")
+                  (user-full-name . "Yuri Albuquerque")
+                  (mu4e-compose-signature . "Yuri Albuquerque")))))
+(use-package helm-mu)
+(defun custom-mu4e-read-maildir (prompt maildirs predicate require-match initial-input)
+  "Use helm instead of ido. PROMPT MAILDIRS PREDICATE REQUIRE-MATCH INITIAL-INPUT."
+  (helm-comp-read prompt maildirs
+                  :name prompt
+                  :must-match t))
+(setq mu4e-completing-read-function #'custom-mu4e-read-maildir)
 (provide 'init)
 ;;; init.el ends here
 (put 'downcase-region 'disabled nil)
