@@ -361,17 +361,26 @@
 (setq calendar-date-style "european")
 
 ;;Twittering Mode
-(setq twittering-use-master-password t)
-(if (eq system-type 'windows-nt)
-    (setq twittering-cert-file "C:\\Program Files (x86)\\Git\\bin\\curl-ca-bundle.crt")
-  (setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt"))
-(setq twittering-icon-mode t)
-(setq twittering-initial-timeline-spec-string
-      '(":home"
-        ":replies"
-        ":favorites"
-        ":direct_messages"
-        ":search/emacs/"))
+(use-package twittering-mode
+  :init
+  (setq twittering-use-master-password t)
+  (if (eq system-type 'windows-nt)
+      (setq twittering-cert-file "C:\\Program Files (x86)\\Git\\bin\\curl-ca-bundle.crt")
+    (setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt"))
+  (setq twittering-icon-mode t)
+  (setq twittering-initial-timeline-spec-string
+        '(":home"
+          ":replies"
+          ":favorites"
+          ":direct_messages"
+          ":search/emacs/"))
+  (setq twittering-connection-type-order
+        '(wget curl urllib-http native urllib-https))
+  :config
+  (add-hook 'twittering-mode-hook
+          #'(lambda ()
+              (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
+              (local-set-key (kbd "C-c n") 'twittering-goto-next-uri))))
 
 ;; Python
 (setq python-command "python2")
@@ -464,11 +473,6 @@
   (setq js2-basic-offset 2)
   (setq js-indent-level 2))
 
-;; Twittering mode
-(add-hook 'twittering-mode-hook
-          #'(lambda ()
-              (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
-              (local-set-key (kbd "C-c n") 'twittering-goto-next-uri)))
 
 ;; YASnippet
 (use-package yasnippet
