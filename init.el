@@ -711,6 +711,8 @@
 ;; Mu4e
 (require 'mu4e)
 (require 'smtpmail)
+(add-to-list 'mu4e-view-actions
+  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 (setq
    message-send-mail-function    'smtpmail-send-it
    smtpmail-stream-type          'starttls
@@ -721,7 +723,9 @@
    mu4e-sent-messages-behavior   'delete
    mu4e-get-mail-command         "offlineimap"
    mu4e-maildir "~/.Maildir"
+   mu4e-headers-skip-duplicates t
    mu4e-view-show-images t)
+(setq mu4e-msg2pdf "~/.local/bin/msg2pdf")
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 (setq message-kill-buffer-on-exit t)
@@ -731,17 +735,18 @@
           :enter-func (lambda () (mu4e-message "Entering BA context"))
           :leave-func (lambda () (mu4e-message "Leaving BA context"))
           :match-func (lambda (msg)
-                        (when msg
-                          ;; (mu4e-message-contact-field-matches
-                          ;;  msg :to "yurialbuquerque@brickabode.com")
-                          (string-prefix-p "/ba" (mu4e-message-field msg :maildir))))
+                        (and
+                         msg
+                         (mu4e-message-contact-field-matches
+                          msg :to "yurialbuquerque@brickabode.com")
+                         (string-prefix-p "/ba" (mu4e-message-field msg :maildir))))
           :vars '((mu4e-trash-folder . "/ba/[Gmail].Trash")
                   (mu4e-sent-folder . "/ba/[Gmail].Sent Mail")
                   (mu4e-drafts-folder . "/ba/[Gmail].Drafts")
-                  (mu4e-maildir-shortcuts . (("/ba/INBOX"               . ?i)
-                                             ("/ba/[Gmail].Sent Mail"   . ?s)
-                                             ("/ba/[Gmail].Trash"       . ?t)
-                                             ("/ba/[Gmail].All Mail"    . ?a)))
+                  (mu4e-maildir-shortcuts . (("/ba/INBOX"             . ?i)
+                                             ("/ba/[Gmail].Sent Mail" . ?s)
+                                             ("/ba/[Gmail].Trash"     . ?t)
+                                             ("/ba/[Gmail].All Mail"  . ?a)))
                   (user-mail-address . "yurialbuquerque@brickabode.com")
                   (user-full-name . "Yuri Albuquerque")
                   (mu4e-compose-signature . "Yuri Albuquerque")))
@@ -750,10 +755,11 @@
           :enter-func (lambda () (mu4e-message "Entering Personal context"))
           :leave-func (lambda () (mu4e-message "Leaving Personal context"))
           :match-func (lambda (msg)
-                        (when msg
-                          ;; (mu4e-message-contact-field-matches
-                          ;;  msg :to "yuridenommus@gmail.com")
-                          (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
+                        (and
+                         msg
+                         (mu4e-message-contact-field-matches
+                          msg :to "yuridenommus@gmail.com")
+                         (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
           :vars '((mu4e-trash-folder . "/personal/[Gmail].Lixeira")
                   (mu4e-sent-folder . "/personal/[Gmail].E-mails enviados")
                   (mu4e-drafts-folder . "/personal/[Gmail].Rascunhos")
