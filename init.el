@@ -436,9 +436,9 @@
 (use-package flycheck
   :init
   (setq sentence-end-double-space nil)
+  :config
   (flycheck-add-mode 'html-tidy 'web-mode)
   (flycheck-add-mode 'css-csslint 'web-mode)
-  :config
   (global-flycheck-mode))
 
 ;; SmartParens
