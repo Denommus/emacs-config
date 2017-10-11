@@ -806,7 +806,9 @@
                   :name prompt
                   :must-match t))
 (setq mu4e-completing-read-function #'custom-mu4e-read-maildir)
+
 (provide 'init)
 ;;; init.el ends here
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
