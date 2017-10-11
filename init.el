@@ -23,6 +23,17 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
+;; Quelpa
+(if (require 'quelpa nil t)
+    (quelpa-self-upgrade)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
+    (eval-buffer)))
+(quelpa
+ '(quelpa-use-package
+   :fetcher github
+   :repo "quelpa/quelpa-use-package"))
+(require 'quelpa-use-package)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -45,7 +56,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (dante helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (helm-company haml-mode reason-mode quelpa quelpa-use-package dante helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -489,7 +500,8 @@
   (global-company-mode 1)
   (require 'company-ghci)
   (add-to-list 'company-backends 'company-ghci)
-  (add-to-list 'company-backends 'company-robe))
+  (add-to-list 'company-backends 'company-robe)
+  (add-to-list 'company-backends 'merlin-company-backend))
 
 ;; Web Mode
 (use-package web-mode
@@ -662,7 +674,7 @@
 
 ;; OCaml
 (use-package tuareg
-  :config
+  :init
   (when (executable-find "opam")
     (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
           (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
@@ -671,11 +683,27 @@
       (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
         (setenv (car var) (cadr var)))
 
-      (require 'ocp-indent)
-      (require 'merlin)
-      (setq merlin-command "ocamlmerlin")
-      (add-hook 'tuareg-mode-hook #'merlin-mode)
-      (add-hook 'caml-mode-hook #'merlin-mode))))
+      (use-package ocp-indent)
+      (use-package merlin
+        :init
+        (use-package reason-mode
+          :quelpa (reason-mode :repo "reasonml-editor/reason-mode" :fetcher github :stable t)
+          :init
+          (defun shell-cmd (cmd)
+            "Returns the stdout output of a shell command or nil if the command returned
+   an error"
+            (car (ignore-errors (apply 'process-lines (split-string cmd)))))
+
+          (let ((refmt-bin (shell-cmd "which refmt")))
+            (when refmt-bin
+              (setq refmt-command refmt-bin)))
+          (add-hook 'reason-mode-hook #'(lambda ()
+                                          (add-hook 'before-save-hook 'refmt-before-save)
+                                          (merlin-mode))))
+
+        (setq merlin-command "ocamlmerlin")
+        (add-hook 'tuareg-mode-hook #'merlin-mode)
+        (add-hook 'caml-mode-hook #'merlin-mode)))))
 
 ;; Elscreen
 (use-package elscreen
