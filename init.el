@@ -752,7 +752,8 @@
    mu4e-get-mail-command         "offlineimap"
    mu4e-maildir "~/.Maildir"
    mu4e-headers-skip-duplicates t
-   mu4e-view-show-images t)
+   mu4e-view-show-images t
+   mu4e-compose-context-policy 'always-ask)
 (setq mu4e-msg2pdf "~/.local/bin/msg2pdf")
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
