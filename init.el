@@ -23,17 +23,6 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
-;; Quelpa
-(if (require 'quelpa nil t)
-    (quelpa-self-upgrade)
-  (with-temp-buffer
-    (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
-    (eval-buffer)))
-(quelpa
- '(quelpa-use-package
-   :fetcher github
-   :repo "quelpa/quelpa-use-package"))
-(require 'quelpa-use-package)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -56,7 +45,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (webpaste elfeed-org elfeed helm-company haml-mode reason-mode quelpa quelpa-use-package dante helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (lsp-mode lsp-ocaml webpaste elfeed-org elfeed helm-company haml-mode reason-mode dante helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -500,8 +489,7 @@
   (global-company-mode 1)
   (require 'company-ghci)
   (add-to-list 'company-backends 'company-ghci)
-  (add-to-list 'company-backends 'company-robe)
-  (add-to-list 'company-backends 'merlin-company-backend))
+  (add-to-list 'company-backends 'company-robe))
 
 ;; Web Mode
 (use-package web-mode
@@ -684,10 +672,17 @@
         (setenv (car var) (cadr var)))
 
       (use-package ocp-indent)
+      (use-package lsp-mode
+        :init
+        (use-package lsp-ocaml
+          :init
+          (setq exec-path (cons (concat (getenv "HOME") "/.npm-global/bin") exec-path))
+          (add-hook 'tuareg-mode-hook #'lsp-ocaml-enable)
+          (add-hook 'caml-mode-hook #'lsp-ocaml-enable)
+          (add-hook 'reason-mode-hook #'lsp-ocaml-enable)))
       (use-package merlin
         :init
         (use-package reason-mode
-          :quelpa (reason-mode :repo "reasonml-editor/reason-mode" :fetcher github :stable t)
           :init
           (defun shell-cmd (cmd)
             "Returns the stdout output of a shell command or nil if the command returned
