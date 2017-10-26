@@ -433,7 +433,12 @@
   (helm-mode 1)
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z") #'helm-select-action))
+  (define-key helm-map (kbd "C-z") #'helm-select-action)
+  (add-hook 'eshell-mode-hook
+            #'(lambda ()
+                (eshell-cmpl-initialize)
+                (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
+                (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history))))
 
 ;; Haskell
 (add-hook 'haskell-mode-hook #'turn-on-haskell-indentation)
