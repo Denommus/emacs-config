@@ -176,6 +176,9 @@
  '(default ((t (:height 110 :family "Fira Code")))))
 
 ;; Misc
+(setq comint-password-prompt-regexp
+      (concat comint-password-prompt-regexp
+              "\\|^\\[sudo\\]"))
 (setenv "SSH_AUTH_SOCK" (concat (getenv "XDG_RUNTIME_DIR") "/ssh-agent.socket"))
 (require 'cl-lib)
 (setq visible-bell 1)
