@@ -449,7 +449,7 @@
                 (company-mode -1))))
 
 ;; Haskell
-(add-hook 'haskell-mode-hook #'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook #'haskell-indentation-mode)
 (use-package lsp-haskell
   :init
   (add-to-list 'exec-path "~/.local/bin")
