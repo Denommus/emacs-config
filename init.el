@@ -689,6 +689,13 @@
 ;; OCaml
 (use-package tuareg
   :init
+  (use-package lsp-mode
+    :init
+    (use-package lsp-ocaml
+      :init
+      (add-hook 'tuareg-mode-hook #'lsp-ocaml-enable)
+      (add-hook 'caml-mode-hook #'lsp-ocaml-enable)
+      (add-hook 'reason-mode-hook #'lsp-ocaml-enable)))
   (when (executable-find "opam")
     (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
           (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
@@ -698,14 +705,6 @@
         (setenv (car var) (cadr var)))
 
       (use-package ocp-indent)
-      (use-package lsp-mode
-        :init
-        (use-package lsp-ocaml
-          :init
-          (setq exec-path (cons (concat (getenv "HOME") "/.npm-global/bin") exec-path))
-          (add-hook 'tuareg-mode-hook #'lsp-ocaml-enable)
-          (add-hook 'caml-mode-hook #'lsp-ocaml-enable)
-          (add-hook 'reason-mode-hook #'lsp-ocaml-enable)))
       (use-package merlin
         :init
         (use-package reason-mode
