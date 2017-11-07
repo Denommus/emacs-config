@@ -52,7 +52,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (lsp-haskell virtualenvwrapper lsp-mode lsp-ocaml webpaste elfeed-org elfeed helm-company haml-mode reason-mode helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode js2-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-mode lsp-ocaml webpaste elfeed-org elfeed helm-company haml-mode reason-mode helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -478,7 +478,9 @@
   (defun enable-smartparens-mode ()
     (smartparens-mode +1)
     (smartparens-strict-mode 1))
-  (add-hook 'js2-mode-hook #'enable-smartparens-mode)
+  (use-package rjsx-mode
+    :config
+    (add-hook 'rjsx-mode-hook #'enable-smartparens-mode))
   (add-hook 'emacs-lisp-mode-hook       #'enable-smartparens-mode)
   (add-hook 'eval-expression-minibuffer-setup-hook #'enable-smartparens-mode)
   (add-hook 'ielm-mode-hook             #'enable-smartparens-mode)
@@ -490,10 +492,14 @@
   (add-hook 'slime-repl-mode-hook #'enable-smartparens-mode)
   (load-file "~/.emacs.d/smartparens.el"))
 
-;; JS2-Mode
-(use-package js2-mode
+;; RJSX-Mode
+(use-package rjsx-mode
   :mode
   "\\.jsx?\\'"
+  :init
+  (use-package lsp-javascript-typescript
+    :config
+    (add-hook 'rjsx-mode-hook #'lsp-javascript-typescript-enable))
   :config
   (setq js2-switch-indent-offset 2)
   (setq js2-basic-offset 2)
