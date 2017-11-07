@@ -177,6 +177,8 @@
 
 ;; Misc
 (use-package comint
+  :init
+  (savehist-mode 1)
   :config
   (setq comint-password-prompt-regexp
         (concat comint-password-prompt-regexp
