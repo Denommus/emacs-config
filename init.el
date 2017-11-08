@@ -775,7 +775,7 @@
    smtpmail-smtp-server          "smtp.gmail.com"
    smtpmail-local-domain         "gmail.com"
    mu4e-sent-messages-behavior   'delete
-   mu4e-get-mail-command         "offlineimap"
+   mu4e-get-mail-command         "mbsync -a"
    mu4e-maildir "~/.Maildir"
    mu4e-headers-skip-duplicates t
    mu4e-view-show-images t
@@ -795,13 +795,14 @@
                          (mu4e-message-contact-field-matches
                           msg :to "yurialbuquerque@brickabode.com")
                          (string-prefix-p "/ba" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-trash-folder . "/ba/[Gmail].Trash")
-                  (mu4e-sent-folder . "/ba/[Gmail].Sent Mail")
-                  (mu4e-drafts-folder . "/ba/[Gmail].Drafts")
+          :vars '((mu4e-get-mail-command . "mbsync ba")
+                  (mu4e-trash-folder . "/ba/[Gmail]/Trash")
+                  (mu4e-sent-folder . "/ba/[Gmail]/Sent Mail")
+                  (mu4e-drafts-folder . "/ba/[Gmail]/Drafts")
                   (mu4e-maildir-shortcuts . (("/ba/INBOX"             . ?i)
-                                             ("/ba/[Gmail].Sent Mail" . ?s)
-                                             ("/ba/[Gmail].Trash"     . ?t)
-                                             ("/ba/[Gmail].All Mail"  . ?a)))
+                                             ("/ba/[Gmail]/Sent Mail" . ?s)
+                                             ("/ba/[Gmail]/Trash"     . ?t)
+                                             ("/ba/[Gmail]/All Mail"  . ?a)))
                   (user-mail-address . "yurialbuquerque@brickabode.com")
                   (user-full-name . "Yuri Albuquerque")
                   (mu4e-compose-signature . "Yuri Albuquerque")))
@@ -815,13 +816,14 @@
                          (mu4e-message-contact-field-matches
                           msg :to "yuridenommus@gmail.com")
                          (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-trash-folder . "/personal/[Gmail].Lixeira")
-                  (mu4e-sent-folder . "/personal/[Gmail].E-mails enviados")
+          :vars '((mu4e-get-mail-command . "mbsync personal")
+                  (mu4e-trash-folder . "/personal/[Gmail]/Lixeira")
+                  (mu4e-sent-folder . "/personal/[Gmail]/E-mails enviados")
                   (mu4e-drafts-folder . "/personal/[Gmail].Rascunhos")
                   (mu4e-maildir-shortcuts . (("/personal/INBOX"                    . ?i)
-                                             ("/personal/[Gmail].E-mails enviados" . ?e)
-                                             ("/personal/[Gmail].Lixeira"          . ?l)
-                                             ("/personal/[Gmail].Todos os e-mails" . ?t)))
+                                             ("/personal/[Gmail]/E-mails enviados" . ?e)
+                                             ("/personal/[Gmail]/Lixeira"          . ?l)
+                                             ("/personal/[Gmail]/Todos os e-mails" . ?t)))
                   (user-mail-address . "yuridenommus@gmail.com")
                   (user-full-name . "Yuri Albuquerque")
                   (mu4e-compose-signature . "Yuri Albuquerque")))))
