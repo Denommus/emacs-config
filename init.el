@@ -183,7 +183,7 @@
   (setq comint-password-prompt-regexp
         (concat comint-password-prompt-regexp
                 "\\|^\\[sudo\\]")))
-(setenv "SSH_AUTH_SOCK" (concat (getenv "XDG_RUNTIME_DIR") "/ssh-agent.socket"))
+(setenv "SSH_AUTH_SOCK" (concat (getenv "XDG_RUNTIME_DIR") "/gnupg/S.gpg-agent.ssh"))
 (require 'cl-lib)
 (setq visible-bell 1)
 (add-to-list 'load-path "~/.emacs.d/plugins")
