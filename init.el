@@ -297,6 +297,18 @@
 ;; ERC + Tor
 (require 'erc)
 (require 'erc-sasl)
+(defun erc-all-kill (&optional prefix)
+  "Kill all buffers in erc-mode. With prefix, kill-buffer-query-functions is preserved"
+  (interactive "P")
+  (flet ((kill-buffer-p (b) (with-current-buffer b (eq major-mode 'erc-mode))))
+    (let* ((kill-buffer-query-functions (if prefix kill-buffer-query-functions '()))
+           (killed (loop for buffer in (buffer-list)
+                         when (kill-buffer-p buffer)
+                         collect (buffer-name buffer)
+                         and do
+                         (kill-buffer buffer))))
+      (message "Killed: %s buffers: %s" (length killed) killed)
+      killed)))
 (add-to-list 'erc-sasl-server-regexp-list
              ".*")
 (setq erc-sasl-server-regexp-list '("irc\\.freenode\\.net"))
