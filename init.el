@@ -779,6 +779,7 @@
    mu4e-maildir "~/.Maildir"
    mu4e-headers-skip-duplicates t
    mu4e-view-show-images t
+   mu4e-change-filenames-when-moving t
    mu4e-compose-context-policy 'always-ask)
 (setq mu4e-msg2pdf "~/.local/bin/msg2pdf")
 (when (fboundp 'imagemagick-register-types)
@@ -819,7 +820,8 @@
           :vars '((mu4e-get-mail-command . "mbsync personal")
                   (mu4e-trash-folder . "/personal/[Gmail]/Lixeira")
                   (mu4e-sent-folder . "/personal/[Gmail]/E-mails enviados")
-                  (mu4e-drafts-folder . "/personal/[Gmail].Rascunhos")
+                  (mu4e-drafts-folder . "/personal/[Gmail]/Rascunhos")
+                  (mu4e-refile-folder . "/personal/[Gmail]/Todos os e-mails")
                   (mu4e-maildir-shortcuts . (("/personal/INBOX"                    . ?i)
                                              ("/personal/[Gmail]/E-mails enviados" . ?e)
                                              ("/personal/[Gmail]/Lixeira"          . ?l)
