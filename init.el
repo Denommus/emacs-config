@@ -176,6 +176,11 @@
  '(default ((t (:height 110 :family "Fira Code")))))
 
 ;; Misc
+(defun visit-emacs-config ()
+  "Visits the user's Emacs' configuration."
+  (interactive)
+  (find-file user-init-file))
+(global-set-key (kbd "C-,") #'visit-emacs-config)
 (use-package comint
   :init
   (savehist-mode 1)
