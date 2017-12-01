@@ -176,6 +176,7 @@
  '(default ((t (:height 110 :family "Fira Code")))))
 
 ;; Misc
+(setq max-specpdl-size 2000) ;; Some emails break with the default value
 (defun visit-emacs-config ()
   "Visits the user's Emacs' configuration."
   (interactive)
@@ -798,6 +799,10 @@
    mu4e-view-show-images t
    mu4e-change-filenames-when-moving t
    mu4e-compose-context-policy 'always-ask)
+(setq
+   mu4e-index-cleanup nil
+   mu4e-index-lazy-check t
+   mu4e-update-interval 300)
 (setq mu4e-msg2pdf "~/.local/bin/msg2pdf")
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
