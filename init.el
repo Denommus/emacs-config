@@ -818,8 +818,7 @@
                          (mu4e-message-contact-field-matches
                           msg :to "yurialbuquerque@brickabode.com")
                          (string-prefix-p "/ba" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-get-mail-command . "mbsync ba")
-                  (mu4e-trash-folder . "/ba/[Gmail]/Trash")
+          :vars '((mu4e-trash-folder . "/ba/[Gmail]/Trash")
                   (mu4e-sent-folder . "/ba/[Gmail]/Sent Mail")
                   (mu4e-drafts-folder . "/ba/[Gmail]/Drafts")
                   (mu4e-maildir-shortcuts . (("/ba/INBOX"             . ?i)
@@ -839,8 +838,7 @@
                          (mu4e-message-contact-field-matches
                           msg :to "yuridenommus@gmail.com")
                          (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-get-mail-command . "mbsync personal")
-                  (mu4e-trash-folder . "/personal/[Gmail]/Lixeira")
+          :vars '((mu4e-trash-folder . "/personal/[Gmail]/Lixeira")
                   (mu4e-sent-folder . "/personal/[Gmail]/E-mails enviados")
                   (mu4e-drafts-folder . "/personal/[Gmail]/Rascunhos")
                   (mu4e-refile-folder . "/personal/[Gmail]/Todos os e-mails")
