@@ -145,6 +145,8 @@
      (ruby-compilation-executable . "rbx")
      (ruby-compilation-executable . "jruby"))))
  '(socks-server (quote ("Default server" "localhost" 9050 5)))
+ '(sql-mysql-login-params (quote (user password database server port)))
+ '(sql-port 3306)
  '(tab-width 4)
  '(vc-annotate-background "#202020")
  '(vc-annotate-color-map
