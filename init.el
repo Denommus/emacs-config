@@ -831,6 +831,7 @@
                                              ("/ba/[Gmail]/All Mail"  . ?a)))
                   (user-mail-address . "yurialbuquerque@brickabode.com")
                   (user-full-name . "Yuri Albuquerque")
+                  (smtpmail-smtp-user "yurialbuquerque@brickabode.com")
                   (mu4e-compose-signature . "Yuri Albuquerque")))
         ,(make-mu4e-context
           :name "Personal"
@@ -852,6 +853,7 @@
                                              ("/personal/[Gmail]/Todos os e-mails" . ?t)))
                   (user-mail-address . "yuridenommus@gmail.com")
                   (user-full-name . "Yuri Albuquerque")
+                  (smtpmail-smtp-user "yuridenommus@gmail.com")
                   (mu4e-compose-signature . "Yuri Albuquerque")))))
 (use-package helm-mu)
 (defun custom-mu4e-read-maildir (prompt maildirs predicate require-match initial-input)
