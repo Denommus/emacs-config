@@ -551,7 +551,8 @@
   :bind (:map omnisharp-mode-map
               ("C-c C-t" . omnisharp-current-type-information)
               ("C-." . omnisharp-go-to-definition)
-              ("C-," . pop-tag-mark)
+              ("M-." . omnisharp-go-to-definition)
+              ("M-," . pop-tag-mark)
               ("C-c C-r" . omnisharp-rename)
               ("C-c C-i" . omnisharp-current-type-documentation))
   :config
