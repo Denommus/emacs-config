@@ -178,7 +178,6 @@
  '(default ((t (:height 110 :family "Fira Code")))))
 
 ;; Misc
-(global-subword-mode 1)
 (setq max-specpdl-size 2000) ;; Some emails break with the default value
 (defun visit-emacs-config ()
   "Visits the user's Emacs' configuration."
