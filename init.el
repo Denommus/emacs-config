@@ -52,7 +52,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (yasnippet-snippets omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-mode lsp-ocaml webpaste elfeed-org elfeed helm-company haml-mode reason-mode helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (yasnippet-snippets omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-ocaml webpaste elfeed-org elfeed helm-company haml-mode reason-mode helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -183,7 +183,7 @@
   "Visits the user's Emacs' configuration."
   (interactive)
   (find-file user-init-file))
-(global-set-key (kbd "C-,") #'visit-emacs-config)
+(global-set-key (kbd "C-c e") #'visit-emacs-config)
 (use-package comint
   :init
   (savehist-mode 1)
@@ -551,6 +551,7 @@
               ("C-c C-t" . omnisharp-current-type-information)
               ("C-." . omnisharp-go-to-definition)
               ("M-." . omnisharp-go-to-definition)
+              ("C-," . pop-tag-mark)
               ("M-," . pop-tag-mark)
               ("C-c C-r" . omnisharp-rename)
               ("C-c C-i" . omnisharp-current-type-documentation))
