@@ -818,9 +818,10 @@
    mu4e-change-filenames-when-moving t
    mu4e-compose-context-policy 'always-ask)
 (setq
-   mu4e-index-cleanup nil
-   mu4e-index-lazy-check t
-   mu4e-update-interval 300)
+ ;; Using the default values here because they play nicer with Gmail
+ mu4e-index-cleanup t
+ mu4e-index-lazy-check nil
+ mu4e-update-interval 300)
 (setq mu4e-msg2pdf "~/.local/bin/msg2pdf")
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
