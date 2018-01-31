@@ -527,6 +527,13 @@
   (setq js2-basic-offset 2)
   (setq js-indent-level 2))
 
+(use-package typescript-mode
+  :mode "\\.tsx?\\'"
+  :init
+  (use-package lsp-javascript-typescript
+    :config
+    (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable)))
+
 
 ;; YASnippet
 (use-package yasnippet
