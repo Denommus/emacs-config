@@ -453,6 +453,9 @@
 (use-package helm
   :init
   (use-package helm-config)
+  (setq helm-display-function 'helm-display-buffer-in-own-frame
+        helm-display-buffer-reuse-frame t
+        helm-use-undecorated-frame-option t)
   :bind
   (("C-c h" . helm-command-prefix)
    ("M-x" . helm-M-x)
