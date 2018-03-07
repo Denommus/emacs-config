@@ -52,7 +52,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (switch-window lsp-ui guix go gnugo helm-system-packages yasnippet-snippets omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode reason-mode helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (writegood-mode webpaste switch-window lsp-ui guix go gnugo helm-system-packages yasnippet-snippets omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode reason-mode helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -505,9 +505,6 @@
 (use-package flycheck
   :init
   (setq sentence-end-double-space nil)
-  (use-package lsp-mode
-    :init
-    (use-package lsp-flycheck))
   :config
   (flycheck-add-mode 'html-tidy 'web-mode)
   (flycheck-add-mode 'css-csslint 'web-mode)
@@ -714,6 +711,9 @@
   (add-hook 'org-mode-hook #'org-bindings)
   (add-hook 'org-mode-hook #'org-bullets-mode)
   (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
+  (use-package writegood-mode
+    :config
+    (add-hook 'org-mode-hook #'(lambda () (writegood-mode 1))))
   (use-package org-git-link)
   (require 'org-mu4e)
   (org-babel-do-load-languages
@@ -920,7 +920,14 @@
 
 (use-package lsp-mode
   :config
-  (use-package lsp-ui))
+  (use-package lsp-ui
+    :config
+    (add-hook 'lsp-mode-hook 'lsp-ui-mode)))
+
+(use-package writegood-mode
+  :bind
+  (("C-c g g" . writegood-grade-level)
+   ("C-c g r" . writegood-reading-ease)))
 
 (provide 'init)
 ;;; init.el ends here
