@@ -714,6 +714,7 @@
   (use-package writegood-mode
     :config
     (add-hook 'org-mode-hook #'(lambda () (writegood-mode 1))))
+  (add-hook 'org-mode-hook #'(lambda () (flyspell-mode 1)))
   (use-package org-git-link)
   (require 'org-mu4e)
   (org-babel-do-load-languages
