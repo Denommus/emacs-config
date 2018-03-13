@@ -40,14 +40,18 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
+ '(apropos-do-all t)
+ '(auto-revert-verbose nil)
  '(custom-safe-themes
    (quote
     ("bb749a38c5cb7d13b60fa7fc40db7eced3d00aa93654d150b9627cabd2d9b361" "a4f8d45297894ffdd98738551505a336a7b3096605b467da83fae00f53b13f01" "d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "af9761c65a81bd14ee3f32bc2ffc966000f57e0c9d31e392bc011504674c07d6" "235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+ '(dired-dwim-target t)
  '(erc-ignore-list (quote ("ihatehex" "ams")))
  '(erc-modules
    (quote
     (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track truncate)))
  '(fci-rule-color "#383838")
+ '(global-auto-revert-non-file-buffers t)
  '(inhibit-startup-screen t)
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
@@ -213,14 +217,11 @@
 (global-auto-revert-mode 1)
 (add-hook 'after-change-major-mode-hook #'(lambda ()
                                             (setq indicate-buffer-boundaries t)))
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
 (global-set-key (kbd "C-s-b") 'windmove-left)
 (global-set-key (kbd "C-s-f") 'windmove-right)
 (global-set-key (kbd "C-s-p") 'windmove-up)
 (global-set-key (kbd "C-s-n") 'windmove-down)
 (diredp-toggle-find-file-reuse-dir -1)
-(setq dired-dwim-target t)
 (setq-default indent-tabs-mode nil)
 (add-to-list 'auto-mode-alist '("PKGBUILD" . pkgbuild-mode))
 (put 'upcase-region 'disabled nil)
@@ -234,10 +235,9 @@
 (electric-indent-mode 0)
 
 (show-paren-mode 1)
-(setq x-select-enable-clipboard t
-      x-select-enable-primary t
+(setq select-enable-clipboard t
+      select-enable-primary t
       save-interprogram-paste-before-kill t
-      apropos-do-all t
       mouse-yank-at-point t)
 
 (defun convert-to-underscore ()
@@ -306,7 +306,7 @@
 (require 'erc)
 (require 'erc-sasl)
 (defun erc-all-kill (&optional prefix)
-  "Kill all buffers in erc-mode. With prefix, kill-buffer-query-functions is preserved"
+  "Kill all buffers in erc-mode. With PREFIX, 'kill-buffer-query-functions' is preserved."
   (interactive "P")
   (flet ((kill-buffer-p (b) (with-current-buffer b (eq major-mode 'erc-mode))))
     (let* ((kill-buffer-query-functions (if prefix kill-buffer-query-functions '()))
