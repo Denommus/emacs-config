@@ -200,7 +200,10 @@
 (setq visible-bell 1)
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
-(setq make-backup-files nil)
+(setq backup-directory-alist
+      `((".*" . ,(concat user-emacs-directory "backups/"))))
+(setq auto-save-file-name-transforms
+      `((".*" ,(concat user-emacs-directory "autosaves/") t)))
 (setq gnus-button-url 'browse-url-generic
       browse-url-generic-program (if (eq system-type 'windows-nt)
                                      "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
