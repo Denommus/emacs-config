@@ -56,7 +56,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (emojify writegood-mode webpaste switch-window lsp-ui guix go gnugo helm-system-packages yasnippet-snippets omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode reason-mode helm-google multi-term gnuplot gnuplot-mode org-bullets helm-mu ht typescript-mode plantuml-mode nginx-mode helm-flyspell helm-spotify-plus tuareg rust-mode org-plus-contrib use-package yasnippet helm-bbdb bbdb-android bbdb hc-zenburn-theme php-mode ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode web-mode undo-tree twittering-mode toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode hydra helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android bbdb hc-zenburn-theme ob-php slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime mew magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen dired+ cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
@@ -938,6 +938,11 @@
   (setq emojify-emoji-styles '(unicode))
   :config
   (global-emojify-mode 1))
+
+;; Mastodon
+(use-package mastodon
+  :init
+  (setq mastodon-instance-url "https://masto.donte.com.br"))
 
 (provide 'init)
 ;;; init.el ends here
