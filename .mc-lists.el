@@ -5,8 +5,14 @@
       '(
         backward-sexp
         backward-up-list
+        c-electric-brace
+        c-electric-delete-forward
+        c-electric-paren
+        c-electric-semi&comma
+        c-indent-line-or-region
         electric-newline-and-maybe-indent
         forward-sexp
+        handle-switch-frame
         indent-for-tab-command
         isearch-backward-regexp
         isearch-forward-regexp
@@ -19,6 +25,7 @@
         org-kill-line
         org-yank
         orgtbl-self-insert-command
+        sp-delete-char
         sp-kill-hybrid-sexp
         yaml-electric-backspace
         ))
@@ -31,5 +38,6 @@
         isearch-abort
         isearch-delete-char
         isearch-exit
+        sp-backward-delete-char
         yas-expand
         ))
