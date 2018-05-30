@@ -334,10 +334,11 @@
 (require 'socks)
 (setq erc-autojoin-timing 'ident)
 (setq socks-override-functions nil)
-(let ((erc-plist (car (auth-source-search :host "irc.freenode.net"))))
-  (setq erc-server "irc.freenode.net")
-  (setq erc-nick (plist-get erc-plist :user))
-  (setq erc-password (funcall (plist-get erc-plist :secret))))
+; TODO fix this to get the password ONLY when performing M-x erc
+;; (let ((erc-plist (car (auth-source-search :host "irc.freenode.net"))))
+;;   (setq erc-server "irc.freenode.net")
+;;   (setq erc-nick (plist-get erc-plist :user))
+;;   (setq erc-password (funcall (plist-get erc-plist :secret))))
 (setq erc-fill-function #'erc-fill-static)
 (setq erc-fill-static-center 15)
 (setq erc-autojoin-channels-alist
