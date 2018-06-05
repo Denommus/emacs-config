@@ -59,7 +59,23 @@
     (web-mode php-mode helm-bbdb pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android bbdb hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
-    ((org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
+    ((eval flycheck-add-next-checker
+           (quote lsp-ui)
+           (quote typescript-tslint))
+     (eval setq flycheck-typescript-tslint-config
+           (concat dir-locals-path "WebApp/tslint.json"))
+     (eval set
+           (make-local-variable
+            (quote dir-locals-path))
+           (file-name-directory
+            (let
+                ((d
+                  (dir-locals-find-file ".")))
+              (if
+                  (stringp d)
+                  d
+                (car d)))))
+     (org-taskjuggler-default-reports "include \"taskjuggler-default-reports.tji\"")
      (eval load-file
            (concat my-project-path "/conf/org-export-customize.el"))
      (eval set
