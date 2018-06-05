@@ -509,11 +509,10 @@
 
 ;; Flycheck
 (use-package flycheck
+  :ensure t
   :init
   (setq sentence-end-double-space nil)
-  :config
-  (flycheck-add-mode 'html-tidy 'web-mode)
-  (flycheck-add-mode 'css-csslint 'web-mode)
+  (setq flycheck-typescript-tslint-executable "/home/yuri/.npm-global/bin/tslint")
   (global-flycheck-mode))
 
 ;; SmartParens
