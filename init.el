@@ -574,14 +574,6 @@
   (setq js2-basic-offset 2)
   (setq js-indent-level 2))
 
-(use-package typescript-mode
-  :mode "\\.tsx?\\'"
-  :init
-  (use-package lsp-javascript-typescript
-    :config
-    (add-hook 'typescript-mode-hook #'lsp-javascript-typescript-enable)))
-
-
 ;; YASnippet
 (use-package yasnippet
   :config
@@ -625,7 +617,24 @@
   "\\.erb\\'"
   "\\.mustache\\'"
   "\\.djhtml\\'"
+  "\\.tsx?\\'"
+  "\\.jsx?\\'"
   :init
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
+  (use-package lsp-ui
+    :config
+    (flycheck-add-next-checker 'typescript-tslint 'lsp-ui)
+    (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")
+                                         ("tsx"  . "\\.ts[x]?\\'")))
+    (defun lsp-js-ts-enable ()
+      (if (member web-mode-content-type '("jsx" "tsx"))
+          (lsp-javascript-typescript-enable))
+      (if (string= web-mode-content-type "tsx")
+          (progn
+            (message "FOO")
+            (setq flycheck-checker 'typescript-tslint)
+            (flycheck-buffer))))
+    (add-hook 'web-mode-hook #'lsp-js-ts-enable))
   (setq web-mode-enable-engine-detection t)
   (setq web-mode-markup-indent-offset 4))
 
@@ -950,9 +959,9 @@
   :bind (("C-c C-t" . lsp-info-under-point)
          ("C-c C-r" . lsp-rename)
          ("C-c C-i" . lsp-info-under-point))
-  :config
+  :init
   (use-package lsp-ui
-    :config
+    :init
     (add-hook 'lsp-mode-hook 'lsp-ui-mode)))
 
 (use-package writegood-mode
