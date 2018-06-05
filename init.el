@@ -931,6 +931,9 @@
 (use-package fsharp-mode)
 
 (use-package lsp-mode
+  :bind (("C-c C-t" . lsp-info-under-point)
+         ("C-c C-r" . lsp-rename)
+         ("C-c C-i" . lsp-info-under-point))
   :config
   (use-package lsp-ui
     :config
