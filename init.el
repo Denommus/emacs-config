@@ -198,6 +198,9 @@
  '(default ((t (:height 110 :family "Fira Code")))))
 
 ;; Misc
+(put 'downcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
 (setq max-specpdl-size 2000) ;; Some emails break with the default value
 (defun visit-emacs-config ()
   "Visits the user's Emacs' configuration."
@@ -978,6 +981,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(put 'downcase-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
