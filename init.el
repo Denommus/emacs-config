@@ -623,17 +623,13 @@
   (flycheck-add-mode 'typescript-tslint 'web-mode)
   (use-package lsp-ui
     :config
-    (flycheck-add-next-checker 'typescript-tslint 'lsp-ui)
     (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")
-                                         ("tsx"  . "\\.ts[x]?\\'")))
+                                         ("jsx"  . "\\.ts[x]?\\'")))
     (defun lsp-js-ts-enable ()
-      (if (member web-mode-content-type '("jsx" "tsx"))
-          (lsp-javascript-typescript-enable))
-      (if (string= web-mode-content-type "tsx")
+      (if (string= web-mode-content-type "jsx")
           (progn
-            (message "FOO")
-            (setq flycheck-checker 'typescript-tslint)
-            (flycheck-buffer))))
+            (flycheck-add-next-checker 'lsp-ui 'typescript-tslint)
+            (lsp-javascript-typescript-enable))))
     (add-hook 'web-mode-hook #'lsp-js-ts-enable))
   (setq web-mode-enable-engine-detection t)
   (setq web-mode-markup-indent-offset 4))
