@@ -957,7 +957,10 @@
 (use-package lsp-mode
   :bind (("C-c C-t" . lsp-info-under-point)
          ("C-c C-r" . lsp-rename)
-         ("C-c C-i" . lsp-info-under-point))
+         ("C-c C-i" . lsp-info-under-point)
+         ("C-c t" . lsp-info-under-point)
+         ("C-c r" . lsp-rename)
+         ("C-c i" . lsp-info-under-point))
   :init
   (use-package lsp-ui
     :init
