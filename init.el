@@ -628,8 +628,8 @@
     (defun lsp-js-ts-enable ()
       (if (string= web-mode-content-type "jsx")
           (progn
-            (flycheck-add-next-checker 'lsp-ui 'typescript-tslint)
-            (lsp-javascript-typescript-enable))))
+            (lsp-javascript-typescript-enable)
+            (flycheck-add-next-checker 'lsp-ui 'typescript-tslint))))
     (add-hook 'web-mode-hook #'lsp-js-ts-enable))
   (setq web-mode-enable-engine-detection t)
   (setq web-mode-markup-indent-offset 4))
