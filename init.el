@@ -57,7 +57,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (birds-of-paradise-plus-theme web-mode php-mode helm-bbdb pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android bbdb hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme web-mode php-mode pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ lsp-haskell virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((eval flycheck-add-next-checker
@@ -225,11 +225,6 @@
       `((".*" . ,(concat user-emacs-directory "backups/"))))
 (setq auto-save-file-name-transforms
       `((".*" ,(concat user-emacs-directory "autosaves/") t)))
-(setq gnus-button-url 'browse-url-generic
-      browse-url-generic-program (if (eq system-type 'windows-nt)
-                                     "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
-                                   "firefox")
-      browse-url-browser-function gnus-button-url)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
@@ -388,16 +383,11 @@
 ;;BBDB
 (use-package bbdb
   :config
-  (bbdb-initialize 'gnus 'message)
-  (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-  (add-hook 'mail-setup-hook 'bbdb'insinuate-sendmail)
+  (bbdb-initialize 'message 'mu4e 'pgp 'anniv)
   (setq bbdb-file "~/Dropbox/bbdb.gpg")
   (setq bbdb-complete-name-full-completion t)
   (setq bbdb-completion-type 'primary-or-name)
   (setq bbdb-complete-name-allow-cycling t)
-
-  (autoload 'bbdb-insinuate-mu4e "bbdb-mu4e")
-  (bbdb-initialize 'message 'mu4e)
   (setq bbdb-mail-user-agent 'mu4e-user-agent)
   (setq mu4e-view-mode-hook 'bbdb-mua-auto-update)
   (setq mu4e-compose-complete-addresses nil)
@@ -406,7 +396,7 @@
   (setq mu4e-view-show-addresses t))
 
 ;;Diary
-(setq diary-file "~/Dropbox/diary")
+(setq diary-file "~/Dropbox/diary.gpg")
 (setq calendar-latitude -27.594870
       calendar-longitude -48.548219
       calendar-location-name "Florianópolis, Brazil")
