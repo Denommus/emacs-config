@@ -615,6 +615,7 @@
   "\\.tsx?\\'"
   "\\.jsx?\\'"
   :init
+  (add-to-list 'exec-path "~/.npm-global/bin/javascript-typescript-stdio")
   (flycheck-add-mode 'typescript-tslint 'web-mode)
   (use-package lsp-ui
     :config
