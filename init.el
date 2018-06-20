@@ -200,6 +200,7 @@
  '(font-lock-comment-face ((t (:foreground "#B7B7B7")))))
 
 ;; Misc
+(setq desktop-path '("~/.emacs.d/sessions"))
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
