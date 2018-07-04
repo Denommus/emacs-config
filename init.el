@@ -974,6 +974,7 @@
   (setq mastodon-instance-url "https://masto.donte.com.br"))
 
 (use-package exec-path-from-shell
+  :init
   (exec-path-from-shell-initialize))
 
 (provide 'init)
