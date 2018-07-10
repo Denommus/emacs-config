@@ -312,6 +312,8 @@
   (indent-region (point-min) (point-max)))
 (global-set-key (kbd "C-c s") 'cleanup-buffer)
 
+(global-unset-key (kbd "C-z"))
+
 ;; Ruby
 (add-hook 'ruby-mode-hook 'robe-mode)
 (cond ((eq system-type 'windows-nt)
@@ -647,10 +649,11 @@
 
 ;; Projectile
 (use-package projectile
+  :diminish projectile-mode
   :init
   (setq projectile-keymap-prefix (kbd "C-z"))
   :config
-  (projectile-global-mode 1)
+  (projectile-mode 1)
   (setq projectile-indexing-method 'alien)
   (setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower because of the mode line
   (use-package helm-projectile
