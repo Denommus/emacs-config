@@ -946,7 +946,10 @@
   :bind (("C-c w b" . webpaste-paste-buffer)
          ("C-c w r" . webpaste-paste-region)))
 
-(use-package fsharp-mode)
+(use-package fsharp-mode
+  :init
+  (setq inferior-fsharp-program "dotnet /opt/dotnet/sdk/2.1.301/FSharp/fsi.exe --readline-")
+  (setq fsharp-compiler "dotnet /opt/dotnet/sdk/2.1.301/FSharp/fsc.exe"))
 
 (use-package lsp-mode
   :bind (("C-c C-t" . lsp-info-under-point)
