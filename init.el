@@ -684,7 +684,7 @@
 
 ;; Emacs theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'monokai-alt t)
+(load-theme 'solarized t)
 
 ;;Org-Mode
 (use-package org
