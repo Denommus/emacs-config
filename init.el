@@ -676,7 +676,9 @@
 
 ;; Emacs theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'solarized t)
+(use-package color-theme-solarized
+  :init
+  (load-theme 'solarized t))
 
 ;;Org-Mode
 (use-package org
