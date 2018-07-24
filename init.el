@@ -529,9 +529,6 @@
 
 ;; SmartParens
 (use-package smartparens
-  :init
-  (use-package smartparens-config)
-  (use-package smartparens-haskell)
   :config
   (defun enable-smartparens-mode ()
     (smartparens-mode +1)
