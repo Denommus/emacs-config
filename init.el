@@ -528,6 +528,7 @@
 
 ;; SmartParens
 (use-package smartparens
+  :ensure hydra
   :config
   (defun enable-smartparens-mode ()
     (smartparens-mode +1)
