@@ -682,6 +682,7 @@
 
 ;;Org-Mode
 (use-package org
+  :ensure org-plus-contrib
   :bind
   (("C-c l" . org-store-link)
    ("C-c c" . org-capture)
