@@ -569,11 +569,11 @@
 ;; Company
 (use-package company
   :demand t
-  :ensure t
   :config
   (global-company-mode 1)
-  (require 'company-ghci)
-  (add-to-list 'company-backends 'company-ghci)
+  (use-package company-ghci
+    :config
+    (add-to-list 'company-backends 'company-ghci))
   (add-to-list 'company-backends 'company-robe))
 
 ;; Omnisharp
