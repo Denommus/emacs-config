@@ -653,7 +653,7 @@
 ;; Magit
 (use-package magit
   :init
-  (require 'magit-svn)
+  (use-package magit-svn)
   :config
   (defun magit-custom ()
     (local-unset-key (kbd "<C-tab>")))
