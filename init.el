@@ -546,13 +546,6 @@
   (add-hook 'slime-repl-mode-hook #'enable-smartparens-mode)
   (load-file "~/.emacs.d/smartparens.el"))
 
-;; PDFView mode
-(use-package pdf-tools
-  :config
-  (use-package pdf-view-mode
-    :mode
-    "\\.pdf\\'"))
-
 ;; RJSX-Mode
 (use-package rjsx-mode
   :mode
