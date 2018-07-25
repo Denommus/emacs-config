@@ -575,7 +575,9 @@
   (use-package company-ghci
     :config
     (add-to-list 'company-backends 'company-ghci))
-  (add-to-list 'company-backends 'company-robe))
+  (use-package robe
+    :config
+    (add-to-list 'company-backends 'company-robe)))
 
 ;; Omnisharp
 (use-package omnisharp
