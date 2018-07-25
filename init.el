@@ -329,7 +329,7 @@
 (defun erc-all-kill (&optional prefix)
   "Kill all buffers in erc-mode. With PREFIX, 'kill-buffer-query-functions' is preserved."
   (interactive "P")
-  (flet ((kill-buffer-p (b) (with-current-buffer b (eq major-mode 'erc-mode))))
+  (cl-flet ((kill-buffer-p (b) (with-current-buffer b (eq major-mode 'erc-mode))))
     (let* ((kill-buffer-query-functions (if prefix kill-buffer-query-functions '()))
            (killed (loop for buffer in (buffer-list)
                          when (kill-buffer-p buffer)
