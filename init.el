@@ -364,7 +364,7 @@
 (setq erc-fill-function #'erc-fill-static)
 (setq erc-fill-static-center 15)
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "##programming" "#lisp" "#haskell" "#ocaml")
+      '(("freenode.net" "#emacs" "##programming" "#lisp" "#haskell" "#ocaml" "#nixos")
         ("mozilla.org" "#rust" "#rust-gamedev")))
 (load-file "~/.emacs.d/erc-better-scroll.el")
 (defun erc-recenter-top-bottom (&optional arg)
