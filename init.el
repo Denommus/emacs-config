@@ -981,5 +981,8 @@
   :init
   (exec-path-from-shell-initialize))
 
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
 (provide 'init)
 ;;; init.el ends here
