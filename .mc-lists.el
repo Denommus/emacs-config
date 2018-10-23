@@ -6,6 +6,7 @@
         backward-sexp
         backward-up-list
         c-electric-brace
+        c-electric-colon
         c-electric-delete-forward
         c-electric-paren
         c-electric-semi&comma
@@ -22,7 +23,9 @@
         org-beginning-of-line
         org-delete-char
         org-end-of-line
+        org-force-self-insert
         org-kill-line
+        org-self-insert-command
         org-yank
         orgtbl-self-insert-command
         sp-delete-char
