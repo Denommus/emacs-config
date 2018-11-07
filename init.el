@@ -56,7 +56,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (visual-regexp lsp-rust csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme web-mode php-mode pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (lsp-python visual-regexp lsp-rust csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme web-mode php-mode pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((eval flycheck-add-next-checker
@@ -432,14 +432,9 @@
               (local-set-key (kbd "C-c n") 'twittering-goto-next-uri))))
 
 ;; Python
-(setq python-command "python2")
-(setq pdb-path '/usr/lib/python2.7/pdb.py
-      gud-pdb-command-name (symbol-name pdb-path))
-(defadvice pdb (before gud-query-cmdline activate)
-  "Provide a better default command line when called interactively."
-  (interactive
-   (list (gud-query-cmdline pdb-path
-                            (file-name-nondirectory buffer-file-name)))))
+(use-package lsp-python
+  :init
+  (add-hook 'python-mode-hook #'lsp-python-enable))
 
 (use-package virtualenvwrapper
   :init
