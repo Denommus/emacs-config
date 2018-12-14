@@ -30,6 +30,7 @@
         orgtbl-self-insert-command
         sp-delete-char
         sp-kill-hybrid-sexp
+        web-mode-comment-indent-new-line
         yaml-electric-backspace
         ))
 

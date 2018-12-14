@@ -742,6 +742,7 @@
   (add-hook 'org-mode-hook #'(lambda () (flyspell-mode 1)))
   (use-package org-git-link :ensure nil)
   (require 'org-mu4e)
+  (require 'org-ref)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((dot . t)
@@ -775,6 +776,13 @@
     (add-to-list 'org-latex-classes
                  '("abntex" "\\documentclass[11pt]{abntex2}"
                    ("\\part{%s}" . "\\part*{%s}")
+                   ("\\chapter{%s}" . "\\chapter*{%s}")
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+    (add-to-list 'org-latex-classes
+                 '("iiufrgs"
+                   "\\documentclass{iiufrgs}\n\\usepackage[alf,abnt-emphasize=bf]{abntex2cite}\n[DEFAULT-PACKAGES]\n[PACKAGES]\n[EXTRA]\n"
                    ("\\chapter{%s}" . "\\chapter*{%s}")
                    ("\\section{%s}" . "\\section*{%s}")
                    ("\\subsection{%s}" . "\\subsection*{%s}")
