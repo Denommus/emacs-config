@@ -56,7 +56,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (org-ref visual-regexp lsp-rust csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme web-mode php-mode pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode lsp-javascript-typescript opam image+ virtualenvwrapper lsp-ocaml elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (lsp-clients org-ref visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme web-mode php-mode pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((eval flycheck-add-next-checker
@@ -539,14 +539,27 @@
   (add-hook 'slime-repl-mode-hook #'enable-smartparens-mode)
   (load-file "~/.emacs.d/smartparens.el"))
 
+;; TypeScript-Mode
+(use-package typescript-mode
+  :mode
+  "\\.tsx?\\'"
+  :init
+  (use-package lsp-mode
+    :init
+    (require 'lsp-clients)
+    (require 'lsp-ui-flycheck)
+    (add-hook 'typescript-mode-hook #'lsp)
+    (flycheck-add-next-checker 'lsp-ui 'typescript-tslint)))
+
 ;; RJSX-Mode
 (use-package rjsx-mode
   :mode
   "\\.jsx?\\'"
   :init
-  (use-package lsp-javascript-typescript
-    :config
-    (add-hook 'rjsx-mode-hook #'lsp-javascript-typescript-enable))
+  (use-package lsp-mode
+    :init
+    (require 'lsp-clients)
+    (add-hook 'rjsx-mode-hook #'lsp))
   :config
   (setq js2-switch-indent-offset 2)
   (setq js2-basic-offset 2)
@@ -597,8 +610,6 @@
   "\\.erb\\'"
   "\\.mustache\\'"
   "\\.djhtml\\'"
-  "\\.tsx?\\'"
-  "\\.jsx?\\'"
   :init
   (add-to-list 'exec-path "~/.npm-global/bin/")
   (flycheck-add-mode 'typescript-tslint 'web-mode)
@@ -607,10 +618,7 @@
     (setq web-mode-content-types-alist '(("jsx"  . "\\.js[x]?\\'")
                                          ("jsx"  . "\\.ts[x]?\\'")))
     (defun lsp-js-ts-enable ()
-      (if (string= web-mode-content-type "jsx")
-          (progn
-            (lsp-javascript-typescript-enable)
-            (flycheck-add-next-checker 'lsp-ui 'typescript-tslint))))
+      (lsp))
     (add-hook 'web-mode-hook #'lsp-js-ts-enable))
   (setq web-mode-enable-engine-detection t)
   (setq web-mode-markup-indent-offset 4))
@@ -640,7 +648,7 @@
   :config
   (projectile-mode 1)
   (setq projectile-indexing-method 'alien)
-  (setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower because of the mode line
+  (setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower becauseof the mode line
   (use-package helm-projectile
     :config
     (helm-projectile-on)))
@@ -662,13 +670,12 @@
 (use-package rust-mode
   :init
   (add-hook 'rust-mode-hook #'subword-mode)
-  (add-hook 'rust-mode-hook #'lsp-rust-enable)
-  (add-hook 'rust-mode-hook #'flycheck-mode)
-  :config
   (use-package lsp-mode
-    :config
-    (setq lsp-rust-rls-command '("rustup" "run" "stable" "rls"))
-    (use-package lsp-rust)))
+    :init
+    (require 'lsp-clients)
+    (add-hook 'rust-mode-hook #'lsp)
+    (setq lsp-rust-rls-command '("rustup" "run" "stable" "rls")))
+  (add-hook 'rust-mode-hook #'flycheck-mode))
 
 ;; Winner
 (winner-mode 1)
@@ -796,11 +803,10 @@
   :init
   (use-package lsp-mode
     :init
-    (use-package lsp-ocaml
-      :init
-      (add-hook 'tuareg-mode-hook #'lsp-ocaml-enable)
-      (add-hook 'caml-mode-hook #'lsp-ocaml-enable)
-      (add-hook 'reason-mode-hook #'lsp-ocaml-enable)))
+    (require 'lsp-clients)
+    (add-hook 'tuareg-mode-hook #'lsp)
+    (add-hook 'caml-mode-hook #'lsp)
+    (add-hook 'reason-mode-hook #'lsp))
   (when (executable-find "opam")
     (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
           (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))

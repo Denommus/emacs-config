@@ -31,3 +31,5 @@ autosaves/
 image-dired/
 mastodon.plstore
 sessions
+.lsp-session-v1
+recentf
