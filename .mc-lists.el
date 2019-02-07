@@ -19,6 +19,7 @@
         isearch-forward-regexp
         isearch-printing-char
         kill-region
+        mark-sexp
         nxml-electric-slash
         org-beginning-of-line
         org-delete-char
