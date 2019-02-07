@@ -996,7 +996,8 @@
 
 (use-package exec-path-from-shell
   :init
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-envs '("NIX_PATH" "MSBuildSDKsPath")))
 
 (use-package nix-mode
   :mode "\\.nix\\'")
