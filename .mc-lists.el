@@ -14,6 +14,7 @@
         electric-newline-and-maybe-indent
         forward-sexp
         handle-switch-frame
+        haskell-indentation-common-electric-command
         indent-for-tab-command
         isearch-backward-regexp
         isearch-forward-regexp
@@ -33,16 +34,17 @@
         sp-kill-hybrid-sexp
         web-mode-comment-indent-new-line
         yaml-electric-backspace
+        sp-backward-delete-char
         ))
 
 (setq mc/cmds-to-run-once
       '(
         beginning-of-buffer
+        elscreen-previous
         end-of-buffer
         helm-M-x
         isearch-abort
         isearch-delete-char
         isearch-exit
-        sp-backward-delete-char
         yas-expand
         ))

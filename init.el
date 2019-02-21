@@ -412,6 +412,9 @@
 
 ;;Twittering Mode
 (use-package twittering-mode
+  :bind (:map twittering-mode-map
+              ("C-c p" . twittering-goto-previous-uri)
+              ("C-c n" . twittering-goto-next-uri))
   :init
   (setq twittering-use-master-password t)
   (if (eq system-type 'windows-nt)
@@ -425,12 +428,7 @@
           ":direct_messages"
           ":search/emacs/"))
   (setq twittering-connection-type-order
-        '(wget curl urllib-http native urllib-https))
-  :config
-  (add-hook 'twittering-mode-hook
-          #'(lambda ()
-              (local-set-key (kbd "C-c p") 'twittering-goto-previous-uri)
-              (local-set-key (kbd "C-c n") 'twittering-goto-next-uri))))
+        '(wget curl urllib-http native urllib-https)))
 
 ;; Python
 
@@ -473,12 +471,13 @@
   (("C-c h" . helm-command-prefix)
    ("M-x" . helm-M-x)
    ("C-c y" . helm-show-kill-ring)
-   ("C-x C-f" . helm-find-files))
+   ("C-x C-f" . helm-find-files)
+   :map helm-map
+   ("<tab>" . helm-execute-persistent-action)
+   ("C-i" . helm-execute-persistent-action)
+   ("C-z" . helm-select-action))
   :config
   (helm-mode 1)
-  (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z") #'helm-select-action)
   (add-hook 'eshell-mode-hook
             #'(lambda ()
                 (eshell-cmpl-initialize)
@@ -488,22 +487,18 @@
 
 ;; Switch Window
 (use-package switch-window
-  :config
-  (global-set-key (kbd "C-x o") #'switch-window)
-  (global-set-key (kbd "C-x 1") 'switch-window-then-maximize)
-  (global-set-key (kbd "C-x 2") 'switch-window-then-split-below)
-  (global-set-key (kbd "C-x 3") 'switch-window-then-split-right)
-  (global-set-key (kbd "C-x 0") 'switch-window-then-delete)
-
-  (global-set-key (kbd "C-x 4 d") 'switch-window-then-dired)
-  (global-set-key (kbd "C-x 4 f") 'switch-window-then-find-file)
-  (global-set-key (kbd "C-x 4 m") 'switch-window-then-compose-mail)
-  (global-set-key (kbd "C-x 4 r") 'switch-window-then-find-file-read-only)
-
-  (global-set-key (kbd "C-x 4 C-f") 'switch-window-then-find-file)
-  (global-set-key (kbd "C-x 4 C-o") 'switch-window-then-display-buffer)
-
-  (global-set-key (kbd "C-x 4 0") 'switch-window-then-kill-buffer))
+  :bind (("C-x o" . switch-window)
+         ("C-x 1" . switch-window-then-maximize)
+         ("C-x 2" . switch-window-then-split-below)
+         ("C-x 3" . switch-window-then-split-right)
+         ("C-x 0" . switch-window-then-delete)
+         ("C-x 4 d" . switch-window-then-dired)
+         ("C-x 4 f" . switch-window-then-find-file)
+         ("C-x 4 m" . switch-window-then-compose-mail)
+         ("C-x 4 r" . switch-window-then-find-file-read-only)
+         ("C-x 4 C-f" . switch-window-then-find-file)
+         ("C-x 4 C-o" . switch-window-then-display-buffer)
+         ("C-x 4 0" . switch-window-then-kill-buffer)))
 
 ;; Haskell
 (add-hook 'haskell-mode-hook #'haskell-indentation-mode)
@@ -644,10 +639,9 @@
 ;; Projectile
 (use-package projectile
   :diminish projectile-mode
-  :init
-  (setq projectile-keymap-prefix (kbd "C-z"))
+  :bind-keymap ("C-z" . projectile-command-map)
   :config
-  (projectile-mode 1)
+  (projectile-global-mode)
   (setq projectile-indexing-method 'alien)
   (setq projectile-mode-line "Projectile") ;; Projectile makes tramp A LOT slower becauseof the mode line
   (use-package helm-projectile
@@ -699,7 +693,12 @@
   (("C-c l" . org-store-link)
    ("C-c c" . org-capture)
    ("C-c a" . org-agenda)
-   ("C-c b" . org-iswitchb))
+   ("C-c b" . org-iswitchb)
+   :map org-mode-map
+   ("M-n" . org-move-item-down)
+   ("M-p" . org-move-item-up)
+   ("C-M-n" . org-move-subtree-down)
+   ("C-M-p" . org-move-subtree-up))
   :init
   (setq org-log-done 'time)
   (setq org-agenda-include-diary t)
@@ -736,15 +735,8 @@
   (defun deactivate-c-tab ()
     "Deactivate a key in `org-mode'."
     (local-unset-key (kbd "<C-tab>")))
-  (defun org-bindings ()
-    "Defines `org-mode' custom bindings."
-    (local-set-key (kbd "M-n") #'org-move-item-down)
-    (local-set-key (kbd "M-p") #'org-move-item-up)
-    (local-set-key (kbd "C-M-n") #'org-move-subtree-down)
-    (local-set-key (kbd "C-M-p") #'org-move-subtree-up))
   (add-hook 'org-mode-hook #'deactivate-c-tab)
   (add-hook 'org-mode-hook #'auto-fill-mode)
-  (add-hook 'org-mode-hook #'org-bindings)
   (add-hook 'org-mode-hook #'org-bullets-mode)
   (add-to-list 'load-path "~/.emacs.d/plugins/org-git-link")
   (use-package writegood-mode
@@ -846,8 +838,7 @@
   :ensure t
   :bind (("<C-tab>" . elscreen-next)
          ("<C-iso-lefttab>" . elscreen-previous))
-  :init
-  (setq elscreen-prefix-key (kbd "s-z"))
+  :bind-keymap ("s-z" . elscreen-map)
   :config
   (elscreen-start))
 
@@ -862,9 +853,10 @@
 
 
 ;; Flyspell
-(use-package helm-flyspell
-  :config
-  (define-key flyspell-mode-map (kbd "C-;") #'helm-flyspell-correct))
+(use-package flyspell
+  :init
+  :ensure helm-flyspell
+  :bind (:map flyspell-mode-map ("C-;" . helm-flyspell-correct)))
 
 ;; Plantuml
 (use-package plantuml-mode
