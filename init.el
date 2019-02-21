@@ -958,13 +958,14 @@
   (setq fsharp-compiler "dotnet /opt/dotnet/sdk/2.1.301/FSharp/fsc.exe"))
 
 (use-package lsp-mode
-  :bind (("C-c C-t" . lsp-info-under-point)
-         ("C-c C-r" . lsp-rename)
-         ("C-c C-i" . lsp-info-under-point)
-         ("C-c t" . lsp-info-under-point)
-         ("C-c r" . lsp-rename)
-         ("C-c i" . lsp-info-under-point)
-         ("M-." . xref-find-definitions))
+  :bind (:map lsp-mode-map
+              ("C-c C-t" . lsp-info-under-point)
+              ("C-c C-r" . lsp-rename)
+              ("C-c C-i" . lsp-info-under-point)
+              ("C-c t" . lsp-info-under-point)
+              ("C-c r" . lsp-rename)
+              ("C-c i" . lsp-info-under-point)
+              ("M-." . xref-find-definitions))
   :init
   (use-package lsp-ui
     :init
