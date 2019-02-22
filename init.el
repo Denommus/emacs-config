@@ -838,7 +838,9 @@
   :ensure t
   :bind (("<C-tab>" . elscreen-next)
          ("<C-iso-lefttab>" . elscreen-previous))
-  :bind-keymap ("s-z" . elscreen-map)
+  :init
+  ;; Elscreen doesn't play well with :bind-keymap
+  (setq elscreen-prefix-key (kbd "s-z"))
   :config
   (elscreen-start))
 
