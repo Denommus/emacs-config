@@ -56,7 +56,7 @@
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
-    (typescript-mode forge lsp-clients org-ref visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme web-mode php-mode pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (magit-popup nix-buffer typescript-mode forge lsp-clients org-ref visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme web-mode php-mode pdf-tools hydra org-plus-contrib helm-mu lsp-ui reason-mode tuareg twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect rjsx-mode opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht plantuml-mode nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme slime idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((intero-targets "drawbridge-simulator:lib" "drawbridge-simulator:exe:drawbridge-simulator-exe" "drawbridge-simulator:test:drawbridge-simulator-test")
@@ -443,10 +443,6 @@
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
 (add-hook 'haskell-mode-hook #'subword-mode)
-
-;; MPC
-(add-hook 'mpc-mode-hook #'(lambda () (tool-bar-mode 1)))
-(advice-add 'mpc-quit :after #'(lambda () (tool-bar-mode -1)))
 
 (defun delete-file-and-buffer ()
   "Kill the current buffer and the file that it is visiting."
