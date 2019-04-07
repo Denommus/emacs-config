@@ -286,6 +286,8 @@
                                     (delete-directory fullpath t)
                                   (delete-file fullpath)))))))
 
+(calc-radians-mode)
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; set up unicode
 (when (eq system-type 'windows-nt)
