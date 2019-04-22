@@ -745,6 +745,7 @@
   (use-package org-git-link :ensure nil)
   (require 'org-mu4e)
   (require 'org-ref)
+  (require 'org-tempo)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((dot . t)
