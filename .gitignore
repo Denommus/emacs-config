@@ -34,3 +34,5 @@ sessions
 .lsp-session-v1
 recentf
 forge-database.sqlite
+request/
+transient/
