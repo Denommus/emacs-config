@@ -261,10 +261,17 @@
       mouse-yank-at-point t)
 
 (defun convert-to-underscore ()
-  "Convert camel case to underscore."
+  "Convert the region from camelCase to underscore. Does nothing if no region is set."
   (interactive)
-  (replace-regexp "\\([A-Z]\\)" "_\\1" nil (region-beginning) (region-end))
-  (downcase-region (region-beginning) (region-end)))
+  (when (region-active-p)
+    (let ((case-fold-search nil)
+          (begin (region-beginning))
+          (end (region-end)))
+      (goto-char begin)
+      (while (re-search-forward "[A-Z]" end t)
+        (replace-match (concat "_" (downcase (match-string 0))) t)
+        (goto-char begin)))
+    (deactivate-mark)))
 
 (global-set-key (kbd "C-x C-c")
                 (lambda ()
