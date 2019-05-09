@@ -485,7 +485,8 @@
                 (eshell-cmpl-initialize)
                 (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
                 (define-key eshell-mode-map (kbd "M-p") 'helm-eshell-history)
-                (company-mode -1))))
+                (company-mode -1)
+                (setenv "SSH_AUTH_SOCK" (concat (getenv "XDG_RUNTIME_DIR") "/gnupg/S.gpg-agent.ssh")))))
 
 ;; Switch Window
 (use-package switch-window
@@ -996,7 +997,7 @@
   (setq mastodon-instance-url "https://masto.donte.com.br"))
 
 (use-package exec-path-from-shell
-  :init
+  :config
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-envs
    '("NIX_PATH"
