@@ -976,6 +976,7 @@
               ("C-c i" . lsp-info-under-point)
               ("M-." . xref-find-definitions))
   :init
+  (setq lsp-prefer-flymake nil)
   (use-package lsp-ui
     :init
     (add-hook 'lsp-mode-hook 'lsp-ui-mode)))
