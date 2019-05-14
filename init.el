@@ -629,6 +629,10 @@
           #'(lambda ()
               (c-set-style "qt")
               (subword-mode 1)))
+(use-package lsp-mode
+  :init
+  (require 'lsp-clients)
+  (add-hook 'c-mode-common-hook #'lsp))
 (setq flycheck-clang-language-standard "c++14")
 (c-set-offset 'case-label '+)
 
