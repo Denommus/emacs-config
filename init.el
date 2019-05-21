@@ -972,12 +972,12 @@
 
 (use-package lsp-mode
   :bind (:map lsp-mode-map
-              ("C-c C-t" . lsp-info-under-point)
+              ("C-c C-t" . lsp-describe-thing-under-point)
               ("C-c C-r" . lsp-rename)
-              ("C-c C-i" . lsp-info-under-point)
-              ("C-c t" . lsp-info-under-point)
+              ("C-c C-i" . lsp-describe-thing-under-point)
+              ("C-c t" . lsp-describe-thing-under-point)
               ("C-c r" . lsp-rename)
-              ("C-c i" . lsp-info-under-point)
+              ("C-c i" . lsp-describe-thing-under-point)
               ("M-." . xref-find-definitions))
   :init
   (setq lsp-prefer-flymake nil)
