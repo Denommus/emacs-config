@@ -218,6 +218,8 @@
   (setq comint-password-prompt-regexp
         (concat comint-password-prompt-regexp
                 "\\|^\\[sudo\\]")))
+(require 'esh-module)
+(add-to-list 'eshell-modules-list 'eshell-tramp)
 (require 'cl-lib)
 (setq visible-bell 1)
 (add-to-list 'load-path "~/.emacs.d/plugins")
