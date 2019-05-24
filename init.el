@@ -547,8 +547,6 @@
   :init
   (use-package lsp-mode
     :init
-    (require 'lsp-clients)
-    (require 'lsp-ui-flycheck)
     (add-hook 'typescript-mode-hook #'lsp)
     (flycheck-add-next-checker 'lsp-ui 'typescript-tslint)))
 
@@ -634,7 +632,14 @@
 (use-package lsp-mode
   :init
   (require 'lsp-clients)
-  (add-hook 'c-mode-common-hook #'lsp))
+  (add-hook 'c-mode-common-hook #'lsp)
+  (use-package lsp-ui
+    :init
+    (setq lsp-ui-sideline-enable nil
+          lsp-ui-doc-enable nil
+          lsp-ui-flycheck-enable t
+          lsp-ui-imenu-enable t
+          lsp-ui-sideline-ignore-duplicate t)))
 (setq flycheck-clang-language-standard "c++14")
 (c-set-offset 'case-label '+)
 
