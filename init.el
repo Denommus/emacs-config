@@ -547,8 +547,7 @@
   :init
   (use-package lsp-mode
     :init
-    (add-hook 'typescript-mode-hook #'lsp)
-    (flycheck-add-next-checker 'lsp-ui 'typescript-tslint)))
+    (add-hook 'typescript-mode-hook #'lsp)))
 
 ;; RJSX-Mode
 (use-package rjsx-mode
