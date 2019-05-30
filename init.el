@@ -433,7 +433,7 @@
         '(":home"
           ":replies"
           ":favorites"
-          ":direct_messages"
+          ":direct_message_events"
           ":search/emacs/"))
   (setq twittering-connection-type-order
         '(wget curl urllib-http native urllib-https)))
