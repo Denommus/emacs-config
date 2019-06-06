@@ -901,6 +901,7 @@
    mu4e-view-show-images t
    mu4e-change-filenames-when-moving t
    mu4e-compose-context-policy 'always-ask)
+(add-hook 'mu4e-compose-mode-hook #'(lambda () (auto-save-mode -1)))
 (setq
  ;; Using the default values here because they play nicer with Gmail
  mu4e-index-cleanup t
