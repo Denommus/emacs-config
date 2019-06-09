@@ -973,6 +973,11 @@
          ("C-c w r" . webpaste-paste-region)))
 
 (use-package fsharp-mode
+  :bind (:map fsharp-mode-map
+              ("C-c C-t" . fsharp-ac/show-typesig-at-point)
+              ("C-c t" . fsharp-ac/show-typesig-at-point)
+              ("C-c C-i" . fsharp-ac/show-tooltip-at-point)
+              ("C-c i" . fsharp-ac/show-tooltip-at-point))
   :init
   (let ((dotnet-version (car (process-lines "dotnet" "--version"))))
     (setq inferior-fsharp-program (concat "dotnet /opt/dotnet/sdk/"
