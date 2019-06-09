@@ -974,8 +974,13 @@
 
 (use-package fsharp-mode
   :init
-  (setq inferior-fsharp-program "dotnet /opt/dotnet/sdk/2.1.301/FSharp/fsi.exe --readline-")
-  (setq fsharp-compiler "dotnet /opt/dotnet/sdk/2.1.301/FSharp/fsc.exe"))
+  (let ((dotnet-version (car (process-lines "dotnet" "--version"))))
+    (setq inferior-fsharp-program (concat "dotnet /opt/dotnet/sdk/"
+                                          dotnet-version
+                                          "/FSharp/fsi.exe --readline-"))
+    (setq fsharp-compiler (concat "dotnet /opt/dotnet/sdk/"
+                                  dotnet-version
+                                  "/FSharp/fsc.exe"))))
 
 (use-package lsp-mode
   :bind (:map lsp-mode-map
