@@ -702,6 +702,12 @@
   :init
   (load-theme 'solarized t))
 
+;; PlantUML
+(use-package plantuml-mode
+  :init
+  (setq plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
+  (setq plantuml-exec-mode 'jar))
+
 ;;Org-Mode
 (use-package org
   :ensure org-plus-contrib
@@ -721,7 +727,7 @@
   (setq org-directory "~/Dropbox/org")
   (setq org-default-notes-file (concat org-directory "/agenda.org"))
   (setq org-export-with-toc nil)
-  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  (setq org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
   (setq org-confirm-babel-evaluate nil)
   (setq org-capture-templates
         `(("j" "Journal" entry (file+datetree ,(concat org-directory "/diario.org"))
