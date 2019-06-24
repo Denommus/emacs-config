@@ -717,6 +717,7 @@
    ("C-c a" . org-agenda)
    ("C-c b" . org-iswitchb)
    :map org-mode-map
+   ("C-c h i" . helm-org-in-buffer-headings)
    ("M-n" . org-move-item-down)
    ("M-p" . org-move-item-up)
    ("C-M-n" . org-move-subtree-down)
