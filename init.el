@@ -770,24 +770,28 @@
   (require 'org-mu4e)
   (require 'org-ref)
   (require 'org-tempo)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((dot . t)
-     (emacs-lisp . t)
-     (haskell . t)
-     (lisp . t)
-     (ocaml . t)
-     (makefile . t)
-     (calc . t)
-     (gnuplot . t)
-     (ditaa . t)
-     (js . t)
-     (org . t)
-     (ruby . t)
-     (sql . t)
-     (sqlite . t)
-     (python .)
-     (plantuml . t)))
+  (use-package ob-rust
+    :ensure t
+    :init
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((dot . t)
+       (emacs-lisp . t)
+       (haskell . t)
+       (lisp . t)
+       (ocaml . t)
+       (makefile . t)
+       (calc . t)
+       (gnuplot . t)
+       (ditaa . t)
+       (js . t)
+       (org . t)
+       (ruby . t)
+       (sql . t)
+       (sqlite . t)
+       (python . t)
+       (rust . t)
+       (plantuml . t))))
   (use-package ox-latex
     :ensure nil
     :config
