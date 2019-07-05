@@ -1049,5 +1049,7 @@
     :init
     (add-hook 'go-mode-hook #'lsp)))
 
+(use-package lsp-java)
+
 (provide 'init)
 ;;; init.el ends here
