@@ -7,3 +7,6 @@
 [submodule "plugins/org-ox-bbcode"]
 	path = plugins/org-ox-bbcode
 	url = https://github.com/Denommus/org-ox-bbcode
+[submodule "plugins/ob-javascript"]
+	path = plugins/ob-javascript
+	url = git@github.com:zweifisch/ob-javascript.git
