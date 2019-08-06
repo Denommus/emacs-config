@@ -766,6 +766,7 @@
     :ensure nil
     :init
     (add-to-list 'org-export-backends 'taskjuggler))
+  (require 'ox-bibtex)
   (defun deactivate-c-tab ()
     "Deactivate a key in `org-mode'."
     (local-unset-key (kbd "<C-tab>")))
