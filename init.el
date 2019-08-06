@@ -53,6 +53,16 @@
  '(fci-rule-color "#383838")
  '(global-auto-revert-non-file-buffers t)
  '(inhibit-startup-screen t)
+ '(mml-secure-key-preferences
+   (quote
+    ((OpenPGP
+      (sign)
+      (encrypt
+       ("emb@brickabode.com" "48C50C6F1139C5160AA0DC2BC54D00BC4DF7CA7C" "BA5E552CEFA43AC9A3D9F8A3A39DBB6D000EFAFD")))
+     (CMS
+      (sign)
+      (encrypt)))))
+ '(mml-secure-openpgp-encrypt-to-self t)
  '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
  '(package-selected-packages
    (quote
