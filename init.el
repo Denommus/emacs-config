@@ -234,6 +234,7 @@
 (setq visible-bell 1)
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
+(add-to-list 'load-path "~/.emacs.d/plugins/ob-javascript")
 (setq backup-directory-alist
       `((".*" . ,(concat user-emacs-directory "backups/"))))
 (setq auto-save-file-name-transforms
@@ -780,6 +781,7 @@
   (require 'org-mu4e)
   (require 'org-ref)
   (require 'org-tempo)
+  (require 'ob-javascript)
   (use-package ob-rust
     :ensure t
     :init
@@ -795,6 +797,7 @@
        (gnuplot . t)
        (ditaa . t)
        (js . t)
+       (javascript . t)
        (org . t)
        (ruby . t)
        (sql . t)
