@@ -949,6 +949,7 @@
           :vars '((mu4e-trash-folder . "/ba/[Gmail]/Trash")
                   (mu4e-sent-folder . "/ba/[Gmail]/Sent Mail")
                   (mu4e-drafts-folder . "/ba/[Gmail]/Drafts")
+                  (mu4e-refile-folder . "/ba/[Gmail]/All Mail")
                   (mu4e-maildir-shortcuts . (("/ba/INBOX"             . ?i)
                                              ("/ba/[Gmail]/Sent Mail" . ?s)
                                              ("/ba/[Gmail]/Trash"     . ?t)
