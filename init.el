@@ -1086,5 +1086,7 @@
 
 (use-package lsp-java)
 
+(use-package pcmpl-args)
+
 (provide 'init)
 ;;; init.el ends here
