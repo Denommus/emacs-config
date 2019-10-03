@@ -63,10 +63,10 @@
       (sign)
       (encrypt)))))
  '(mml-secure-openpgp-encrypt-to-self t)
- '(org-agenda-files (quote ("~/Dropbox/org/agenda.org")))
+ '(org-agenda-files (quote ("~/Dropbox/org/agenda.org" "~/Dropbox/org/brickabode.org" "~/Dropbox/org/brickabode-contacts.org")))
  '(package-selected-packages
    (quote
-    (helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode tuareg typescript-mode web-mode org-ref org-plus-contrib go-mode sudoku flycheck-rust mingus magit-popup nix-buffer forge lsp-clients visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (org-gcal pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode tuareg typescript-mode web-mode org-ref org-plus-contrib go-mode sudoku flycheck-rust mingus magit-popup nix-buffer forge lsp-clients visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode color-theme-solarized yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((intero-targets "drawbridge-simulator:lib" "drawbridge-simulator:exe:drawbridge-simulator-exe" "drawbridge-simulator:test:drawbridge-simulator-test")
@@ -738,6 +738,26 @@
   (setq org-agenda-include-diary t)
   (setq org-directory "~/Dropbox/org")
   (setq org-default-notes-file (concat org-directory "/agenda.org"))
+
+
+  (use-package org-gcal
+    :config
+    (defun setup-org-gcal ()
+      (let* ((gcal-plist (car (auth-source-search :host "gcal-ba")))
+             (gcal-username (plist-get gcal-plist :user))
+             (gcal-secret (funcall (plist-get gcal-plist :secret))))
+        (setq org-gcal-client-id gcal-username
+              org-gcal-client-secret gcal-secret
+              org-gcal-file-alist `(("yurialbuquerque@brickabode.com" . ,(concat org-directory "/brickabode.org"))
+                                    ("addressbook#contacts@group.v.calendar.google.com" . ,(concat org-directory "/brickabode-contacts.org"))))
+        (org-gcal-fetch)))
+    (add-hook 'org-agenda-mode-hook #'setup-org-gcal)
+    (add-hook 'org-capture-after-finalize-hook
+            (lambda ()
+              (when (equal (plist-get org-capture-plist :key)
+                           shared-capture-key)
+                (org-gcal-post-at-point)))))
+
   (setq org-export-with-toc nil)
   (setq org-plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar")
   (setq org-confirm-babel-evaluate nil)
