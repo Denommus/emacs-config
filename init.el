@@ -1014,6 +1014,8 @@
   :init
   (elfeed-org))
 
+(use-package elfeed)
+
 (use-package webpaste
   :ensure t
   :bind (("C-c w b" . webpaste-paste-buffer)
