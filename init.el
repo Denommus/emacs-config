@@ -621,6 +621,7 @@
   "\\.erb\\'"
   "\\.mustache\\'"
   "\\.djhtml\\'"
+  "\\.razor\\'"
   :init
   (add-to-list 'exec-path "~/.npm-global/bin/")
   (flycheck-add-mode 'typescript-tslint 'web-mode)
