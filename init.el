@@ -946,6 +946,8 @@
    mu4e-headers-skip-duplicates t
    mu4e-view-show-images t
    mu4e-change-filenames-when-moving t
+   mu4e-index-cleanup nil
+   mu4e-index-lazy-check t
    mu4e-compose-context-policy 'always-ask)
 (add-hook 'mu4e-compose-mode-hook #'(lambda () (auto-save-mode -1)))
 (setq
