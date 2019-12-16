@@ -1030,6 +1030,7 @@
               ("C-c C-i" . fsharp-ac/show-tooltip-at-point)
               ("C-c i" . fsharp-ac/show-tooltip-at-point))
   :init
+  (add-hook 'fsharp-mode-hook #'subword-mode)
   (let ((dotnet-version (car (process-lines "dotnet" "--version"))))
     (setq inferior-fsharp-program (concat "dotnet /opt/dotnet/sdk/"
                                           dotnet-version
