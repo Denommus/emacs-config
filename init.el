@@ -926,7 +926,7 @@
 ;; Plantuml
 (use-package plantuml-mode
   :init
-  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar"))
+  (setq plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar"))
 
 ;; Mu4e
 (require 'mu4e)
