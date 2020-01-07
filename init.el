@@ -951,9 +951,6 @@
    mu4e-compose-context-policy 'always-ask)
 (add-hook 'mu4e-compose-mode-hook #'(lambda () (auto-save-mode -1)))
 (setq
- ;; Using the default values here because they play nicer with Gmail
- mu4e-index-cleanup t
- mu4e-index-lazy-check nil
  mu4e-update-interval 300)
 (setq mu4e-msg2pdf "~/.local/bin/msg2pdf")
 (when (fboundp 'imagemagick-register-types)
