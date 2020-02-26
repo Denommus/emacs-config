@@ -43,6 +43,7 @@
    ["#000000" "#8b0000" "#00ff00" "#ffa500" "#7b68ee" "#dc8cc3" "#93e0e3" "#dcdccc"])
  '(apropos-do-all t)
  '(auto-revert-verbose nil)
+ '(browse-url-generic-program "firefox")
  '(custom-safe-themes
    (quote
     ("0fffa9669425ff140ff2ae8568c7719705ef33b7a927a0ba7c5e2ffcfac09b75" "59e82a683db7129c0142b4b5a35dbbeaf8e01a4b81588f8c163bd255b76f4d21" "d1cc05d755d5a21a31bced25bed40f85d8677e69c73ca365628ce8024827c9e3" "eea01f540a0f3bc7c755410ea146943688c4e29bea74a29568635670ab22f9bc" "44eec3c3e6e673c0d41b523a67b64c43b6e38f8879a7969f306604dcf908832c" "c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" "869b11b64da20b6b04e9b18721e03a58e5d9f0ee3a7a91bfe7cdc2b24a828109" "58f090ea19f5bc674a5a58738dedfb1907107f4953eb0e2ed493253c49356348" "bb749a38c5cb7d13b60fa7fc40db7eced3d00aa93654d150b9627cabd2d9b361" "a4f8d45297894ffdd98738551505a336a7b3096605b467da83fae00f53b13f01" "d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "af9761c65a81bd14ee3f32bc2ffc966000f57e0c9d31e392bc011504674c07d6" "235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
@@ -70,7 +71,7 @@
     ("~/Dropbox/org/agenda.org" "~/Dropbox/org/brickabode.org" "~/Dropbox/org/brickabode-contacts.org")))
  '(package-selected-packages
    (quote
-    (org magit projectile company lsp-mode flycheck yasnippet-snippets forge org-gcal org-plus-contrib org-ref typescript-mode biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode tuareg web-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer lsp-clients visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+    (ox-twbs org magit projectile company lsp-mode flycheck yasnippet-snippets forge org-gcal org-plus-contrib org-ref typescript-mode biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode tuareg web-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer lsp-clients visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent intero exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode yasnippet discover mastodon emojify writegood-mode webpaste switch-window go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode org-bullets ht nginx-mode helm-flyspell helm-spotify-plus rust-mode use-package bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode smartparens show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
  '(safe-local-variable-values
    (quote
     ((intero-targets "drawbridge-simulator:lib" "drawbridge-simulator:exe:drawbridge-simulator-exe" "drawbridge-simulator:test:drawbridge-simulator-test")
@@ -1077,6 +1078,9 @@
      "MSBuildSDKsPath"
      "SSH_AUTH_SOCK"
      "ANDROID_HOME"
+     "ANDROID_NDK"
+     "ANDROID_NDK_HOME"
+     "NDK_HOME"
      "DOTNET_ROOT"
      "DOCKER_USER"
      "GIT_SUBREPO_ROOT")))
