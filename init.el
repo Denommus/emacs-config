@@ -215,6 +215,7 @@
  '(font-lock-comment-face ((t (:foreground "#B7B7B7")))))
 
 ;; Misc
+(setq history-delete-duplicates t)
 (setq use-package-always-ensure t)
 (setq desktop-path '("~/.emacs.d/sessions"))
 (put 'downcase-region 'disabled nil)
