@@ -792,6 +792,10 @@
     :ensure nil
     :init
     (add-to-list 'org-export-backends 'taskjuggler))
+  (use-package ox-epub
+    :ensure nil
+    :init
+    (add-to-list 'org-export-backends 'epub))
   (require 'ox-bibtex)
   (defun deactivate-c-tab ()
     "Deactivate a key in `org-mode'."
