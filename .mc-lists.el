@@ -30,11 +30,11 @@
         org-self-insert-command
         org-yank
         orgtbl-self-insert-command
+        sp-backward-delete-char
         sp-delete-char
         sp-kill-hybrid-sexp
         web-mode-comment-indent-new-line
         yaml-electric-backspace
-        sp-backward-delete-char
         ))
 
 (setq mc/cmds-to-run-once
@@ -43,6 +43,7 @@
         elscreen-previous
         end-of-buffer
         helm-M-x
+        helm-confirm-and-exit-minibuffer
         isearch-abort
         isearch-delete-char
         isearch-exit
