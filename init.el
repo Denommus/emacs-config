@@ -879,7 +879,18 @@
                       :major-modes '(reason-mode)
                       :notification-handlers (ht ("client/registerCapability" 'ignore))
                       :priority 1
-                      :server-id 'reason-ls)))
+                      :server-id 'reason-ls))
+    (use-package reason-mode
+          :init
+          (defun shell-cmd (cmd)
+            "Returns the stdout output of a shell command or nil if the command returned an error"
+            (car (ignore-errors (apply 'process-lines (split-string cmd)))))
+
+          (let ((refmt-bin (shell-cmd "which refmt")))
+            (when refmt-bin
+              (setq refmt-command refmt-bin)))
+          (add-hook 'reason-mode-hook #'(lambda ()
+                                          (add-hook 'before-save-hook 'refmt-before-save)))))
   (when (executable-find "opam")
     (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
           (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
@@ -888,26 +899,7 @@
       (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
         (setenv (car var) (cadr var)))
 
-      (use-package ocp-indent)
-      (use-package merlin
-        :init
-        (use-package reason-mode
-          :init
-          (defun shell-cmd (cmd)
-            "Returns the stdout output of a shell command or nil if the command returned
-   an error"
-            (car (ignore-errors (apply 'process-lines (split-string cmd)))))
-
-          (let ((refmt-bin (shell-cmd "which refmt")))
-            (when refmt-bin
-              (setq refmt-command refmt-bin)))
-          (add-hook 'reason-mode-hook #'(lambda ()
-                                          (add-hook 'before-save-hook 'refmt-before-save)
-                                          (merlin-mode))))
-
-        (setq merlin-command "ocamlmerlin")
-        (add-hook 'tuareg-mode-hook #'merlin-mode)
-        (add-hook 'caml-mode-hook #'merlin-mode)))))
+      (use-package ocp-indent))))
 
 ;; Elscreen
 (use-package elscreen
