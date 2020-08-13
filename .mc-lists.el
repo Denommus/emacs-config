@@ -35,6 +35,8 @@
         sp-kill-hybrid-sexp
         web-mode-comment-indent-new-line
         yaml-electric-backspace
+        isearch-delete-char
+        convert-to-underscore
         ))
 
 (setq mc/cmds-to-run-once
@@ -45,7 +47,6 @@
         helm-M-x
         helm-confirm-and-exit-minibuffer
         isearch-abort
-        isearch-delete-char
         isearch-exit
         yas-expand
         ))
