@@ -1115,7 +1115,8 @@
                              telega-company-hashtag)
                            (when (telega-chat-bot-p telega-chatbuf--chat)
                              '(telega-company-botcmd))))
-              (company-mode 1))))
+              (company-mode 1)))
+  (telega-notifications-mode 1))
 
 (provide 'init)
 ;;; init.el ends here
