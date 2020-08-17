@@ -1117,6 +1117,12 @@
                              '(telega-company-botcmd))))
               (company-mode 1)))
   (telega-notifications-mode 1)
+  (setq telega-emoji-use-images t
+        telega-use-images t
+        telega-emoji-font-family "Noto Color Emoji"
+        telega-user-show-avatars t
+        telega-chat-show-avatars t
+        telega-root-show-avatars t)
   (global-set-key (kbd "C-c t") #'telega))
 
 (provide 'init)
