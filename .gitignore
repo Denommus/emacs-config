@@ -38,3 +38,7 @@ request/
 transient/
 workspace/
 org-gcal/
+%backup%~
+.cache/
+.dap-breakpoints
+rls-linux/
