@@ -45,43 +45,34 @@
  '(auto-revert-verbose nil)
  '(browse-url-generic-program "firefox")
  '(custom-safe-themes
-   (quote
-    ("0fffa9669425ff140ff2ae8568c7719705ef33b7a927a0ba7c5e2ffcfac09b75" "59e82a683db7129c0142b4b5a35dbbeaf8e01a4b81588f8c163bd255b76f4d21" "d1cc05d755d5a21a31bced25bed40f85d8677e69c73ca365628ce8024827c9e3" "eea01f540a0f3bc7c755410ea146943688c4e29bea74a29568635670ab22f9bc" "44eec3c3e6e673c0d41b523a67b64c43b6e38f8879a7969f306604dcf908832c" "c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" "869b11b64da20b6b04e9b18721e03a58e5d9f0ee3a7a91bfe7cdc2b24a828109" "58f090ea19f5bc674a5a58738dedfb1907107f4953eb0e2ed493253c49356348" "bb749a38c5cb7d13b60fa7fc40db7eced3d00aa93654d150b9627cabd2d9b361" "a4f8d45297894ffdd98738551505a336a7b3096605b467da83fae00f53b13f01" "d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "af9761c65a81bd14ee3f32bc2ffc966000f57e0c9d31e392bc011504674c07d6" "235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default)))
+   '("0fffa9669425ff140ff2ae8568c7719705ef33b7a927a0ba7c5e2ffcfac09b75" "59e82a683db7129c0142b4b5a35dbbeaf8e01a4b81588f8c163bd255b76f4d21" "d1cc05d755d5a21a31bced25bed40f85d8677e69c73ca365628ce8024827c9e3" "eea01f540a0f3bc7c755410ea146943688c4e29bea74a29568635670ab22f9bc" "44eec3c3e6e673c0d41b523a67b64c43b6e38f8879a7969f306604dcf908832c" "c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" "869b11b64da20b6b04e9b18721e03a58e5d9f0ee3a7a91bfe7cdc2b24a828109" "58f090ea19f5bc674a5a58738dedfb1907107f4953eb0e2ed493253c49356348" "bb749a38c5cb7d13b60fa7fc40db7eced3d00aa93654d150b9627cabd2d9b361" "a4f8d45297894ffdd98738551505a336a7b3096605b467da83fae00f53b13f01" "d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "af9761c65a81bd14ee3f32bc2ffc966000f57e0c9d31e392bc011504674c07d6" "235dc2dd925f492667232ead701c450d5c6fce978d5676e54ef9ca6dd37f6ceb" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "7a6bc9de067a7a0aa00272812d45087eec02c3befdf2b54c291578210ce7baca" "38e64ea9b3a5e512ae9547063ee491c20bd717fe59d9c12219a0b1050b439cdd" "cedd3b4295ac0a41ef48376e16b4745c25fa8e7b4f706173083f16d5792bb379" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" default))
  '(dired-dwim-target t)
- '(erc-ignore-list (quote ("ihatehex" "ams")))
+ '(erc-ignore-list '("ihatehex" "ams"))
  '(erc-modules
-   (quote
-    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track truncate)))
+   '(autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track truncate))
  '(fci-rule-character-color "#452E2E")
  '(fci-rule-color "#383838")
  '(global-auto-revert-non-file-buffers t)
  '(inhibit-startup-screen t)
  '(mml-secure-key-preferences
-   (quote
-    ((OpenPGP
+   '((OpenPGP
       (sign)
       (encrypt
        ("emb@brickabode.com" "48C50C6F1139C5160AA0DC2BC54D00BC4DF7CA7C" "BA5E552CEFA43AC9A3D9F8A3A39DBB6D000EFAFD")))
      (CMS
       (sign)
-      (encrypt)))))
+      (encrypt))))
  '(mml-secure-openpgp-encrypt-to-self t)
  '(org-agenda-files
-   (quote
-    ("~/Dropbox/org/agenda.org" "~/Dropbox/org/brickabode.org" "~/Dropbox/org/brickabode-contacts.org")))
+   '("~/Dropbox/org/agenda.org" "~/Dropbox/org/brickabode.org" "~/Dropbox/org/brickabode-contacts.org"))
  '(package-selected-packages
-   (quote
-    (telega lsp-haskell org-plus-contrib use-package gnu-elpa-keyring-update dante ace-window avy biblio-core bibtex-completion caml eldoc flymake ghub git-commit haskell-mode helm helm-bibtex helm-core inf-ruby ivy js2-mode key-chord org-bullets org-gcal org-ref ox-twbs persist pfuture pkg-info popup projectile smartparens switch-window tuareg typescript-mode web-mode webpaste xref yasnippet gherkin-mode groovy-mode parsebib ox-epub magit company lsp-mode flycheck yasnippet-snippets forge biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer lsp-clients visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode discover mastodon emojify writegood-mode go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode ht nginx-mode helm-flyspell helm-spotify-plus rust-mode bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex)))
+   '(telega lsp-haskell org-plus-contrib use-package gnu-elpa-keyring-update dante ace-window avy biblio-core bibtex-completion caml eldoc flymake ghub git-commit haskell-mode helm helm-bibtex helm-core inf-ruby ivy js2-mode key-chord org-bullets org-gcal org-ref ox-twbs persist pfuture pkg-info popup projectile smartparens switch-window tuareg typescript-mode web-mode webpaste xref yasnippet gherkin-mode groovy-mode parsebib ox-epub magit company lsp-mode flycheck yasnippet-snippets forge biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer lsp-clients visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode discover mastodon emojify writegood-mode go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode ht nginx-mode helm-flyspell helm-spotify-plus rust-mode bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex))
  '(safe-local-variable-values
-   (quote
-    ((eval flycheck-add-next-checker
-           (quote lsp-ui)
-           (quote typescript-tslint))
+   '((eval flycheck-add-next-checker 'lsp-ui 'typescript-tslint)
      (eval setq flycheck-typescript-tslint-config
            (concat dir-locals-path "WebApp/tslint.json"))
      (eval set
-           (make-local-variable
-            (quote dir-locals-path))
+           (make-local-variable 'dir-locals-path)
            (file-name-directory
             (let
                 ((d
@@ -94,8 +85,7 @@
      (eval load-file
            (concat my-project-path "/conf/org-export-customize.el"))
      (eval set
-           (make-local-variable
-            (quote my-project-path))
+           (make-local-variable 'my-project-path)
            (file-name-directory
             (let
                 ((d
@@ -113,26 +103,22 @@
                  (abs secs))
                 (res
                  (cond
-                  ((eq output-format
-                       (quote days))
+                  ((eq output-format 'days)
                    (format "%.3f"
                            (/
                             (float secs0)
                             86400)))
-                  ((eq output-format
-                       (quote hours))
+                  ((eq output-format 'hours)
                    (format "%.2f"
                            (/
                             (float secs0)
                             3600)))
-                  ((eq output-format
-                       (quote minutes))
+                  ((eq output-format 'minutes)
                    (format "%.1f"
                            (/
                             (float secs0)
                             60)))
-                  ((eq output-format
-                       (quote seconds))
+                  ((eq output-format 'seconds)
                    (format "%d" secs0))
                   (t
                    (org-format-seconds "%.2h:%.2m" secs0)))))
@@ -140,8 +126,7 @@
                  (< secs 0)
                  (concat "-" res)
                res)))
-     (eval add-hook
-           (quote org-export-before-parsing-hook)
+     (eval add-hook 'org-export-before-parsing-hook
            (lambda
              (_)
              (org-update-all-dblocks))
@@ -151,11 +136,8 @@
             (lambda
               (name)
               (file-truename
-               (concatenate
-                (quote string)
-                "../" name ".org")))
-            (quote
-             ("emb" "yca" "flbc" "aab" "tlewis"))))
+               (concatenate 'string "../" name ".org")))
+            '("emb" "yca" "flbc" "aab" "tlewis")))
      (eval defun my-org-clocktable-notodo
            (ipos tables params)
            (setf *ipos* ipos *tables* tables *params* params)
@@ -178,15 +160,14 @@
      (ruby-compilation-executable . "ruby1.8")
      (ruby-compilation-executable . "ruby1.9")
      (ruby-compilation-executable . "rbx")
-     (ruby-compilation-executable . "jruby"))))
- '(socks-server (quote ("Default server" "localhost" 9050 5)))
- '(sql-mysql-login-params (quote (user password database server port)))
+     (ruby-compilation-executable . "jruby")))
+ '(socks-server '("Default server" "localhost" 9050 5))
+ '(sql-mysql-login-params '(user password database server port))
  '(sql-port 3306)
  '(tab-width 4)
  '(vc-annotate-background "#202020")
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#C99090")
+   '((20 . "#C99090")
      (40 . "#D9A0A0")
      (60 . "#ECBC9C")
      (80 . "#DDCC9C")
@@ -203,7 +184,7 @@
      (300 . "#89C5C8")
      (320 . "#99DDE0")
      (340 . "#9CC7FB")
-     (360 . "#E090C7"))))
+     (360 . "#E090C7")))
  '(vc-annotate-very-old-color "#E090C7"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
