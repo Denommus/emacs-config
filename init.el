@@ -66,7 +66,7 @@
  '(org-agenda-files
    '("~/Dropbox/org/agenda.org" "~/Dropbox/org/brickabode.org" "~/Dropbox/org/brickabode-contacts.org"))
  '(package-selected-packages
-   '(telega lsp-haskell org-plus-contrib use-package gnu-elpa-keyring-update dante ace-window avy biblio-core bibtex-completion caml eldoc flymake ghub git-commit haskell-mode helm helm-bibtex helm-core inf-ruby ivy js2-mode key-chord org-bullets org-gcal org-ref ox-twbs persist pfuture pkg-info popup projectile smartparens switch-window tuareg typescript-mode web-mode webpaste xref yasnippet gherkin-mode groovy-mode parsebib ox-epub magit company lsp-mode flycheck yasnippet-snippets forge biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer lsp-clients visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode discover mastodon emojify writegood-mode go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode ht nginx-mode helm-flyspell helm-spotify-plus rust-mode bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex))
+   '(esy-mode quelpa quelpa-use-package telega lsp-haskell org-plus-contrib use-package gnu-elpa-keyring-update dante ace-window avy biblio-core bibtex-completion caml eldoc flymake ghub git-commit haskell-mode helm helm-bibtex helm-core inf-ruby ivy js2-mode key-chord org-bullets org-gcal org-ref ox-twbs persist pfuture pkg-info popup projectile smartparens switch-window tuareg typescript-mode web-mode webpaste xref yasnippet gherkin-mode groovy-mode parsebib ox-epub magit company lsp-mode flycheck yasnippet-snippets forge biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode discover mastodon emojify writegood-mode go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode ht nginx-mode helm-flyspell helm-spotify-plus rust-mode bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme csharp-mode company-ghci cmake-mode clojure-mode bundler bind-key auctex))
  '(safe-local-variable-values
    '((eval flycheck-add-next-checker 'lsp-ui 'typescript-tslint)
      (eval setq flycheck-typescript-tslint-config
@@ -195,6 +195,8 @@
  '(font-lock-comment-face ((t (:foreground "#B7B7B7")))))
 
 ;; Misc
+(require 'quelpa-use-package)
+(quelpa-use-package-activate-advice)
 (setq history-delete-duplicates t)
 (setq use-package-always-ensure t)
 (setq desktop-path '("~/.emacs.d/sessions"))
@@ -554,7 +556,6 @@
   :init
   (use-package lsp-mode
     :init
-    (require 'lsp-clients)
     (add-hook 'rjsx-mode-hook #'lsp))
   :config
   (setq js2-switch-indent-offset 2)
@@ -629,7 +630,6 @@
               (subword-mode 1)))
 (use-package lsp-mode
   :init
-  (require 'lsp-clients)
   (add-hook 'c-mode-common-hook #'lsp)
   (use-package lsp-ui
     :init
@@ -684,7 +684,6 @@
   (add-hook 'rust-mode-hook #'subword-mode)
   (use-package lsp-mode
     :init
-    (require 'lsp-clients)
     (add-hook 'rust-mode-hook #'lsp)
     (setq lsp-rust-rls-command '("rustup" "run" "stable" "rls")))
   (add-hook 'rust-mode-hook #'flycheck-mode)
@@ -771,6 +770,7 @@
                                    ("linenos" "")))
   :config
   (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (add-to-list 'org-export-backends 'md)
   (use-package ox-taskjuggler
     :ensure nil
     :init
@@ -853,7 +853,6 @@
   :init
   (use-package lsp-mode
     :init
-    (require 'lsp-clients)
     (add-hook 'tuareg-mode-hook #'lsp)
     (add-hook 'caml-mode-hook #'lsp)
     (add-hook 'reason-mode-hook #'lsp)
@@ -874,15 +873,12 @@
               (setq refmt-command refmt-bin)))
           (add-hook 'reason-mode-hook #'(lambda ()
                                           (add-hook 'before-save-hook 'refmt-before-save)))))
-  (when (executable-find "opam")
-    (let ((opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-          (opam-bin (substring (shell-command-to-string "opam config var bin 2> /dev/null") 0 -1)))
-      (add-to-list 'exec-path opam-bin)
-      (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-      (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
-        (setenv (car var) (cadr var)))
 
-      (use-package ocp-indent))))
+  :config
+  (use-package
+    esy-mode
+    :quelpa (esy-mode :repo "ManasJayanth/esy-mode" :fetcher github)
+    :hook (reason-mode tuareg-mode)))
 
 ;; Elscreen
 (use-package elscreen
