@@ -948,6 +948,8 @@
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 (setq message-kill-buffer-on-exit t)
+(setq mml-secure-smime-sign-with-sender t)
+(setq mm-sign-option 'guided)
 (setq mu4e-contexts
       `(,(make-mu4e-context
           :name "BA"
