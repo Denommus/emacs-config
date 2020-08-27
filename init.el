@@ -898,8 +898,10 @@
   (elscreen-start))
 
 ;; Slime
-(setq inferior-lisp-program "/usr/bin/sbcl")
-(setq slime-contribs '(slime-fancy))
+(use-package slime
+  :init
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq slime-contribs '(slime-fancy)))
 
 ;; Editor config
 (use-package editorconfig
