@@ -66,7 +66,7 @@
  '(org-agenda-files
    '("~/Dropbox/org/agenda.org" "~/Dropbox/org/brickabode.org" "~/Dropbox/org/brickabode-contacts.org"))
  '(package-selected-packages
-   '(dune csharp-mode esy-mode telega lsp-haskell org-plus-contrib use-package gnu-elpa-keyring-update dante ace-window avy biblio-core bibtex-completion caml eldoc flymake ghub git-commit haskell-mode helm helm-bibtex helm-core inf-ruby ivy js2-mode key-chord org-bullets org-gcal org-ref ox-twbs persist pfuture pkg-info popup projectile smartparens switch-window tuareg typescript-mode web-mode webpaste xref yasnippet gherkin-mode groovy-mode parsebib ox-epub magit company lsp-mode flycheck yasnippet-snippets forge biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode discover mastodon emojify writegood-mode go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode ht nginx-mode helm-flyspell helm-spotify-plus rust-mode bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme company-ghci cmake-mode clojure-mode bundler bind-key auctex))
+   '(company-nixos-options nix-sandbox helm-nixos-options nixos-options nix-emacs dune csharp-mode esy-mode telega lsp-haskell org-plus-contrib use-package gnu-elpa-keyring-update dante ace-window avy biblio-core bibtex-completion caml eldoc flymake ghub git-commit haskell-mode helm helm-bibtex helm-core inf-ruby ivy js2-mode key-chord org-bullets org-gcal org-ref ox-twbs persist pfuture pkg-info popup projectile smartparens switch-window tuareg typescript-mode web-mode webpaste xref yasnippet gherkin-mode groovy-mode parsebib ox-epub magit company lsp-mode flycheck yasnippet-snippets forge biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode discover mastodon emojify writegood-mode go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode ht nginx-mode helm-flyspell helm-spotify-plus rust-mode bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme company-ghci cmake-mode clojure-mode bundler bind-key auctex))
  '(safe-local-variable-values
    '((eval flycheck-add-next-checker 'lsp-ui 'typescript-tslint)
      (eval setq flycheck-typescript-tslint-config
@@ -1105,6 +1105,21 @@
         telega-chat-show-avatars t
         telega-root-show-avatars t)
   (global-set-key (kbd "C-c t") #'telega))
+
+(use-package switch-window)
+
+(use-package nixos-options
+  :init
+  (use-package company-nixos-options
+    :init
+    (add-to-list 'company-backends 'company-nixos-options)))
+
+(use-package helm-nixos-options
+  :bind (("C-c n" . helm-nixos-options)))
+
+(use-package nix-sandbox)
+
+(use-package nix-buffer)
 
 (provide 'init)
 ;;; init.el ends here

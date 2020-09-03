@@ -42,3 +42,4 @@ org-gcal/
 .cache/
 .dap-breakpoints
 rls-linux/
+nix-buffer
