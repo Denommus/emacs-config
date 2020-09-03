@@ -324,12 +324,6 @@
 
 ;; Ruby
 (add-hook 'ruby-mode-hook 'robe-mode)
-(cond ((eq system-type 'windows-nt)
-       (setenv "PATH" (concat "C:\\Program Files (x86)\\Git\\bin;" (getenv "PATH")))
-       (setq exec-path (cons "C:\\Program Files (x86)\\Git\\bin" exec-path)))
-      (t
-       (setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
-       (setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))))
 
 ;; ERC + Tor
 (require 'erc)
