@@ -66,7 +66,7 @@
  '(org-agenda-files
    '("~/Dropbox/org/agenda.org" "~/Dropbox/org/brickabode.org" "~/Dropbox/org/brickabode-contacts.org"))
  '(package-selected-packages
-   '(dune csharp-mode esy-mode quelpa quelpa-use-package telega lsp-haskell org-plus-contrib use-package gnu-elpa-keyring-update dante ace-window avy biblio-core bibtex-completion caml eldoc flymake ghub git-commit haskell-mode helm helm-bibtex helm-core inf-ruby ivy js2-mode key-chord org-bullets org-gcal org-ref ox-twbs persist pfuture pkg-info popup projectile smartparens switch-window tuareg typescript-mode web-mode webpaste xref yasnippet gherkin-mode groovy-mode parsebib ox-epub magit company lsp-mode flycheck yasnippet-snippets forge biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode discover mastodon emojify writegood-mode go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode ht nginx-mode helm-flyspell helm-spotify-plus rust-mode bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme company-ghci cmake-mode clojure-mode bundler bind-key auctex))
+   '(dune csharp-mode esy-mode telega lsp-haskell org-plus-contrib use-package gnu-elpa-keyring-update dante ace-window avy biblio-core bibtex-completion caml eldoc flymake ghub git-commit haskell-mode helm helm-bibtex helm-core inf-ruby ivy js2-mode key-chord org-bullets org-gcal org-ref ox-twbs persist pfuture pkg-info popup projectile smartparens switch-window tuareg typescript-mode web-mode webpaste xref yasnippet gherkin-mode groovy-mode parsebib ox-epub magit company lsp-mode flycheck yasnippet-snippets forge biblio pcmpl-args pcmpl-git pcomplete-extension org-pomodoro helm-slime slime slime-company ox-bibtex kotlin-mode lsp-java ob-rust php-mode plantuml-mode reason-mode rjsx-mode go-mode sudoku flycheck-rust mingus magit-popup nix-buffer visual-regexp csv-mode ox ox-latex org-git-link ox-taskjuggler merlin ocp-indent exec-path-from-shell bbdb helm-bbdb monokai-alt-theme birds-of-paradise-plus-theme pdf-tools hydra helm-mu lsp-ui twittering-mode discover mastodon emojify writegood-mode go gnugo omnisharp pkgbuild-mode edit-indirect opam image+ virtualenvwrapper elfeed-org elfeed helm-company haml-mode helm-google multi-term gnuplot gnuplot-mode ht nginx-mode helm-flyspell helm-spotify-plus rust-mode bbdb-android hc-zenburn-theme idris-mode dockerfile-mode exercism scala-mode markdown-mode markdown-mode+ htmlize tronesque-theme fsharp-mode editorconfig python-django multiple-cursors nix-mode feature-mode yaml-mode undo-tree toml-mode show-css ruby-block robe qml-mode org-mime magit-svn lua-mode helm-projectile gitconfig-mode ggtags elscreen cyberpunk-theme company-ghci cmake-mode clojure-mode bundler bind-key auctex))
  '(safe-local-variable-values
    '((eval flycheck-add-next-checker 'lsp-ui 'typescript-tslint)
      (eval setq flycheck-typescript-tslint-config
@@ -195,8 +195,8 @@
  '(font-lock-comment-face ((t (:foreground "#B7B7B7")))))
 
 ;; Misc
-(require 'quelpa-use-package)
-(quelpa-use-package-activate-advice)
+;; (require 'quelpa-use-package)
+;; (quelpa-use-package-activate-advice)
 (setq history-delete-duplicates t)
 (setq use-package-always-ensure t)
 (setq desktop-path '("~/.emacs.d/sessions"))
@@ -874,11 +874,12 @@
           (add-hook 'reason-mode-hook #'(lambda ()
                                           (add-hook 'before-save-hook 'refmt-before-save)))))
 
-  :config
-  (use-package
-    esy-mode
-    :quelpa (esy-mode :repo "ManasJayanth/esy-mode" :fetcher github)
-    :hook (reason-mode tuareg-mode)))
+  ;; :config
+  ;; (use-package
+  ;;   esy-mode
+  ;;   :quelpa (esy-mode :repo "ManasJayanth/esy-mode" :fetcher github)
+  ;;   :hook (reason-mode tuareg-mode))
+  )
 
 (use-package dune
   :init
@@ -1016,21 +1017,21 @@
   :bind (("C-c w b" . webpaste-paste-buffer)
          ("C-c w r" . webpaste-paste-region)))
 
-(use-package fsharp-mode
-  :bind (:map fsharp-mode-map
-              ("C-c C-t" . fsharp-ac/show-typesig-at-point)
-              ("C-c t" . fsharp-ac/show-typesig-at-point)
-              ("C-c C-i" . fsharp-ac/show-tooltip-at-point)
-              ("C-c i" . fsharp-ac/show-tooltip-at-point))
-  :init
-  (add-hook 'fsharp-mode-hook #'subword-mode)
-  (let ((dotnet-version (car (process-lines "dotnet" "--version"))))
-    (setq inferior-fsharp-program (concat "dotnet /opt/dotnet/sdk/"
-                                          dotnet-version
-                                          "/FSharp/fsi.exe --readline-"))
-    (setq fsharp-compiler (concat "dotnet /opt/dotnet/sdk/"
-                                  dotnet-version
-                                  "/FSharp/fsc.exe"))))
+;; (use-package fsharp-mode
+;;   :bind (:map fsharp-mode-map
+;;               ("C-c C-t" . fsharp-ac/show-typesig-at-point)
+;;               ("C-c t" . fsharp-ac/show-typesig-at-point)
+;;               ("C-c C-i" . fsharp-ac/show-tooltip-at-point)
+;;               ("C-c i" . fsharp-ac/show-tooltip-at-point))
+;;   :init
+;;   (add-hook 'fsharp-mode-hook #'subword-mode)
+;;   (let ((dotnet-version (car (process-lines "dotnet" "--version"))))
+;;     (setq inferior-fsharp-program (concat "dotnet /opt/dotnet/sdk/"
+;;                                           dotnet-version
+;;                                           "/FSharp/fsi.exe --readline-"))
+;;     (setq fsharp-compiler (concat "dotnet /opt/dotnet/sdk/"
+;;                                   dotnet-version
+;;                                   "/FSharp/fsc.exe"))))
 
 (use-package lsp-mode
   :bind (:map lsp-mode-map
