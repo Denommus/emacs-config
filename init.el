@@ -861,9 +861,8 @@
     :init
     (use-package nix-sandbox
       :init
-      (add-hook 'tuareg-mode-hook #'sandboxed-ocaml-lsp)
-      (add-hook 'caml-mode-hook #'sandboxed-ocaml-lsp)
-      (add-hook 'reason-mode-hook #'sandboxed-ocaml-lsp)
+      (mapc (lambda (x) (add-hook x #'sandboxed-ocaml-lsp))
+            '(tuareg-mode-hook caml-mode-hook reason-mode-hook))
       (use-package reason-mode
         :init
         (add-hook 'reason-mode-hook #'setup-refmt)))))
