@@ -842,13 +842,21 @@
   (use-package ox :ensure nil))
 
 
+(defun sandboxed-ocaml-lsp ()
+  (make-local-variable 'lsp-ocaml-lang-server-command)
+  (setq lsp-ocaml-lang-server-command
+        (nix-shell-command (nix-current-sandbox) "ocaml-language-server" "--stdio"))
+  (lsp))
+
 ;; OCaml
 (use-package tuareg
   :init
   (use-package lsp-mode
     :init
-    (add-hook 'tuareg-mode-hook #'lsp)
-    (add-hook 'caml-mode-hook #'lsp)
+    (use-package nix-sandbox
+      :init
+      (add-hook 'tuareg-mode-hook #'sandboxed-ocaml-lsp)
+      (add-hook 'caml-mode-hook #'sandboxed-ocaml-lsp))
     (add-hook 'reason-mode-hook #'lsp)
     (lsp-register-client
      (make-lsp-client :new-connection (lsp-stdio-connection "/home/yuri/.emacs.d/rls-linux/reason-language-server")
@@ -857,16 +865,16 @@
                       :priority 1
                       :server-id 'reason-ls))
     (use-package reason-mode
-          :init
-          (defun shell-cmd (cmd)
-            "Returns the stdout output of a shell command or nil if the command returned an error"
-            (car (ignore-errors (apply 'process-lines (split-string cmd)))))
+      :init
+      (defun shell-cmd (cmd)
+        "Returns the stdout output of a shell command or nil if the command returned an error"
+        (car (ignore-errors (apply 'process-lines (split-string cmd)))))
 
-          (let ((refmt-bin (shell-cmd "which refmt")))
-            (when refmt-bin
-              (setq refmt-command refmt-bin)))
-          (add-hook 'reason-mode-hook #'(lambda ()
-                                          (add-hook 'before-save-hook 'refmt-before-save)))))
+      (let ((refmt-bin (shell-cmd "which refmt")))
+        (when refmt-bin
+          (setq refmt-command refmt-bin)))
+      (add-hook 'reason-mode-hook #'(lambda ()
+                                      (add-hook 'before-save-hook 'refmt-before-save)))))
 
   ;; :config
   ;; (use-package
