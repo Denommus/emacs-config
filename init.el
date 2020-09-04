@@ -848,6 +848,12 @@
         (nix-shell-command (nix-current-sandbox) "ocaml-language-server" "--stdio"))
   (lsp))
 
+(defun setup-refmt ()
+  (make-local-variable 'refmt-command)
+  (setq refmt-command
+        (nix-executable-find (nix-current-sandbox) "refmt"))
+  (add-hook 'before-save-hook 'refmt-before-save))
+
 ;; OCaml
 (use-package tuareg
   :init
@@ -856,32 +862,11 @@
     (use-package nix-sandbox
       :init
       (add-hook 'tuareg-mode-hook #'sandboxed-ocaml-lsp)
-      (add-hook 'caml-mode-hook #'sandboxed-ocaml-lsp))
-    (add-hook 'reason-mode-hook #'lsp)
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-stdio-connection "/home/yuri/.emacs.d/rls-linux/reason-language-server")
-                      :major-modes '(reason-mode)
-                      :notification-handlers (ht ("client/registerCapability" 'ignore))
-                      :priority 1
-                      :server-id 'reason-ls))
-    (use-package reason-mode
-      :init
-      (defun shell-cmd (cmd)
-        "Returns the stdout output of a shell command or nil if the command returned an error"
-        (car (ignore-errors (apply 'process-lines (split-string cmd)))))
-
-      (let ((refmt-bin (shell-cmd "which refmt")))
-        (when refmt-bin
-          (setq refmt-command refmt-bin)))
-      (add-hook 'reason-mode-hook #'(lambda ()
-                                      (add-hook 'before-save-hook 'refmt-before-save)))))
-
-  ;; :config
-  ;; (use-package
-  ;;   esy-mode
-  ;;   :quelpa (esy-mode :repo "ManasJayanth/esy-mode" :fetcher github)
-  ;;   :hook (reason-mode tuareg-mode))
-  )
+      (add-hook 'caml-mode-hook #'sandboxed-ocaml-lsp)
+      (add-hook 'reason-mode-hook #'sandboxed-ocaml-lsp)
+      (use-package reason-mode
+        :init
+        (add-hook 'reason-mode-hook #'setup-refmt)))))
 
 (use-package dune
   :init
