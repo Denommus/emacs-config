@@ -722,7 +722,7 @@
   (setq org-directory "~/Dropbox/org")
   (setq org-default-notes-file (concat org-directory "/agenda.org"))
 
-
+  (use-package org-bullets)
   (use-package org-gcal
     :config
     (defun setup-org-gcal ()
