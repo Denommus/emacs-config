@@ -511,6 +511,14 @@
   :init
   (setq sentence-end-double-space nil)
   (setq flycheck-typescript-tslint-executable "/home/yuri/.npm-global/bin/tslint")
+  (use-package nix-sandbox
+    :init
+    (setq flycheck-command-wrapper-function
+          (lambda (cmd) (let ((sandbox (nix-current-sandbox)))
+                          (if sandbox
+                            (apply 'nix-shell-command sandbox cmd)
+                            cmd)))))
+
   (global-flycheck-mode))
 
 ;; SmartParens
@@ -672,18 +680,27 @@
 (use-package cmake-mode
   :mode "CMakeLists.txt")
 
+(defun sandboxed-rust-lsp ()
+  (make-local-variable 'lsp-rust-rls-command)
+  (setq lsp-rust-rls-command
+        (nix-shell-command (nix-current-sandbox) "rls")
+        lsp-rust-rls-server-command
+        (nix-shell-command (nix-current-sandbox) "rls"))
+  (lsp))
+
 ;;Rust
 (use-package rust-mode
   :init
   (add-hook 'rust-mode-hook #'subword-mode)
-  (use-package lsp-mode
-    :init
-    (add-hook 'rust-mode-hook #'lsp)
-    (setq lsp-rust-rls-command '("rustup" "run" "stable" "rls")))
   (add-hook 'rust-mode-hook #'flycheck-mode)
-  (use-package flycheck-rust
-    :config
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+  (use-package nix-sandbox
+    :init
+    (use-package lsp-mode
+      :init
+      (add-hook 'rust-mode-hook #'sandboxed-rust-lsp))
+    (use-package flycheck-rust
+      :config
+      (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))))
 
 ;; Winner
 (winner-mode 1)
