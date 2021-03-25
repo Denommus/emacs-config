@@ -1,9 +1,6 @@
 [submodule "plugins/org-git-link"]
 	path = plugins/org-git-link
 	url = git://github.com/ReimarFinken/org-git-link.git
-[submodule "plugins/erc-sasl"]
-	path = plugins/erc-sasl
-	url = git@github.com:joseph-gay/erc-sasl.git
 [submodule "plugins/org-ox-bbcode"]
 	path = plugins/org-ox-bbcode
 	url = https://github.com/Denommus/org-ox-bbcode
