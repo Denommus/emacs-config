@@ -221,7 +221,6 @@
 (require 'cl-lib)
 (setq visible-bell 1)
 (add-to-list 'load-path "~/.emacs.d/plugins")
-(add-to-list 'load-path "~/.emacs.d/plugins/erc-sasl")
 (add-to-list 'load-path "~/.emacs.d/plugins/ob-javascript")
 (setq backup-directory-alist
       `((".*" . ,(concat user-emacs-directory "backups/"))))
@@ -324,61 +323,6 @@
 
 ;; Ruby
 (add-hook 'ruby-mode-hook 'robe-mode)
-
-;; ERC + Tor
-(require 'erc)
-(require 'erc-sasl)
-(defun erc-all-kill (&optional prefix)
-  "Kill all buffers in erc-mode. With PREFIX, 'kill-buffer-query-functions' is preserved."
-  (interactive "P")
-  (cl-flet ((kill-buffer-p (b) (with-current-buffer b (eq major-mode 'erc-mode))))
-    (let* ((kill-buffer-query-functions (if prefix kill-buffer-query-functions '()))
-           (killed (loop for buffer in (buffer-list)
-                         when (kill-buffer-p buffer)
-                         collect (buffer-name buffer)
-                         and do
-                         (kill-buffer buffer))))
-      (message "Killed: %s buffers: %s" (length killed) killed)
-      killed)))
-(add-to-list 'erc-sasl-server-regexp-list
-             ".*")
-(setq erc-sasl-server-regexp-list '("irc\\.freenode\\.net"))
-(setq socks-override-functions nil)
-(setq erc-server-connect-function
-      #'(lambda (name buffer host service &rest parameters)
-          (let ((hosts (list "10.40.40.40")))
-            (apply
-             (if (member host hosts)
-                 'socks-open-network-stream
-               'open-network-stream)
-             (append (list name buffer host service) parameters)))))
-(require 'socks)
-(setq erc-autojoin-timing 'ident)
-(setq socks-override-functions nil)
-(defun erc-freenode ()
-  "Read authinfo information for freenode."
-  (interactive)
-  (let* ((erc-plist (car (auth-source-search :host "irc.freenode.net")))
-         (erc-server "irc.freenode.net")
-         (erc-nick (plist-get erc-plist :user))
-         (erc-password (funcall (plist-get erc-plist :secret))))
-    (erc :server erc-server :port 6667 :nick erc-nick :password erc-password)))
-(setq erc-fill-function #'erc-fill-static)
-(setq erc-fill-static-center 15)
-(setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "##programming" "#lisp" "#haskell" "#ocaml" "#nixos")
-        ("mozilla.org" "#rust" "#rust-gamedev")))
-(load-file "~/.emacs.d/erc-better-scroll.el")
-(defun erc-recenter-top-bottom (&optional arg)
-  "Scrolls the cursor to bottom. ARG is the same from `recenter-top-bottom'."
-  (interactive "P")
-  (if arg
-      (recenter-top-bottom arg)
-    (recenter-top-bottom -1)))
-(add-hook 'erc-mode-hook
-          #'(lambda ()
-              (company-mode 0)
-              (local-set-key (kbd "C-l") #'erc-recenter-top-bottom)))
 
 ;; Tetris
 (setq tetris-score-file
@@ -803,8 +747,7 @@
     (add-hook 'org-mode-hook #'(lambda () (writegood-mode 1))))
   (add-hook 'org-mode-hook #'(lambda () (flyspell-mode 1)))
   (use-package org-git-link :ensure nil)
-  (require 'org-mu4e)
-  (require 'org-ref)
+  (use-package org-ref)
   (require 'org-tempo)
   (require 'ob-javascript)
   (use-package ob-rust
@@ -924,101 +867,101 @@
   :init
   (setq plantuml-jar-path "/usr/share/java/plantuml/plantuml.jar"))
 
-;; Mu4e
-(require 'mu4e)
-(require 'smtpmail)
-(add-to-list 'mu4e-view-actions
-  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-(setq
-   message-send-mail-function    'smtpmail-send-it
-   smtpmail-stream-type          'starttls
-   smtpmail-smtp-service         587
-   smtpmail-default-smtp-server  "smtp.gmail.com"
-   smtpmail-smtp-server          "smtp.gmail.com"
-   smtpmail-local-domain         "gmail.com"
-   mu4e-sent-messages-behavior   'delete
-   mu4e-get-mail-command         "mbsync -a"
-   mu4e-maildir "~/.Maildir"
-   mu4e-headers-skip-duplicates t
-   mu4e-view-show-images t
-   mu4e-change-filenames-when-moving t
-   mu4e-index-cleanup nil
-   mu4e-index-lazy-check t
-   mu4e-compose-context-policy 'always-ask)
-(add-hook 'mu4e-compose-mode-hook #'(lambda () (auto-save-mode -1)))
-(setq
- mu4e-update-interval 300)
-(setq mu4e-msg2pdf "~/.local/bin/msg2pdf")
-(when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
-(setq message-kill-buffer-on-exit t)
-(setq mml-secure-smime-sign-with-sender t)
-(setq mm-sign-option 'guided)
-(setq mu4e-contexts
-      `(,(make-mu4e-context
-          :name "BA"
-          :enter-func (lambda () (mu4e-message "Entering BA context"))
-          :leave-func (lambda () (mu4e-message "Leaving BA context"))
-          :match-func (lambda (msg)
-                        (and
-                         msg
-                         (mu4e-message-contact-field-matches
-                          msg :to "yurialbuquerque@brickabode.com")
-                         (string-prefix-p "/ba" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-trash-folder . "/ba/[Gmail]/Trash")
-                  (mu4e-sent-folder . "/ba/[Gmail]/Sent Mail")
-                  (mu4e-drafts-folder . "/ba/[Gmail]/Drafts")
-                  (mu4e-refile-folder . "/ba/[Gmail]/All Mail")
-                  (mu4e-maildir-shortcuts . (("/ba/INBOX"             . ?i)
-                                             ("/ba/[Gmail]/Sent Mail" . ?s)
-                                             ("/ba/[Gmail]/Trash"     . ?t)
-                                             ("/ba/[Gmail]/All Mail"  . ?a)))
-                  (mu4e-maildir "~/.Maildir/ba")
-                  (user-mail-address . "yurialbuquerque@brickabode.com")
-                  (user-full-name . "Yuri Albuquerque")
-                  (smtpmail-smtp-user "yurialbuquerque@brickabode.com")
-                  (mu4e-compose-signature . "Yuri Albuquerque")))
-        ,(make-mu4e-context
-          :name "Personal"
-          :enter-func (lambda () (mu4e-message "Entering Personal context"))
-          :leave-func (lambda () (mu4e-message "Leaving Personal context"))
-          :match-func (lambda (msg)
-                        (and
-                         msg
-                         (mu4e-message-contact-field-matches
-                          msg :to "yuridenommus@gmail.com")
-                         (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-trash-folder . "/personal/[Gmail]/Lixeira")
-                  (mu4e-sent-folder . "/personal/[Gmail]/E-mails enviados")
-                  (mu4e-drafts-folder . "/personal/[Gmail]/Rascunhos")
-                  (mu4e-refile-folder . "/personal/[Gmail]/Todos os e-mails")
-                  (mu4e-maildir-shortcuts . (("/personal/INBOX"                    . ?i)
-                                             ("/personal/[Gmail]/E-mails enviados" . ?e)
-                                             ("/personal/[Gmail]/Lixeira"          . ?l)
-                                             ("/personal/[Gmail]/Todos os e-mails" . ?t)))
-                  (mu4e-maildir "~/.Maildir/personal")
-                  (user-mail-address . "yuridenommus@gmail.com")
-                  (user-full-name . "Yuri Albuquerque")
-                  (smtpmail-smtp-user "yuridenommus@gmail.com")
-                  (mu4e-compose-signature . "Yuri Albuquerque")))))
-(use-package helm-mu)
-(defun custom-mu4e-read-maildir (prompt maildirs predicate require-match initial-input)
-  "Use helm instead of ido. PROMPT MAILDIRS PREDICATE REQUIRE-MATCH INITIAL-INPUT."
-  (helm-comp-read prompt maildirs
-                  :name prompt
-                  :must-match t))
-(setq mu4e-completing-read-function #'custom-mu4e-read-maildir)
+;; ;; Mu4e
+;; (require 'mu4e)
+;; (require 'smtpmail)
+;; (add-to-list 'mu4e-view-actions
+;;   '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+;; (setq
+;;    message-send-mail-function    'smtpmail-send-it
+;;    smtpmail-stream-type          'starttls
+;;    smtpmail-smtp-service         587
+;;    smtpmail-default-smtp-server  "smtp.gmail.com"
+;;    smtpmail-smtp-server          "smtp.gmail.com"
+;;    smtpmail-local-domain         "gmail.com"
+;;    mu4e-sent-messages-behavior   'delete
+;;    mu4e-get-mail-command         "mbsync -a"
+;;    mu4e-maildir "~/.Maildir"
+;;    mu4e-headers-skip-duplicates t
+;;    mu4e-view-show-images t
+;;    mu4e-change-filenames-when-moving t
+;;    mu4e-index-cleanup nil
+;;    mu4e-index-lazy-check t
+;;    mu4e-compose-context-policy 'always-ask)
+;; (add-hook 'mu4e-compose-mode-hook #'(lambda () (auto-save-mode -1)))
+;; (setq
+;;  mu4e-update-interval 300)
+;; (setq mu4e-msg2pdf "~/.local/bin/msg2pdf")
+;; (when (fboundp 'imagemagick-register-types)
+;;   (imagemagick-register-types))
+;; (setq message-kill-buffer-on-exit t)
+;; (setq mml-secure-smime-sign-with-sender t)
+;; (setq mm-sign-option 'guided)
+;; (setq mu4e-contexts
+;;       `(,(make-mu4e-context
+;;           :name "BA"
+;;           :enter-func (lambda () (mu4e-message "Entering BA context"))
+;;           :leave-func (lambda () (mu4e-message "Leaving BA context"))
+;;           :match-func (lambda (msg)
+;;                         (and
+;;                          msg
+;;                          (mu4e-message-contact-field-matches
+;;                           msg :to "yurialbuquerque@brickabode.com")
+;;                          (string-prefix-p "/ba" (mu4e-message-field msg :maildir))))
+;;           :vars '((mu4e-trash-folder . "/ba/[Gmail]/Trash")
+;;                   (mu4e-sent-folder . "/ba/[Gmail]/Sent Mail")
+;;                   (mu4e-drafts-folder . "/ba/[Gmail]/Drafts")
+;;                   (mu4e-refile-folder . "/ba/[Gmail]/All Mail")
+;;                   (mu4e-maildir-shortcuts . (("/ba/INBOX"             . ?i)
+;;                                              ("/ba/[Gmail]/Sent Mail" . ?s)
+;;                                              ("/ba/[Gmail]/Trash"     . ?t)
+;;                                              ("/ba/[Gmail]/All Mail"  . ?a)))
+;;                   (mu4e-maildir "~/.Maildir/ba")
+;;                   (user-mail-address . "yurialbuquerque@brickabode.com")
+;;                   (user-full-name . "Yuri Albuquerque")
+;;                   (smtpmail-smtp-user "yurialbuquerque@brickabode.com")
+;;                   (mu4e-compose-signature . "Yuri Albuquerque")))
+;;         ,(make-mu4e-context
+;;           :name "Personal"
+;;           :enter-func (lambda () (mu4e-message "Entering Personal context"))
+;;           :leave-func (lambda () (mu4e-message "Leaving Personal context"))
+;;           :match-func (lambda (msg)
+;;                         (and
+;;                          msg
+;;                          (mu4e-message-contact-field-matches
+;;                           msg :to "yuridenommus@gmail.com")
+;;                          (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
+;;           :vars '((mu4e-trash-folder . "/personal/[Gmail]/Lixeira")
+;;                   (mu4e-sent-folder . "/personal/[Gmail]/E-mails enviados")
+;;                   (mu4e-drafts-folder . "/personal/[Gmail]/Rascunhos")
+;;                   (mu4e-refile-folder . "/personal/[Gmail]/Todos os e-mails")
+;;                   (mu4e-maildir-shortcuts . (("/personal/INBOX"                    . ?i)
+;;                                              ("/personal/[Gmail]/E-mails enviados" . ?e)
+;;                                              ("/personal/[Gmail]/Lixeira"          . ?l)
+;;                                              ("/personal/[Gmail]/Todos os e-mails" . ?t)))
+;;                   (mu4e-maildir "~/.Maildir/personal")
+;;                   (user-mail-address . "yuridenommus@gmail.com")
+;;                   (user-full-name . "Yuri Albuquerque")
+;;                   (smtpmail-smtp-user "yuridenommus@gmail.com")
+;;                   (mu4e-compose-signature . "Yuri Albuquerque")))))
+;; (use-package helm-mu)
+;; (defun custom-mu4e-read-maildir (prompt maildirs predicate require-match initial-input)
+;;   "Use helm instead of ido. PROMPT MAILDIRS PREDICATE REQUIRE-MATCH INITIAL-INPUT."
+;;   (helm-comp-read prompt maildirs
+;;                   :name prompt
+;;                   :must-match t))
+;; (setq mu4e-completing-read-function #'custom-mu4e-read-maildir)
 
-(use-package elfeed-org
-  :init
-  (elfeed-org))
+;; (use-package elfeed-org
+;;   :init
+;;   (elfeed-org))
 
-(use-package elfeed)
+;; (use-package elfeed)
 
-(use-package webpaste
-  :ensure t
-  :bind (("C-c w b" . webpaste-paste-buffer)
-         ("C-c w r" . webpaste-paste-region)))
+;; (use-package webpaste
+;;   :ensure t
+;;   :bind (("C-c w b" . webpaste-paste-buffer)
+;;          ("C-c w r" . webpaste-paste-region)))
 
 ;; (use-package fsharp-mode
 ;;   :bind (:map fsharp-mode-map
@@ -1067,20 +1010,6 @@
   :init
   (setq mastodon-instance-url "https://masto.donte.com.br"))
 
-(use-package exec-path-from-shell
-  :config
-  (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-envs
-   '("NIX_PATH"
-     "MSBuildSDKsPath"
-     "SSH_AUTH_SOCK"
-     "ANDROID_HOME"
-     "ANDROID_NDK"
-     "ANDROID_NDK_HOME"
-     "NDK_HOME"
-     "DOTNET_ROOT"
-     "DOCKER_USER"
-     "GIT_SUBREPO_ROOT")))
 
 (use-package nix-mode
   :mode "\\.nix\\'")
